@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+
+.github {
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  align-content: revert;
+}
+
+.github img {
+  width: 200px;
+}
+
+.github a {
+    text-decoration: none;
+    color: lightgray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.github div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.github a:hover {
+  color: darkgray;
+}
