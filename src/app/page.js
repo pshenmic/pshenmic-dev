@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
 
-      <span>pshenmic's development page</span>
+      <span>pshenmic&apos;s development page</span>
 
       <div className={"github"}>
         <img src={"assets/img.png"}/>
