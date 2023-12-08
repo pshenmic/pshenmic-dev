@@ -1,16 +1,62 @@
-import styles from './page.module.css'
+"use client";
+import { useState } from 'react';
+import Menu from '../components/Menu'
+import CommandLine from '../components/CommandLine/CommandLine'
+import Devspace from '../components/Devspace'
+import ServicesList from '../components/Services/ServicesList'
+import ProjectsList from '../components/Projects/ProjectsList'
+import Team from '../components/Team'
+import './App.scss'
+
+function ContentBlock({children, ...props}) {
+  return (
+    <div className='ContentBlock' {...props}>
+        { children }
+    </div>
+  )
+}
 
 export default function Home() {
+  const [content, setContent] = useState('devspace');
+  
+  const selectItemCallback = (activeItem) => {
+    setContent(activeItem)
+  }
+
   return (
-    <main className={styles.main}>
+    <main className='App'>
 
-      <span>pshenmic&apos;s development page</span>
+      <div className='App__CommonWrapper'>
 
-      <div className={"github"}>
-        <img src={"assets/img.png"}/>
-        <div>open source blockchain developer</div>
-        <a href={"https://github.com/pshenmic"}>github.com/pshenmic</a>
+        <div className='App__Sidebar'>
+          <Menu selectItemCallback={selectItemCallback} defaultItem={content}/>
+          <CommandLine/>
+        </div>
+
+        <div className='App__Content'>
+          <div className='ContentBlock'>
+
+            { content === 'devspace' && <Devspace/>}
+            { content === 'services' && <ServicesList/>}
+            { content === 'projects' && <ProjectsList/>}
+            { content === 'team' && <Team/>}
+            
+          </div>
+        </div>
+
       </div>
+
+      {/* 
+        <span>pshenmic&apos;s development page</span>
+        
+        <div className={"github"}>
+          
+          <div>open source blockchain developer</div>
+          <a href={"https://github.com/pshenmic"}>github.com/pshenmic</a>
+
+        </div> 
+      */}
+
     </main>
   )
 }

@@ -1,0 +1,169 @@
+@import '../../assets/styles/mixins.scss';
+
+@keyframes slidein {
+    from {
+        width: 0;
+        left: 0;
+    }
+
+    50% {
+        width: 100%;
+        left: 0;
+    }
+  
+    to {
+        width: 0;
+        left: 100%;
+    }
+  }
+
+.Menu {
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 50px;
+        width: 1px;
+        height: calc(100% - 100px);
+        border-left: 1px dashed rgba(255, 255, 255, 0.20);
+    }
+
+    &:after {
+        font-size: 38px;
+        content: '}';
+    }
+
+    &__Title {
+        font-size: 38px;
+    }
+
+    &__Items {
+        padding: 20px 0;
+        width: max-content;
+    }
+
+    &__Item {
+        position: relative;
+        font-size: 18px;
+        margin-left: 0;
+        transition: all .5s;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        span {
+            padding: 20px 40px;
+            display: inline-block;
+            position: relative;
+            transition: all .5s;
+
+            &::before {
+                content: '';
+                position: absolute;
+                height: 100%;
+                width: 0;
+                top: 0;
+                left: 0;
+                background: rgba(0, 117, 255, 0.10);
+                transition: .5s;
+            }
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0;
+            top: 0;
+            left: 0;
+            background: rgba(0, 117, 255, 0.10);
+            transition: .5s;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0px;
+            background: #0075FF;
+            transition: .3s;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            span {
+                padding-right: 30px;
+                padding-left: 50px;
+
+
+                &:before {
+                    animation-duration: .5s;
+                    animation-name: slidein;
+                }
+            }
+        }
+
+        &.active {
+            &::before {
+                width: 100%;
+                animation: none;
+            }
+
+            &::after {
+                width: 5px;
+            }
+
+            span {
+                &::before {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    @media screen and ( max-width: 1550px) {
+        &__Title, &:after {
+            font-size: 32px;
+        }
+    }
+
+    @media screen and ( max-width: 1300px) {
+        &__Title, &:after {
+            font-size: 26px;
+        }
+
+        &__Item {
+            font-size: 16px;
+        }
+
+        &__Items {
+            padding: 10px 0;
+        }
+
+        &::before {
+            top: 40px;
+            height: calc(100% - 80px);
+        }
+    }
+
+    @media screen and ( max-width: 1100px) {
+        &__Title, &:after {
+            font-size: 22px;
+        }
+
+        &__Item {
+            font-size: 14px;
+        }
+
+        
+        &::before {
+            top: 35px;
+            height: calc(100% - 70px);
+        }
+    }
+}

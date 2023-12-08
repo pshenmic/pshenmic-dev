@@ -1,0 +1,103 @@
+$width-tablet: 940px;
+
+@mixin listItem {
+    display: flex;
+    background: rgba(109, 124, 255, 0.07);
+    margin-bottom: 50px;
+    translate: .15s all;
+    position: relative;
+    height: 200px;
+    transition: .5s;
+    box-shadow: none;
+
+    &:hover {
+        cursor: pointer;
+        transform: translate(-5px, -5px);
+        box-shadow: 10px 8px teal, 
+                    20px 16px rebeccapurple;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__ImageContainer {
+        width: 200px;
+        height: 200px;
+        background: rgba(109, 124, 255, 0.07);
+        flex-shrink: 0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__ContentContainer {
+        padding: 44px;
+    }
+
+    &__Title {
+        color: #FFF;
+        font-family: Press Start 2P;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 22px;
+    }
+
+    &__Description {
+        color: #A7A7A7;
+        font-family: Press Start 2P;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; 
+
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        white-space: pre-wrap;
+    }
+
+    @media screen and ( max-width: 1500px) {
+        margin-bottom: 30px;
+
+        &__ContentContainer {
+            padding: 34px;
+        }
+
+        &__Description {
+            font-size: 12px;
+            line-height: 20px; 
+
+            -webkit-line-clamp: 4;
+        }
+    }
+
+    @media screen and ( max-width: 680px) {
+        flex-direction: column;
+        height: auto;
+        width: calc(50% - 10px);
+
+        &:last-child {
+            margin-bottom: 30px;
+        }
+
+        &__ImageContainer {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    @media screen and ( max-width: 500px) {
+        width: 100%;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,96 @@
+@import '../../assets/styles/mixins.scss';
+
+.Teammate {
+    @include listItem;
+
+    &:hover {
+        cursor: pointer;
+        transform: translate(-5px, -5px);
+        box-shadow: 10px 8px teal, 
+                    20px 16px rebeccapurple;
+
+        &:has(.Teammate__SocialLink--Github:hover){
+            background: rgb(13, 17, 23);
+        }
+
+        &:has(.Teammate__SocialLink--Discord:hover){
+            background: rgba(114,137,218,.2);
+        }
+
+        &:has(.Teammate__SocialLink--Twitter:hover){
+            background: #000000;
+        }
+    }
+
+    &__ContentContainer {
+        flex-grow: 1;
+        padding: 32px 44px;
+    }
+
+
+    &__Socials {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    &__SocialLink {
+        display: block;
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-right: 10px;
+        transform: scale(1);
+        background-color: transparent;
+        transition: .3s;
+        width: 50px;
+        height: 50px;
+        background-position: center;
+
+        &:hover {
+            transform: scale(1.2);
+            background-color: rgba(109, 124, 255, 0.07);
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+        
+        &--Discord {
+            background-image: url(../../assets/img/icons/discord.svg);
+            background-size: 100%;
+        }
+
+        &--Github {
+            background-image: url(../../assets/img/icons/github.svg);
+            background-size: 88%;
+        }
+
+        &--Twitter {
+            background-image: url(../../assets/img/icons/twitterx.svg);
+            background-size: 88%;
+        }
+
+    }
+
+    &__Discord, &__Github, &__Twitter {
+        width: 50px;
+        height: 50px;
+        display: block;
+    }
+
+
+    &__Discord {
+        background-image: url(../../assets/img/icons/discord.svg);
+        background-size: contain;
+    }
+
+    &__Github {
+        background-image: url(../../assets/img/icons/github.svg);
+        background-size: contain;
+    }
+
+    &__Twitter {
+        background-image: url(../../assets/img/icons/twitterx.svg);
+        background-size: contain;
+    }
+}
