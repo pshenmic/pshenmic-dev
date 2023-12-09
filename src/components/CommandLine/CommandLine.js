@@ -1,12 +1,12 @@
-import { BlurFilter } from 'pixi.js';
-import { Stage, Container, Sprite, Text } from '@pixi/react';
+// import { BlurFilter } from 'pixi.js';
+// import { Stage, Container, Sprite, Text } from '@pixi/react';
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 
 import './CommandLine.scss'
 
 const CommandLine = () =>
 {
-  const blurFilter = useMemo(() => new BlurFilter(4), []);
+  // const blurFilter = useMemo(() => new BlurFilter(4), []);
 
   const [StageHeight, setHeight] = useState(0);
   const [StageWidth, setWidth] = useState(0);
