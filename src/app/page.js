@@ -1,4 +1,5 @@
 "use client";
+import './App.scss'
 import { useState } from 'react';
 import Menu from '../components/Menu'
 import CommandLine from '../components/CommandLine/CommandLine'
@@ -6,7 +7,6 @@ import Devspace from '../components/Devspace'
 import ServicesList from '../components/Services/ServicesList'
 import ProjectsList from '../components/Projects/ProjectsList'
 import Team from '../components/Team'
-import './App.scss'
 
 function ContentBlock({children, ...props}) {
   return (

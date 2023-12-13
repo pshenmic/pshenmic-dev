@@ -14,7 +14,7 @@ const code = {
     'Enjoy using it!'
   ],
   team: [
-    'function coding() {\n writeCode();\n makeYouHappy();\n}\n\n coding();',
+    'function coding() {\n  writeCode();\n  makeYouHappy();\n}\n\n  coding();',
     'console.log("Hollo world!");'
   ],
   devspace: [
