@@ -1,69 +1,147 @@
-// import { BlurFilter } from 'pixi.js';
-// import { Stage, Container, Sprite, Text } from '@pixi/react';
-import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-
+import { useState, useEffect, React } from 'react';
 import './CommandLine.scss'
 
-const CommandLine = () =>
-{
-  // const blurFilter = useMemo(() => new BlurFilter(4), []);
 
-  const [StageHeight, setHeight] = useState(0);
-  const [StageWidth, setWidth] = useState(0);
-  const StageContainer = useRef(null);
+const code = {
+  projects: [
+    'const projects = getProjects();\n\nprojects.forEach((project) => {\nprint(project)\n});\n',
+    'Hello world!',
+    'Nice to meet you!\nCheck out the projects!'
+  ],
+  services: [
+    'Let\'s spin the gears...',
+    'Everything is for you!',
+    'Enjoy using it!'
+  ],
+  team: [
+    'function coding() {\n writeCode();\n makeYouHappy();\n}\n\n coding();',
+    'console.log("Hollo world!");'
+  ],
+  devspace: [
+    'blablalba',
+    'Time to read Twitter!... Oh sorry, more precisely X!',
+    'OMG! New post!'
+  ],
+}
 
-  // const StageContainer = useCallback(node => {
-  //   console.log('RER');
-  //   console.log(node);
+const CodeText = ({category}) => {
 
-  //   if (node !== null) {
-  //     setHeight(node.getBoundingClientRect().height);
-  //     setWidth(node.getBoundingClientRect().width);
-  //   }
-  // }, []);
+  const finalAwaitTimes = 10
 
+  const [state, setState] = useState({
+    currentText: '',
+    rest: code[category][0].split(''),
+    codeCategory: category,
+    tik: 0,
+    activeFunctionId: 0,
+    awaiting: false,
+    direction: true
+  });
+
+  useEffect(()=> setState( state=> ({
+      ...state,
+      direction: !state.currentText.length > 0,
+      awaiting: false,
+    }
+  )), [category])
 
   useEffect(() => {
-    console.log('use effect1')
-    console.log(StageContainer)
 
-    if (StageContainer !== null) {
-      console.log(StageContainer.current)
-
-      console.log(StageContainer.current.getBoundingClientRect().height)
-
-      setHeight(StageContainer.current.getBoundingClientRect().height)
-      setWidth(StageContainer.current.getBoundingClientRect().width)
-    }
+    let frameTime = 10
     
-  }, [StageContainer.current?.getBoundingClientRect().width]);
+    if (state.awaiting) {
 
+      frameTime = 1000
 
-  return (
-    <div className='CommandLine' >
-      <div className='CommandLine__Title'>letscode</div>
+    } else if (!state.direction) {
+    
+      frameTime = 50
+    
+    } else if (state.tik % 3 === 0 || state.tik % 4 === 0) {
+    
+      frameTime = 300
+    
+    }
 
-      <div className='CommandLine__StageContainer' ref={StageContainer}>
-        {/* <Stage
-          interactive={'auto'}
-          width={StageWidth} 
-          height={StageHeight}
-          className='CommandLine__Stage'
-        >
-          <Sprite
-            image="https://pixijs.io/pixi-react/img/bunny.png"
-            x={400}
-            y={270}
-            anchor={{ x: 0.5, y: 0.5 }}
-          />
+    setTimeout(() => {
 
-          <Container x={400} y={330}>
-            <Text text="Hello World" anchor={{ x: 0.5, y: 0.5 }} filters={[blurFilter]} />
-          </Container>
-        </Stage> */}
-      </div>
+      setState(({currentText, rest, activeFunctionId, direction, codeCategory, tik}) => {
+        let line = currentText,
+            newTik = tik + 1,
+            newRest = rest,
+            newActiveFunctionId = activeFunctionId,
+            newDirection = direction,
+            newCodeCategory = codeCategory
+            
+        if (direction) { // print text
+
+          if (tik < rest.length) {
+
+            line += rest[tik] !== '\n' ? rest[tik] : '<br/>'
+  
+          } else if (line[line.length - 1] === '_') {
+
+              line = line.slice(0, -1)
+
+          } else {
+
+              line += '_'
+
+          }
+
+          if (tik > rest.length + finalAwaitTimes && line.length > 0 || codeCategory !== category) {
+            newDirection = false
+          }
+
+        } else { // earth text
+          // remove last char from string
+
+          line = line.replaceAll('<br/>', '\n')
+          line = line.substring(0, line.length - 1).replaceAll('\n', '<br/>')
+
+          if (line.length === 0) { // setting new code function
+            newDirection = true
+            newTik = 0
+ 
+            if (newCodeCategory !== category) {
+              newActiveFunctionId = 0
+              newCodeCategory = category
+            } else {
+              newActiveFunctionId = code[newCodeCategory][newActiveFunctionId + 1] !== undefined ? newActiveFunctionId + 1 : 0 
+            }
+
+            newRest = code[newCodeCategory][newActiveFunctionId] 
+          }
+        }
+
+        return {
+          currentText: line,
+          rest: newRest,
+          codeCategory: newCodeCategory,
+          tik: newTik,
+          activeFunctionId: newActiveFunctionId,
+          awaiting: tik > rest.length && tik < rest.length + finalAwaitTimes && direction === true,
+          direction: newDirection
+        }
+
+      }); // setState
+
+    }, [frameTime]); // setInterval
+
+  }, [state])
+
+                     
+  return <div dangerouslySetInnerHTML={{__html: state.currentText}}></div>
+}
+
+const CommandLine = ({category = 'services'}) => (
+  <div className='CommandLine' >
+    <div className='CommandLine__Title'>letscode</div>
+
+    <div className='CommandLine__StageContainer'>
+      <CodeText category={category}/>
     </div>
-  );
-};
+  </div>
+);
 
 export default CommandLine;

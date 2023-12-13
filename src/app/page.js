@@ -30,7 +30,7 @@ export default function Home() {
 
         <div className='App__Sidebar'>
           <Menu selectItemCallback={selectItemCallback} defaultItem={content}/>
-          <CommandLine/>
+          <CommandLine category={content}/>
         </div>
 
         <div className='App__Content'>
