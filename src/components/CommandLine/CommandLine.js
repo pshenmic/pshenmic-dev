@@ -1,4 +1,5 @@
 import { useState, useEffect, React } from 'react';
+import { motion as m } from 'framer-motion'
 import './CommandLine.scss'
 
 
@@ -135,13 +136,18 @@ const CodeText = ({category}) => {
 }
 
 const CommandLine = ({category = 'services'}) => (
-  <div className='CommandLine' >
+  <m.div 
+    className='CommandLine' 
+    initial={{ height: 0, opacity: 0 }}
+    animate={{ height: 'auto', opacity: 1}}
+    transition={{ duration: 0.5, delay: .5 }}
+  >
     <div className='CommandLine__Title'>letscode</div>
 
     <div className='CommandLine__StageContainer'>
       <CodeText category={category}/>
     </div>
-  </div>
+  </m.div>
 );
 
 export default CommandLine;

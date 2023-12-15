@@ -9,9 +9,14 @@ const Menu = ({selectItemCallback, defaultItem}) => {
         selectItemCallback(activeItem)
     }, [activeItem]);
 
-    return <div className='Menu'>
+    return <m.div 
+        className='Menu'
+        initial={{ height: 0, opacity: 0 }}
+        animate={{ height: 'auto', opacity: 1}}
+        transition={{ duration: 0.5 }}
+        >
 
-        <div className='Menu__Title'>pshenmic.Dev:{'{'}</div>
+        <div className='Menu__Title'>pshenmic.Dev:</div>
 
         <div className='Menu__Items'>
             <m.div
@@ -58,7 +63,7 @@ const Menu = ({selectItemCallback, defaultItem}) => {
                 <span>Team</span>
             </m.div>
         </div>
-    </div>
+    </m.div>
 }
 
 export default Menu;

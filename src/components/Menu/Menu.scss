@@ -37,6 +37,10 @@
 
     &__Title {
         font-size: 38px;
+
+        &:after {
+            content: '{'
+        }
     }
 
     &__Items {
@@ -48,7 +52,7 @@
         position: relative;
         font-size: 18px;
         margin-left: 0;
-        transition: all .5s;
+        transition: padding .5s;
         -webkit-user-select: none;
         -ms-user-select: none;
         user-select: none;
@@ -159,7 +163,6 @@
         &__Item {
             font-size: 14px;
         }
-
         
         &::before {
             top: 35px;
