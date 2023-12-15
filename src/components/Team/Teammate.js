@@ -1,9 +1,22 @@
 import './Teammate.scss'
 import Link from 'next/link'
+import { motion as m } from 'framer-motion'
 
-function Teammate ({name, role, photoSrc, discord, github, twitter}) {
+
+function Teammate ({name, role, photoSrc, discord, github, twitter, id}) {
     return (
-        <div className="Teammate">
+        <m.div 
+            className="Teammate"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -30, opacity: 0 }}
+            whileHover={{
+                x: -5,
+                y: -5,
+                transition: { duration: .5 },
+            }}
+            transition={{ duration: .5, delay: id/10 }}
+        >
 
             <div className="Teammate__ImageContainer">
                 <img src={ photoSrc }/>
@@ -43,7 +56,7 @@ function Teammate ({name, role, photoSrc, discord, github, twitter}) {
                 </div>
 
             </div>
-        </div>
+        </m.div>
     )
 }
 

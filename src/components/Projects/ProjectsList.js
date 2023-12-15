@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import ProjectListItem from './ProjectListItem'
 import Project from './Project'
 import './ProjectsList.scss'
+import { motion as m, AnimatePresence } from 'framer-motion'
 
 
 const defaultProjectsList = [
@@ -31,7 +32,12 @@ const defaultProjectsList = [
   }
 ]
 
-export default function ProjectsList ({projects = defaultProjectsList}) {
+const variants = {
+  open: { opacity: 1, x: 0 },
+  closed: { opacity: 0, x: "-100%" }
+}
+
+export default function ProjectsList ({projects = defaultProjectsList }) {
   const [openedItem, setOpenedItem] = useState(-1);
 
   useEffect(() => {
@@ -39,29 +45,36 @@ export default function ProjectsList ({projects = defaultProjectsList}) {
   }, [openedItem])
 
   const ListItems = projects.map((project, id) =>
-    <ProjectListItem 
+    <ProjectListItem
       key={'project' + id}
+      id={id}
       project = {project} 
-      isOpen = {openedItem === id}
       hidden = {openedItem !== -1 && openedItem !== id}
       openHandler = {  () => setOpenedItem(id)  }
     />
   )
 
   return (
-    <>
-      {( openedItem !== -1 && 
-        <Project 
-          project = { projects[openedItem] } 
-          closeHandler = { () => setOpenedItem(-1) }
-        />
+    <AnimatePresence  mode="wait">
+      { openedItem !== -1 && (
+        <m.div
+          key={'project'}
+        >
+          <Project 
+            project = { projects[openedItem] } 
+            closeHandler = { () => setOpenedItem(-1) }
+          />
+        </m.div>)
+      }
+      
+      { openedItem === -1 &&( 
+        <m.div
+          key={'projectsList'}
+          className='ProjectsList'
+        >
+            {ListItems}
+        </m.div>
       )}
-
-      <div className='ProjectsList'>
-        {( openedItem === -1 && 
-          ListItems
-        )}
-      </div>
-    </>
+    </AnimatePresence>
   )
 }

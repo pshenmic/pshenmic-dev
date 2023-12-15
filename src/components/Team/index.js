@@ -1,13 +1,24 @@
 import Teammate from './Teammate'
 import './Team.scss'
+import { motion as m } from 'framer-motion'
 
-function Team () {
+
+// const variants = {
+//     open: { opacity: 1, x: 0 },
+//     closed: { opacity: 0, x: "-100%" },
+// }
+
+
+function Team ({isOpen}) {
     return (
-        <div className="Team">
+        <m.div 
+            className="Team"
+        >
 
             <div className="Team__TeammateList">
 
                 <Teammate
+                    id={1}
                     name={'Mikhail'}
                     role={'Team Leader'}
                     photoSrc={'https://avatars.githubusercontent.com/u/17009187?v=4'}
@@ -17,6 +28,7 @@ function Team () {
                 />
 
                 <Teammate
+                    id={2}
                     name={'Alex'}
                     role={'Frontend Developer'}
                     photoSrc={'https://avatars.githubusercontent.com/u/143793672?v=4'}
@@ -26,7 +38,7 @@ function Team () {
 
             </div>
 
-        </div>
+        </m.div>
     )
 }
 

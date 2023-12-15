@@ -3,6 +3,8 @@
 .Teammate {
     @include listItem;
 
+    transition: 0.5s background-color, 0.5s box-shadow;
+
     &:hover {
         cursor: pointer;
         transform: translate(-5px, -5px);
@@ -10,15 +12,15 @@
                     20px 16px rebeccapurple;
 
         &:has(.Teammate__SocialLink--Github:hover){
-            background: rgb(13, 17, 23);
+            background-color: rgb(13, 17, 23);
         }
 
         &:has(.Teammate__SocialLink--Discord:hover){
-            background: rgba(114,137,218,.2);
+            background-color: rgba(114,137,218,.2);
         }
 
         &:has(.Teammate__SocialLink--Twitter:hover){
-            background: #000000;
+            background-color: #000000;
         }
     }
 

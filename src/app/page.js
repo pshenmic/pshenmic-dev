@@ -1,4 +1,5 @@
 "use client";
+
 import './App.scss'
 import { useState } from 'react';
 import Menu from '../components/Menu'
@@ -7,6 +8,7 @@ import Devspace from '../components/Devspace'
 import ServicesList from '../components/Services/ServicesList'
 import ProjectsList from '../components/Projects/ProjectsList'
 import Team from '../components/Team'
+import { motion as m, AnimatePresence } from 'framer-motion'
 
 function ContentBlock({children, ...props}) {
   return (
@@ -26,7 +28,7 @@ export default function Home() {
   return (
     <main className='App'>
 
-      <div className='App__CommonWrapper'>
+      <m.div className='App__CommonWrapper'>
 
         <div className='App__Sidebar'>
           <Menu selectItemCallback={selectItemCallback} defaultItem={content}/>
@@ -35,16 +37,40 @@ export default function Home() {
 
         <div className='App__Content'>
           <div className='ContentBlock'>
+            <AnimatePresence  mode="wait">
 
-            { content === 'devspace' && <Devspace/>}
-            { content === 'services' && <ServicesList/>}
-            { content === 'projects' && <ProjectsList/>}
-            { content === 'team' && <Team/>}
-            
+              { content === 'devspace' &&  (
+                  <m.div
+                    key='devspace'
+                  >
+                    <Devspace/>
+                  </m.div>
+                )}
+              { content === 'services' &&  (
+                <m.div
+                  key='services'
+                >
+                  <ServicesList/>
+                </m.div>
+              )}
+                
+              { content === 'projects' &&  (
+                <m.div>
+                  <ProjectsList/>
+                </m.div>
+              )}
+                
+              { content === 'team' &&  (
+                <m.div>
+                  <Team/>
+                </m.div>
+              )}
+              
+            </AnimatePresence>
           </div>
         </div>
 
-      </div>
+      </m.div>
 
       {/* 
         <span>pshenmic&apos;s development page</span>

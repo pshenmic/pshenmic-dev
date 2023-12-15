@@ -1,5 +1,7 @@
-import Post from './Post.js'
 import './Devspace.scss'
+import Post from './Post.js'
+import { motion as m } from 'framer-motion'
+
 
 const posts = [
     {
@@ -35,17 +37,18 @@ function Devspace () {
         <Post 
             key={'post' + id}
             post = {post}
+            id={id}
         />
     )
 
     return (
-        <div className="Devspace">
+        <div 
+            className="Devspace"
+        >
 
-            {/* <div className='Devspace__Title'>Updates</div> */}
-
-            <div className="Devspace__NewsList">
+            <m.div >
                 { ListItems }
-            </div>
+            </m.div>
 
         </div>
     )
