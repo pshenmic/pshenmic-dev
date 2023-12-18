@@ -33,6 +33,6 @@
     }
 
     @media screen and (max-width: 680px) {
-        display: none;
+        display: none !important;
     }
 }

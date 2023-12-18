@@ -86,8 +86,8 @@ body {
         overflow-y: auto;
 
         &__Sidebar {
+            flex-direction: row;
             width: 100%;
-            display: flex;
         }
 
         &__CommonWrapper {

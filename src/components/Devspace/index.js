@@ -45,11 +45,7 @@ function Devspace () {
         <div 
             className="Devspace"
         >
-
-            <m.div >
-                { ListItems }
-            </m.div>
-
+            { ListItems }
         </div>
     )
 }

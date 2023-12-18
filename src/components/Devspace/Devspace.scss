@@ -1,5 +1,7 @@
 .Devspace {
-    &__Title {
-        margin-bottom: 10px;
+    @media screen and ( min-width: 500px ) and ( max-width: 680px ) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 }
