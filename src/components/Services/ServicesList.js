@@ -29,6 +29,7 @@ function ServicesList ({servicesList = defaultServicesList}) {
     
     const ListItems = servicesList.map((service, id) => 
         <m.div
+            key={'service' + id}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -30, opacity: 0 }}
@@ -36,7 +37,6 @@ function ServicesList ({servicesList = defaultServicesList}) {
         >
             <Link 
                 href={service.link} 
-                key={'service' + id}
                 className='Service'
             >
                 <div className='Service__Title'>{ service.title }</div>
