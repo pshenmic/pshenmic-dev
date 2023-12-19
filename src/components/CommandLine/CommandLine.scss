@@ -25,11 +25,16 @@
         line-height: 1.8;
     }
 
+    @media screen and (max-width: 1200px) {
+        font-size: 14px;
+    }
+
     @media screen and (max-width: $width-tablet) {
         flex-grow: 1;
         width: auto;
         margin-left: 40px;
         margin-top: -10px;
+        font-size: 12px;
     }
 
     @media screen and (max-width: 680px) {
