@@ -26,8 +26,6 @@ const code = {
 }
 
 const CodeText = ({category = ''}) => {
-  if (category === '') return
-
   const finalAwaitTimes = 10
 
   const [state, setState] = useState({
