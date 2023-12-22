@@ -8,34 +8,33 @@ import { motion as m, AnimatePresence } from 'framer-motion'
 const defaultProjectsList = [
   {
     title: 'Anypay',
-    description: 'Ok lets write something about project.Great project for everybody. Check it!',
-    imgSrc: 'https://avatars.githubusercontent.com/u/12125403?s=200',
-    gihubLink: 'https://github.com/anypay'
+    description: 'Anypay is an easy-to-use, multi-coin payment processor helping businesses accept Dash since 2016. A fully open-source suite of tools offers e-commerce plugins, POS integrations, web & mobile apps, and APIs for developers.',
+    imgSrc: '/assets/img/anypay-preview-400x400.jpg',
+    gihubLink: 'https://github.com/anypay',
+    projectLink: 'https://anypayx.com/'
   },
   {
     title: 'Dash Electrum',
-    description: 'Ok lets write something about project.Great project for everybody. Check it!',
-    imgSrc: '',
-    gihubLink: ''
+    description: 'A lightweight wallet for a Desktops & Android allow you to receive and spend Dash anywhere without downloading the blockchain with a PrivateSend support.',
+    imgSrc: '/assets/img/dash-electrum-icon.png',
+    gihubLink: '',
+    projectLink: 'https://docs.dash.org/ru/stable/docs/user/wallets/electrum/index.html'
   },
   {
     title: 'Platform explorer',
-    description: 'Ok lets write something about project.Great project for everybody. Check it!',
-    imgSrc: '',
-    gihubLink: 'https://github.com/pshenmic/platform-explorer'
+    description: 'Block explorer for a brand new Dash Platform chain. Explore latest Dash Evolution data such as Identities, Data Contracts, and Documents.',
+    imgSrc: '/assets/img/platform-explorer-preview-300x300.jpg',
+    gihubLink: 'https://github.com/pshenmic/platform-explorer',
+    projectLink: 'https://platform-explorer.com/'
   },
   {
     title: 'Dashmate',
-    description: 'Ok lets write something about project.Great project for everybody. Check it!',
-    imgSrc: '',
-    gihubLink: ''
+    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
+    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
+    gihubLink: '',
+    projectLink: 'https://www.dashmate.org/'
   }
 ]
-
-const variants = {
-  open: { opacity: 1, x: 0 },
-  closed: { opacity: 0, x: "-100%" }
-}
 
 export default function ProjectsList ({projects = defaultProjectsList }) {
   const [openedItem, setOpenedItem] = useState(-1);
