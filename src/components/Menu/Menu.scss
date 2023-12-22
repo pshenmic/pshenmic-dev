@@ -58,6 +58,15 @@
         -ms-user-select: none;
         user-select: none;
 
+        &:not(.active) {
+            width: min-content;
+        }
+
+        a {
+            margin: 0;
+            display: inline-block;
+        }
+
         span {
             padding: 20px 40px;
             display: inline-block;

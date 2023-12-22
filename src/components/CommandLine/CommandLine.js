@@ -18,14 +18,15 @@ const code = {
     'function coding() {\n  writeCode();\n  makeYouHappy();\n}\n\n  coding();',
     'console.log("Hollo world!");'
   ],
-  devspace: [
+  updates: [
     'blablalba',
     'Time to read Twitter!... Oh sorry, more precisely X!',
     'OMG! New post!'
   ],
 }
 
-const CodeText = ({category}) => {
+const CodeText = ({category = ''}) => {
+  if (category === '') return
 
   const finalAwaitTimes = 10
 

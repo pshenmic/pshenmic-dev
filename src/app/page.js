@@ -1,88 +1,109 @@
 "use client";
 
 import './App.scss'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Menu from '../components/Menu'
 import CommandLine from '../components/CommandLine/CommandLine'
-import Devspace from '../components/Devspace'
+import Updates from '../components/Updates'
 import ServicesList from '../components/Services/ServicesList'
 import ProjectsList from '../components/Projects/ProjectsList'
 import Team from '../components/Team'
 import { motion as m, AnimatePresence } from 'framer-motion'
 
-function ContentBlock({children, ...props}) {
-  return (
-    <div className='ContentBlock' {...props}>
-        { children }
-    </div>
-  )
-}
+import {BrowserRouter as Router, Routes, Route, Link, useLocation, useSearchParams} from 'react-router-dom';
 
-export default function Home() {
-  const [content, setContent] = useState('devspace');
+const defaultContent = 'updates'
+
+export default function App({Component, pageProps}) {
+
+  const [content, setContent] = useState('updates');
+
+  const [render, setRender] = useState(false);
+  useEffect(() => {
+    
+    const pathArray = window.location.pathname.split('/').slice(1)
+
+    setContent(pathArray[0] !== '' ? pathArray[0] : defaultContent)
+
+    setRender(true)
+
+  }, [content]);
+
+
+  return render ? 
   
-  const selectItemCallback = (activeItem) => {
-    setContent(activeItem)
-  }
-
-  return (
+  <Router>
+                
     <main className='App'>
 
       <m.div className='App__CommonWrapper'>
 
         <div className='App__Sidebar'>
-          <Menu selectItemCallback={selectItemCallback} defaultItem={content}/>
+          <Menu selectItemCallback={setContent} defaultItem={content}/>
           <CommandLine category={content}/>
         </div>
 
         <div className='App__Content'>
-          <div className='ContentBlock'>
-            <AnimatePresence  mode="wait">
 
-              { content === 'devspace' &&  (
-                  <m.div
-                    key='devspace'
-                  >
-                    <Devspace/>
-                  </m.div>
-                )}
-              { content === 'services' &&  (
-                <m.div
-                  key='services'
-                >
-                  <ServicesList/>
-                </m.div>
-              )}
-                
-              { content === 'projects' &&  (
-                <m.div>
-                  <ProjectsList/>
-                </m.div>
-              )}
-                
-              { content === 'team' &&  (
-                <m.div>
-                  <Team/>
-                </m.div>
-              )}
-              
+          <div className='ContentBlock' key='updates'>
+
+            <AnimatePresence mode="wait">
+
+              <Routes location={window.location} key={window.location.href}>
+                <Route index key='updatesRoute' path="/"
+                  element={
+                    <m.div key='updates'>
+                      <Updates/>
+                    </m.div>
+                  }
+                />
+
+                <Route key='servicesRoute' path="/services"
+                  element={
+                    <m.div key='services'
+                      initial={{ y: 30, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -30, opacity: 0 }}
+                      transition={{ duration: .5}}
+
+                    >
+                      <ServicesList/>
+                    </m.div>
+                  }
+                />
+
+                <Route key='projectsRoute' path="/projects"
+                  element={
+                    <m.div key='projects'
+                      initial={{ y: 30, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -30, opacity: 0 }}
+                      transition={{ duration: .5 }}
+                    >
+                      <ProjectsList/>
+                    </m.div>
+                  }
+                />
+
+                <Route key='teamRoute' path="/team"
+                  element={
+                    <m.div key='team'>
+                      <Team/>
+                    </m.div>
+                  }
+                />
+              </Routes>
+
             </AnimatePresence>
+
           </div>
+
         </div>
 
       </m.div>
-
-      {/* 
-        <span>pshenmic&apos;s development page</span>
-        
-        <div className={"github"}>
-          
-          <div>open source blockchain developer</div>
-          <a href={"https://github.com/pshenmic"}>github.com/pshenmic</a>
-
-        </div> 
-      */}
-
+      
     </main>
-  )
+
+  </Router> : null;
+    
 }

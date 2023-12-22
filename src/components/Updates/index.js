@@ -1,4 +1,4 @@
-import './Devspace.scss'
+import './Updates.scss'
 import Post from './Post.js'
 import { motion as m } from 'framer-motion'
 
@@ -31,7 +31,7 @@ const posts = [
     }
 ]
 
-function Devspace () {
+function Updates () {
 
     const ListItems = posts.map((post, id) =>
         <Post 
@@ -50,4 +50,4 @@ function Devspace () {
     )
 }
 
-export default Devspace
+export default Updates

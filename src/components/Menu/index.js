@@ -1,6 +1,31 @@
 import './Menu.scss'
 import React, { useState, useEffect } from 'react';
 import { motion as m } from 'framer-motion'
+import { Link } from 'react-router-dom';
+
+const menuItems = [
+    {
+        href: '/',
+        title: 'Updates',
+        id: 'updates'
+    },
+    {
+        href: '/services',
+        title: 'Services',
+        id: 'services'
+    },
+    {
+        href: '/projects',
+        title: 'Projects',
+        id: 'projects'
+    },
+    {
+        href: '/team',
+        title: 'Team',
+        id: 'team'
+    }
+]
+
 
 const Menu = ({selectItemCallback, defaultItem}) => {
     const [activeItem, setAtiveItem] = useState(defaultItem);
@@ -19,49 +44,20 @@ const Menu = ({selectItemCallback, defaultItem}) => {
         <div className='Menu__Title'>pshenmic.Dev:</div>
 
         <div className='Menu__Items'>
-            <m.div
-                className={`Menu__Item ${activeItem === 'devspace' ? 'active' : '' }`}
-                onClick={() => setAtiveItem('devspace')}
+            {menuItems.map((link) => 
+                <m.div 
+                    key={'menuitem' + link.id}
+                    className={`Menu__Item ${activeItem === link.id ? 'active' : '' }`}
+                    onClick={() => setAtiveItem(link.id)}
 
-                initial={{ x:-50, opacity: 0 }}
-                animate={{ x:0, opacity: 1}}
-                transition={{ duration: 0.5 }}
-            >
-                <span>Dev space</span>
-            </m.div>
-            
-            <m.div 
-                className={`Menu__Item ${activeItem === 'services' ? 'active' : '' }`}
-                onClick={() => setAtiveItem('services')}
+                    initial={{ x:-50, opacity: 0 }}
+                    animate={{ x:0, opacity: 1}}
+                    transition={{ duration: .5, delay: 1/5  }}
+                >
+                    <Link to={link.href}><span>{link.title}</span></Link>
+                </m.div>
+            )}
 
-                initial={{ x:-50, opacity: 0 }}
-                animate={{ x:0, opacity: 1}}
-                transition={{ duration: .5, delay: 1/5  }}
-            >
-                <span>Services</span>
-            </m.div>
-
-            <m.div 
-                className={`Menu__Item ${activeItem === 'projects' ? 'active' : '' }`}
-                onClick={() => setAtiveItem('projects')}
-
-                initial={{ x:-50, opacity: 0 }}
-                animate={{ x:0, opacity: 1}}
-                transition={{ duration: .5, delay: 2/5  }}
-            >
-                <span>Projects</span>
-            </m.div>
-
-            <m.div 
-                className={`Menu__Item ${activeItem === 'team' ? 'active' : '' }`}
-                onClick={() => setAtiveItem('team')}
-
-                initial={{ x:-50, opacity: 0 }}
-                animate={{ x:0, opacity: 1}}
-                transition={{ duration: .5, delay: 3/5  }}
-            >
-                <span>Team</span>
-            </m.div>
         </div>
     </m.div>
 }
