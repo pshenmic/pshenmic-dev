@@ -26,15 +26,28 @@ function Project ({ project, closeHandler, id }) {
 
           <div className='Project__Description'>{ project.description }</div>
 
-          {( project.gihubLink &&
-            <Link 
-              className='Project__GithubLink' 
-              href={ project.gihubLink } 
-              target="_blank"
-            >
-              <span>Github</span>
-            </Link>
-          )}
+          <div className='Project__LinksContainer'>
+            {( project.gihubLink &&
+              <Link 
+                className='Project__Link Project__Link--Github' 
+                href={ project.gihubLink } 
+                target="_blank"
+              >
+                <span>Github</span>
+              </Link>
+            )}
+
+            {( project.projectLink &&
+              <Link 
+                className='Project__Link Project__Link--Project' 
+                href={ project.gihubLink } 
+                target="_blank"
+              >
+                <span>Project</span>
+              </Link>
+            )}
+          </div>
+
 
         </div>
 

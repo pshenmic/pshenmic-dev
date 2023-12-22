@@ -116,7 +116,9 @@
         }
     }
 
-    &__GithubLink {
+    &__Link {
+        margin-right: 10px;
+
         &::before {
             content: '';
             width: 25px;
@@ -127,6 +129,27 @@
             margin-bottom: -4px;
             margin-right: 10px;
         }
+
+        &--Github {
+            &::before {
+                content: '';
+                width: 25px;
+                height: 25px;
+                display: inline-block;
+                background: url(../../assets/img/icons/github.svg) no-repeat;
+                background-size: contain;
+                margin-bottom: -4px;
+                margin-right: 10px;
+            }
+        }
+
+        &--Project {
+            &::before {
+                background: url(../../assets/img/icons/web.svg) no-repeat;
+                background-size: contain;
+            }
+        }
+
     }
 
     @media screen and ( max-width: $width-tablet) {
