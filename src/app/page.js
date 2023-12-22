@@ -63,7 +63,7 @@ export default function App({Component, pageProps}) {
                     <m.div key='services'
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -30, opacity: 0 }}
+                      // exit={{ y: -30, opacity: 0 }}
                       transition={{ duration: .5}}
 
                     >
@@ -77,7 +77,7 @@ export default function App({Component, pageProps}) {
                     <m.div key='projects'
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -30, opacity: 0 }}
+                      // exit={{ y: -30, opacity: 0 }}
                       transition={{ duration: .5 }}
                     >
                       <ProjectsList/>
