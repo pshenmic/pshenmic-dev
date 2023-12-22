@@ -117,7 +117,9 @@
     }
 
     &__Link {
+        @include contextLink;
         margin-right: 10px;
+        
 
         &::before {
             content: '';
