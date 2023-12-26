@@ -2,4 +2,42 @@
 
 .Post {
     @include listItem;
+
+    position: relative;
+
+    &__ContentWrapper {
+        display: flex;
+    }
+
+    &::after {
+        content: '';
+        display: block;            
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        opacity: .2;
+        background-size: contain;
+    }
+
+    &--twitter {
+        &::after {
+            background-image: url(../../assets/img/icons/twitterx.svg);
+        }
+    }
+
+    &--youtube {
+        &::after {
+            background-image: url(../../assets/img/icons/youtube.svg);
+        }
+    }
+    
+    &__Content {
+        line-height: 1.5;
+
+        a {
+            @include contextLink;
+        }
+    }
 }

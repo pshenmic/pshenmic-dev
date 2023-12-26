@@ -1,33 +1,32 @@
 import './Updates.scss'
 import Post from './Post.js'
 import { motion as m } from 'framer-motion'
-
+import { postTypesEnum } from '../../enums/postTypesEnum'
 
 const posts = [
     {
-        content: `New video on youtube! <br/>`,
-        imgSrc: 'https://i.ytimg.com/an_webp/_aQF46s12HI/mqdefault_6s.webp?du=3000&sqp=CP7GzasG&rs=AOn4CLCBBs3FrN3hAKIPGShvo6g3J1RqKQ',
-        externalLink: 'https://www.youtube.com/watch?v=_aQF46s12HI'
+        content: 'Local Money concept is going to be resurrected soon in the Dash Incubator enabling P2P fiat payments governed by the network. Decentralized and Open-Sourced.',
+        imgSrc: '',
+        externalLink: '',
+        type: postTypesEnum.static
     },
     {
-        content: 'content 123',
+        content: 'Electrum Dash just have upgraded to Python 3.10',
         imgSrc: '',
-        externalLink: ''
+        externalLink: 'https://twitter.com/pshenmic/status/1737533844197126375',
+        type: postTypesEnum.twitter
     },
     {
-        content: 'content 123',
-        imgSrc: '',
-        externalLink: ''
+        content: `How to install Dashmate on Ubuntu`,
+        imgSrc: '//img.youtube.com/vi/'+ '_aQF46s12HI' +'/0.jpg',
+        externalLink: 'https://www.youtube.com/watch?v=_aQF46s12HI',
+        type: postTypesEnum.youtube
     },
     {
-        content: 'content 123',
+        content: `Deployed an instance of Anypay API backend at https://anypay.pshenmic.dev/`,
         imgSrc: '',
-        externalLink: ''
-    },
-    {
-        content: 'content 123',
-        imgSrc: '',
-        externalLink: ''
+        externalLink: 'https://anypay.pshenmic.dev/',
+        type: postTypesEnum.static
     }
 ]
 
