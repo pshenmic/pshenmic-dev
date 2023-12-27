@@ -62,7 +62,7 @@ export default function ProjectsList ({projects = defaultProjectsList }) {
         </m.div>)
       }
       
-      { openedItem === -1 &&( 
+      { openedItem === -1 && ( 
         <m.div
           key={'projectsList'}
           className='ProjectsList'

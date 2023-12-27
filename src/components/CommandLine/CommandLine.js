@@ -66,63 +66,56 @@ const CodeText = ({category = ''}) => {
     setTimeout(() => {
 
       setState(({currentText, rest, activeFunctionId, direction, codeCategory, tik}) => {
-        let line = currentText,
-            newTik = tik + 1,
-            newRest = rest,
-            newActiveFunctionId = activeFunctionId,
-            newDirection = direction,
-            newCodeCategory = codeCategory
-            
+        const newState = {
+          currentText: currentText,
+          rest: rest,
+          codeCategory: codeCategory,
+          tik: tik + 1,
+          activeFunctionId: activeFunctionId,
+          awaiting: tik > rest.length && tik < rest.length + finalAwaitTimes && direction === true,
+          direction: direction
+        }
+        
         if (direction) { // print text
 
-          if (tik < rest.length) {
+          newState.currentText = (() => {
 
-            line += rest[tik] !== '\n' ? rest[tik] : '<br/>'
-  
-          } else if (line[line.length - 1] === '_') {
+            if (tik < rest.length) return newState.currentText += rest[tik] !== '\n' ? rest[tik] : '<br/>'
+    
+            if (currentText[currentText.length - 1] === '_') return newState.currentText = currentText.slice(0, -1)
 
-              line = line.slice(0, -1)
+            return newState.currentText += '_'
 
-          } else {
+          })()
 
-              line += '_'
-
+          if (tik > rest.length + finalAwaitTimes && newState.currentText.length > 0 || codeCategory !== category) { // rename category to 'activeCategory' or something like this
+            newState.direction = false
           }
 
-          if (tik > rest.length + finalAwaitTimes && line.length > 0 || codeCategory !== category) {
-            newDirection = false
+          return newState
+
+        }
+        
+        // earth text
+
+        newState.currentText = currentText.replaceAll('<br/>', '\n')
+        newState.currentText = currentText.substring(0, currentText.length - 1).replaceAll('\n', '<br/>')
+
+        if (currentText.length === 0) { // setting new code function
+          newState.direction = true
+          newState.tik = 0
+
+          newState.activeFunctionId = code[category][activeFunctionId + 1] !== undefined ? activeFunctionId + 1 : 0 
+
+          if (newState.codeCategory !== category) {
+            newState.activeFunctionId = 0
+            newState.codeCategory = category
           }
 
-        } else { // earth text
-          // remove last char from string
-
-          line = line.replaceAll('<br/>', '\n')
-          line = line.substring(0, line.length - 1).replaceAll('\n', '<br/>')
-
-          if (line.length === 0) { // setting new code function
-            newDirection = true
-            newTik = 0
- 
-            if (newCodeCategory !== category) {
-              newActiveFunctionId = 0
-              newCodeCategory = category
-            } else {
-              newActiveFunctionId = code[newCodeCategory][newActiveFunctionId + 1] !== undefined ? newActiveFunctionId + 1 : 0 
-            }
-
-            newRest = code[newCodeCategory][newActiveFunctionId] 
-          }
+          newState.rest = code[newState.codeCategory][newState.activeFunctionId] 
         }
 
-        return {
-          currentText: line,
-          rest: newRest,
-          codeCategory: newCodeCategory,
-          tik: newTik,
-          activeFunctionId: newActiveFunctionId,
-          awaiting: tik > rest.length && tik < rest.length + finalAwaitTimes && direction === true,
-          direction: newDirection
-        }
+        return newState
 
       }); // setState
 
