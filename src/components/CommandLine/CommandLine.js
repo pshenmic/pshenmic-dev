@@ -47,21 +47,17 @@ const CodeText = ({category = ''}) => {
 
   useEffect(() => {
 
-    let frameTime = 10
+    const frameTime = (() => {
     
-    if (state.awaiting) {
+      if (state.awaiting) return 1000
+      
+      if (!state.direction) return 50
+      
+      if (state.tik % 3 === 0 || state.tik % 4 === 0) return 300
 
-      frameTime = 1000
+      return 10
 
-    } else if (!state.direction) {
-    
-      frameTime = 50
-    
-    } else if (state.tik % 3 === 0 || state.tik % 4 === 0) {
-    
-      frameTime = 300
-    
-    }
+    })()
 
     setTimeout(() => {
 
