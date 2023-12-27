@@ -10,7 +10,7 @@ const code = {
     'Nice to meet you!\nCheck out the projects!'
   ],
   services: [
-    'Let\'s spin the gears...',
+    'const services = getServices();\n\nservices.forEach((service) => {\nprint(service)\n});\n',
     'Everything is for you!',
     'Enjoy using it!'
   ],
@@ -19,6 +19,7 @@ const code = {
     'console.log("Hollo world!");'
   ],
   updates: [
+    'function checkUpdates() {\n  printUpdates();\n  readPosts();\n}\n\n  checkUpdates();',
     'blablalba',
     'Time to read Twitter!... Oh sorry, more precisely X!',
     'OMG! New post!'
@@ -51,9 +52,9 @@ const CodeText = ({category = ''}) => {
     
       if (state.awaiting) return 1000
       
-      if (!state.direction) return 50
+      if (!state.direction) return 25
       
-      if (state.tik % 3 === 0 || state.tik % 4 === 0) return 300
+      if (state.tik % 3 === 0 || state.tik % 4 === 0) return 200
 
       return 10
 
