@@ -39,10 +39,6 @@ const defaultProjectsList = [
 export default function ProjectsList ({projects = defaultProjectsList }) {
   const [openedItem, setOpenedItem] = useState(-1);
 
-  useEffect(() => {
-    console.log('some project was oppened. Need to animate it.')
-  }, [openedItem])
-
   const ListItems = projects.map((project, id) =>
     <ProjectListItem
       key={'project' + id}

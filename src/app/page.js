@@ -10,7 +10,7 @@ import ProjectsList from '../components/Projects/ProjectsList'
 import Team from '../components/Team'
 import { motion as m, AnimatePresence } from 'framer-motion'
 
-import {BrowserRouter as Router, Routes, Route, Link, useLocation, useSearchParams} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useSearchParams } from 'react-router-dom';
 
 const defaultContent = 'updates'
 
@@ -18,16 +18,19 @@ export default function App({Component, pageProps}) {
 
   const [content, setContent] = useState('updates');
 
-  const [render, setRender] = useState(false);
-  useEffect(() => {
-    
+  const updateCintent = () => {
     const pathArray = window.location.pathname.split('/').slice(1)
-
     setContent(pathArray[0] !== '' ? pathArray[0] : defaultContent)
+  }
 
-    setRender(true)
+  const [render, setRender] = useState(false);
+  useEffect(() => setRender(true), [content]);
 
-  }, [content]);
+
+  const pageChangeHandler = (a,b,c) => {
+    console.log(123)
+    console.log('a=', a, 'b=', b, 'c=', c)
+  }
 
 
   return render ? 
