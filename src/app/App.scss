@@ -6,10 +6,12 @@ body {
     font-family: 'Press Start 2P';
     font-weight: 400;
     background-color: #000;
+    color: #fff;
 }
 
 .App {
     position: fixed;
+    z-index: 1;
     overflow: hidden;
     height: 100%;
     width: 100%;
@@ -17,7 +19,6 @@ body {
 
     &::before, &:after {
         background-color: #0075FF;
-
         width: 1460px;
         height: 1460px;
         background: rgba(0, 117, 255, 0.40);
