@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import { motion as m } from 'framer-motion'
 import './Service.scss'
 import './ServicesList.scss'
-import { motion as m } from 'framer-motion'
 
 const defaultServicesList = [
     {
@@ -32,7 +32,6 @@ function ServicesList ({servicesList = defaultServicesList}) {
             key={'service' + id}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            // exit={{ y: -30, opacity: 0 }}
             transition={{ duration: .5, delay: id/10 }}
         >
             <Link 

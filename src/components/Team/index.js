@@ -1,15 +1,9 @@
 import Teammate from './Teammate'
-import './Team.scss'
 import { motion as m } from 'framer-motion'
+import './Team.scss'
 
 
-// const variants = {
-//     open: { opacity: 1, x: 0 },
-//     closed: { opacity: 0, x: "-100%" },
-// }
-
-
-function Team ({isOpen}) {
+function Team () {
     return (
         <m.div 
             className="Team"

@@ -9,32 +9,17 @@ import ServicesList from '../components/Services/ServicesList'
 import ProjectsList from '../components/Projects/ProjectsList'
 import Team from '../components/Team'
 import { motion as m, AnimatePresence } from 'framer-motion'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, useSearchParams } from 'react-router-dom';
 
-const defaultContent = 'updates'
-
-export default function App({Component, pageProps}) {
-
+export default function App() {
   const [content, setContent] = useState('updates');
-
-  const updateCintent = () => {
-    const pathArray = window.location.pathname.split('/').slice(1)
-    setContent(pathArray[0] !== '' ? pathArray[0] : defaultContent)
-  }
-
   const [render, setRender] = useState(false);
+  
   useEffect(() => setRender(true), [content]);
 
-
-  const pageChangeHandler = (a,b,c) => {
-    console.log(123)
-    console.log('a=', a, 'b=', b, 'c=', c)
-  }
-
-
   return render ? 
-  
+
   <Router>
                 
     <main className='App'>
@@ -66,7 +51,6 @@ export default function App({Component, pageProps}) {
                     <m.div key='services'
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      // exit={{ y: -30, opacity: 0 }}
                       transition={{ duration: .5}}
 
                     >
@@ -80,7 +64,6 @@ export default function App({Component, pageProps}) {
                     <m.div key='projects'
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      // exit={{ y: -30, opacity: 0 }}
                       transition={{ duration: .5 }}
                     >
                       <ProjectsList/>

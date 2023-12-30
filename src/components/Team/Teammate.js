@@ -9,7 +9,6 @@ function Teammate ({name, role, photoSrc, discord, github, twitter, id}) {
             className="Teammate"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            // exit={{ y: -30, opacity: 0 }}
             whileHover={{
                 x: -5,
                 y: -5,

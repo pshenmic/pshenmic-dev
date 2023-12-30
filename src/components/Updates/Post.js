@@ -29,7 +29,6 @@ function Post ({post, id}) {
             className={"Post " + "Post--" + postType}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            // exit={{ y: -30, opacity: 0 }}
             whileHover={{
                 x: -5,
                 y: -5,

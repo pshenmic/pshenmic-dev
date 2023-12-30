@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { motion as m } from 'framer-motion'
-
 import './ProjectListItem.scss'
+
 
 function ProjectListItem ({ project, openHandler, id }) {
 
@@ -13,7 +11,6 @@ function ProjectListItem ({ project, openHandler, id }) {
 
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          // exit={{ y: -30, opacity: 0 }}
           whileHover={{
               x: -5,
               y: -5,

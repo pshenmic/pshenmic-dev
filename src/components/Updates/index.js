@@ -1,6 +1,5 @@
 import './Updates.scss'
 import Post from './Post.js'
-import { motion as m } from 'framer-motion'
 import { postTypesEnum } from '../../enums/postTypesEnum'
 
 const posts = [
@@ -23,7 +22,7 @@ const posts = [
         type: postTypesEnum.youtube
     },
     {
-        content: `Deployed an instance of Anypay API backend at https://anypay.pshenmic.dev/`,
+        content: `Deployed an instance of Anypay API backend<br/>at https://anypay.pshenmic.dev/`,
         imgSrc: '',
         externalLink: 'https://anypay.pshenmic.dev/',
         type: postTypesEnum.static

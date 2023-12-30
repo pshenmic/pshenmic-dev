@@ -1,16 +1,13 @@
 import Link from 'next/link'
 import { motion as m } from 'framer-motion'
-
 import './Project.scss'
 
 function Project ({ project, closeHandler, id }) {
-
     return (
       <m.div 
         className = 'Project'
         initial={{ scale: 1.2, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        // exit={{ scale: 0.8, opacity: 0 }}
         transition={{ duration: .25 }}
       >
 

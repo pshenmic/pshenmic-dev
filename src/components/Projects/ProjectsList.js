@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from 'react'
 import ProjectListItem from './ProjectListItem'
 import Project from './Project'
-import './ProjectsList.scss'
 import { motion as m, AnimatePresence } from 'framer-motion'
+import './ProjectsList.scss'
 
 
 const defaultProjectsList = [
