@@ -30,9 +30,6 @@ const posts = [
 ]
 
 function Updates () {
-
-    console.log('posts', posts)
-
     const ListItems = posts.map((post, id) =>
         <Post 
             key={'post' + id}
