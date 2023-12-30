@@ -1,11 +1,15 @@
 import Link from 'next/link'
 import './Post.scss'
 import { motion as m } from 'framer-motion'
-import { postTypesEnum } from '../../enums/postTypesEnum'
+import { PostTypeEnum } from '../../enums/postTypeEnum'
 
 
 function Post ({post, id}) {
-    const postType = Object.keys(postTypesEnum).find(key => postTypesEnum[key] === post.type);
+    const postClassMapping = {
+        [PostTypeEnum.STATIC]: "Post Post--static",
+        [PostTypeEnum.TWITTER]: "Post Post--twitter",
+        [PostTypeEnum.YOUTUBE]: "Post Post--youtube"
+    }
 
     const ContentWrapper = ({children, ...props}) => {
 
@@ -26,7 +30,7 @@ function Post ({post, id}) {
 
     return (
         <m.div 
-            className={"Post " + "Post--" + postType}
+            className={postClassMapping[post.type]}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             whileHover={{

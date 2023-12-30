@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { motion as m } from 'framer-motion'
 import './Service.scss'
-import './ServicesList.scss'
 
 const defaultServicesList = [
     {

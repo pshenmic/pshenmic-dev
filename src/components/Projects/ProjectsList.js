@@ -37,32 +37,32 @@ const defaultProjectsList = [
 ]
 
 export default function ProjectsList ({projects = defaultProjectsList }) {
-  const [openedItem, setOpenedItem] = useState(-1);
+  const [openedItem, setOpenedItem] = useState(null);
 
   const ListItems = projects.map((project, id) =>
     <ProjectListItem
       key={'project' + id}
       id={id}
       project = {project} 
-      hidden = {openedItem !== -1 && openedItem !== id}
+      hidden = {openedItem !== null && openedItem !== id}
       openHandler = {  () => setOpenedItem(id)  }
     />
   )
 
   return (
     <AnimatePresence  mode="wait">
-      { openedItem !== -1 && (
+      { openedItem !== null && (
         <m.div
           key={'project'}
         >
           <Project 
             project = { projects[openedItem] } 
-            closeHandler = { () => setOpenedItem(-1) }
+            closeHandler = { () => setOpenedItem(null) }
           />
         </m.div>)
       }
       
-      { openedItem === -1 && ( 
+      { openedItem === null && ( 
         <m.div
           key={'projectsList'}
           className='ProjectsList'
