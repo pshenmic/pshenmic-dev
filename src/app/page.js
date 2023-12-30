@@ -18,14 +18,12 @@ export default function App() {
   const [render, setRender] = useState(false);
   
   useEffect(() => {
-    setRender(true) 
-    updateContent()
-  }, [content]);
-
-  const updateContent = () => {
     const pathArray = window.location.pathname.split('/').slice(1)
+
+    setRender(true) 
     setContent(pathArray[0] !== '' ? pathArray[0] : defaultContent)
-  } 
+    
+  }, [content]);
 
   return render ? 
 
