@@ -1,0 +1,23 @@
+@import '../../assets/styles/mixins.scss';
+
+.Team {
+    &__TeammateList {
+        @media screen and ( min-width: 500px ) and ( max-width: 680px ) {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+
+    @media screen and ( max-width: 680px) {
+        &__TeammateList {
+            margin-bottom: -30px;
+        }
+    }
+
+    @media screen and ( max-width: 500px) {
+        &__TeammateList {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,165 @@
+@import '../../assets/styles/mixins.scss';
+
+.Project {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .15s all;
+    background: rgba(109, 124, 255, 0.07);
+
+    &.hidden {
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+    }
+
+    &__ImageContainer {
+        width: 200px;
+        height: 200px;
+        background: rgba(109, 124, 255, 0.07);
+        flex-shrink: 0;
+        margin-left: 44px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__ContentContainer {
+        padding: 44px;
+    }
+
+    &__Title {
+        color: #FFF;
+        font-family: Press Start 2P;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 22px;
+    }
+
+    &__Description {
+        color: #A7A7A7;
+        font-family: Press Start 2P;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; 
+    }
+
+    &__CloseButton {
+        width: 42px;
+        font-size: 18px;
+        line-height: 32px;
+        padding: 2px 8px;
+        position: relative;
+        width: 100%;
+        transition: .15s padding-left;
+        text-align: right;
+        margin-bottom: 4px;
+        overflow: hidden;
+
+        span {
+            opacity: 1;
+            transition: .3s;
+        }
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 0;
+            height: 100%;
+            transition: .5s;
+            top: 0;
+            right: 0;
+            background: linear-gradient(to left, rgba(109, 124, 255, 0.07), transparent);
+            opacity: 0;
+        }
+
+        &::after {
+            content: '<-';
+            letter-spacing: -5px;
+            position: absolute;
+            right: -42px;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: .65s;
+            opacity: 0;
+        }
+
+        &:hover {
+            cursor: pointer;
+            padding-left: 42px;
+
+            span {
+                opacity: 0;
+            }
+
+            &::before {
+                opacity: 1;
+                width: 100%;
+                background: linear-gradient(to left, rgba(109, 124, 255, 0.07), rgba(109, 124, 255, 0.07));
+            }
+
+            &::after {
+                right: 50%;
+                opacity: 1;
+            }
+
+        }
+    }
+
+    &__Link {
+        @include contextLink;
+        margin-right: 10px;
+        
+
+        &::before {
+            content: '';
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            background: url(../../assets/img/icons/github.svg) no-repeat;
+            background-size: contain;
+            margin-bottom: -4px;
+            margin-right: 10px;
+        }
+
+        &--Github {
+            &::before {
+                content: '';
+                width: 25px;
+                height: 25px;
+                display: inline-block;
+                background: url(../../assets/img/icons/github.svg) no-repeat;
+                background-size: contain;
+                margin-bottom: -4px;
+                margin-right: 10px;
+            }
+        }
+
+        &--Project {
+            &::before {
+                background: url(../../assets/img/icons/web.svg) no-repeat;
+                background-size: contain;
+            }
+        }
+
+    }
+
+    @media screen and ( max-width: $width-tablet) {
+        position: relative;
+        top: -30px;
+        left: -30px;
+        width: calc(100% + 60px);
+        height: calc(100% + 60px);
+        margin-bottom: -60px;
+    }
+}

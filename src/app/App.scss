@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import '../assets/styles/mixins.scss';
+
+body {
+    margin: 0;
+    font-family: 'Press Start 2P';
+    font-weight: 400;
+    background-color: #000;
+    color: #fff;
+}
+
+.App {
+    position: fixed;
+    z-index: 1;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    padding: 40px 20px;
+
+    &::before, &:after {
+        background-color: #0075FF;
+        width: 1460px;
+        height: 1460px;
+        background: rgba(0, 117, 255, 0.40);
+
+        filter: blur(445.5px);
+    }
+    
+    &::before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -100%);
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        transform: translate(50%, 100%);
+    }
+
+    &__CommonWrapper {
+        max-width: 1800px;
+        height: 100%;
+        display: flex;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    
+    }
+
+    &__Sidebar {
+        width: calc(40% - 100px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__Content {
+        width: 60%;
+        height: 100%;
+    }
+
+    @media screen and ( max-width: 1700px) {
+        &__Sidebar {
+            width: calc(40% - 50px);
+        }
+    }
+
+    @media screen and ( max-width: 1200px) {
+        &__Sidebar {
+            width: calc(40% - 30px);
+        }
+    }
+
+    @media screen and ( max-width: 980px) {
+        &__Sidebar {
+            width: calc(40% - 20px);
+        }
+    }
+
+    @media screen and ( max-width: $width-tablet) {
+        overflow-y: auto;
+
+        &__Sidebar {
+            flex-direction: row;
+            width: 100%;
+        }
+
+        &__CommonWrapper {
+            flex-direction: column;
+            height: auto;
+        }
+
+        &__Content {
+            margin-top: 30px;
+            width: 100%;
+        }
+    }
+}
+
+.ContentBlock {
+    padding: 50px;
+    border: 1px solid rgba(0, 117, 255, 0.35);
+    background: rgba(0, 117, 255, 0.01);
+    backdrop-filter: blur(15px);
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &__Title {
+        font-size: 24px;
+    }
+
+    @media screen and ( max-width: 1500px) {
+        padding: 30px;
+    }
+
+    @media screen and ( max-width: $width-tablet) {
+        width: 100%;
+        overflow: unset;
+    }
+}
+
+

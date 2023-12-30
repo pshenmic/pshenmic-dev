@@ -1,0 +1,59 @@
+.Service {
+    display: block;
+    font-size: 18px;
+    transition: all .4s;
+    padding: 16px 16px;
+    margin: 0 -16px;
+    position: relative;
+    overflow: hidden;
+    line-height: 1.3em;
+
+    &__Title {
+        transition: all .4s;
+    }
+
+    &:hover {
+        padding-left: 66px;
+        
+        &::before {
+            opacity: 1;
+            left: 16px;
+        }
+
+        &:after {
+            width: 100%;
+            opacity: 1;
+            left: 0;
+        }
+    }
+
+    &:before {
+        content: '->';
+        opacity: 0;
+        transition: all .45s;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: -36px;
+    }
+
+    &:after {
+        content: '';
+        transition: all .5s;
+        width: 0;
+        height: 100%;
+        position: absolute;
+        left: 16px;
+        top: 0;
+        opacity: 0;
+        background: rgba(81, 140, 255, 0.10);
+    }
+
+    @media screen and ( max-width: 1100px ) {
+        font-size: 16px;
+    }
+
+    @media screen and ( max-width: 450px ) {
+        font-size: 14px;
+    }
+}
