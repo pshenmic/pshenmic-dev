@@ -11,9 +11,10 @@ import Team from '../components/Team'
 import { motion as m, AnimatePresence } from 'framer-motion'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+const defaultContent = 'updates'
 
 export default function App() {
-  const [content, setContent] = useState('updates');
+  const [content, setContent] = useState(defaultContent);
   const [render, setRender] = useState(false);
   
   useEffect(() => {
