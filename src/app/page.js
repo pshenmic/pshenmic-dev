@@ -16,7 +16,15 @@ export default function App() {
   const [content, setContent] = useState('updates');
   const [render, setRender] = useState(false);
   
-  useEffect(() => setRender(true), [content]);
+  useEffect(() => {
+    setRender(true) 
+    updateContent()
+  }, [content]);
+
+  const updateContent = () => {
+    const pathArray = window.location.pathname.split('/').slice(1)
+    setContent(pathArray[0] !== '' ? pathArray[0] : defaultContent)
+  } 
 
   return render ? 
 
