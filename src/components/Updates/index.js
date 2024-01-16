@@ -6,8 +6,8 @@ const posts = [
     {
         content: 'Electrum Dash wallet almost recovered PrivateSend support! New stable build is coming out soon in next few days! 🤙',
         imgSrc: '',
-        externalLink: '',
-        type: PostTypeEnum.STATIC
+        externalLink: 'https://twitter.com/pshenmic/status/1746916402525552735',
+        type: PostTypeEnum.TWITTER
     },
     {
         content: 'Local Money concept is going to be resurrected soon in the Dash Incubator enabling P2P fiat payments governed by the network. Decentralized and Open-Sourced.',
