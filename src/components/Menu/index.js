@@ -34,18 +34,18 @@ const Menu = ({selectItemCallback, defaultItem}) => {
         selectItemCallback(activeItem)
     }, [activeItem]);
 
-    return <m.div 
+    return <m.div
         className='Menu'
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: 'auto', opacity: 1}}
         transition={{ duration: 0.5 }}
         >
 
-        <div className='Menu__Title'>pshenmic.Dev:</div>
+        <div className='Menu__Title'>pshenmic.dev:</div>
 
         <div className='Menu__Items'>
-            {menuItems.map((link) => 
-                <m.div 
+            {menuItems.map((link) =>
+                <m.div
                     key={'menuitem' + link.id}
                     className={`Menu__Item ${activeItem === link.id ? 'active' : '' }`}
                     onClick={() => setAtiveItem(link.id)}

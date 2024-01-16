@@ -5,7 +5,7 @@ import './Team.scss'
 
 function Team () {
     return (
-        <m.div 
+        <m.div
             className="Team"
         >
 
@@ -13,8 +13,8 @@ function Team () {
 
                 <Teammate
                     id={1}
-                    name={'Mikhail'}
-                    role={'Team Leader'}
+                    name={'Mikhail (pshenmic)'}
+                    role={'Guru / Lead / Coder'}
                     photoSrc={'https://avatars.githubusercontent.com/u/17009187?v=4'}
                     github={'https://github.com/pshenmic'}
                     twitter={'https://twitter.com/pshenmic'}
@@ -23,7 +23,7 @@ function Team () {
 
                 <Teammate
                     id={2}
-                    name={'Alex'}
+                    name={'Alex (alexeyandreevsky)'}
                     role={'Frontend Developer'}
                     photoSrc={'https://avatars.githubusercontent.com/u/143793672?v=4'}
                     github={'https://github.com/alexeyandreevsky'}
