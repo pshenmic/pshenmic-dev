@@ -4,6 +4,12 @@ import { PostTypeEnum } from '../../enums/postTypeEnum'
 
 const posts = [
     {
+        content: 'Electrum Dash wallet almost recovered PrivateSend support! New stable build is coming out soon in next few days! 🤙',
+        imgSrc: '',
+        externalLink: '',
+        type: PostTypeEnum.STATIC
+    },
+    {
         content: 'Local Money concept is going to be resurrected soon in the Dash Incubator enabling P2P fiat payments governed by the network. Decentralized and Open-Sourced.',
         imgSrc: '',
         externalLink: '',
@@ -31,7 +37,7 @@ const posts = [
 
 function Updates () {
     const ListItems = posts.map((post, id) =>
-        <Post 
+        <Post
             key={'post' + id}
             post = {post}
             id={id}
@@ -39,7 +45,7 @@ function Updates () {
     )
 
     return (
-        <div 
+        <div
             className="Devspace"
         >
             { ListItems }
