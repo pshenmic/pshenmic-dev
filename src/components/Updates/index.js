@@ -4,6 +4,12 @@ import { PostTypeEnum } from '../../enums/postTypeEnum'
 
 const posts = [
     {
+        content: 'Electrum Dash release candidate build is out with PrivateSend support back in the game. Feel free to test and report any bugs! https://github.com/pshenmic/electrum-dash/releases/tag/4.1.7.4-rc.9',
+        imgSrc: '',
+        externalLink: 'https://twitter.com/pshenmic/status/1747739859605709104',
+        type: PostTypeEnum.TWITTER
+    },
+    {
         content: 'Electrum Dash wallet almost recovered PrivateSend support! New stable build is coming out soon in next few days! 🤙',
         imgSrc: '',
         externalLink: 'https://twitter.com/pshenmic/status/1746916402525552735',
