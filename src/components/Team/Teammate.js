@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { motion as m } from 'framer-motion'
 
 
-function Teammate ({name, role, photoSrc, discord, github, twitter, id}) {
+function Teammate ({name, username, role, photoSrc, discord, github, twitter, id}) {
     return (
         <m.div 
             className="Teammate"
@@ -23,7 +23,10 @@ function Teammate ({name, role, photoSrc, discord, github, twitter, id}) {
 
             <div className='Teammate__ContentContainer'>
 
-                <div className="Teammate__Title">{ name }</div>
+                <div className="Teammate__Title">
+                    <div className="Teammate__Name">{ name }</div>
+                    <div className="Teammate__Username">@{ username }</div>
+                </div>
 
                 <div className="Teammate__Description">{ role }</div>
 
