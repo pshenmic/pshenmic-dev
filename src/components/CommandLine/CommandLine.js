@@ -16,7 +16,7 @@ const code = {
   ],
   team: [
     'function coding() {\n  writeCode();\n  makeYouHappy();\n}\n\n  coding();',
-    'console.log("Hollo world!");'
+    'console.log("Hello world!");'
   ],
   updates: [
     'function checkUpdates() {\n  printUpdates();\n  readPosts();\n}\n\n  checkUpdates();',
@@ -49,11 +49,11 @@ const CodeText = ({category = ''}) => {
   useEffect(() => {
 
     const frameTime = (() => {
-    
+
       if (state.awaiting) return 1000
-      
+
       if (!state.direction) return 25
-      
+
       if (state.tik % 3 === 0 || state.tik % 4 === 0) return 200
 
       return 10
@@ -72,13 +72,13 @@ const CodeText = ({category = ''}) => {
           awaiting: tik > rest.length && tik < rest.length + finalAwaitTimes && direction === true,
           direction: direction
         }
-        
+
         if (direction) { // print text
 
           newState.currentText = (() => {
 
             if (tik < rest.length) return newState.currentText += rest[tik] !== '\n' ? rest[tik] : '<br/>'
-    
+
             if (currentText[currentText.length - 1] === '_') return newState.currentText = currentText.slice(0, -1)
 
             return newState.currentText += '_'
@@ -92,7 +92,7 @@ const CodeText = ({category = ''}) => {
           return newState
 
         }
-        
+
         // earth text
 
         newState.currentText = currentText.replaceAll('<br/>', '\n')
@@ -102,14 +102,14 @@ const CodeText = ({category = ''}) => {
           newState.direction = true
           newState.tik = 0
 
-          newState.activeFunctionId = code[category][activeFunctionId + 1] !== undefined ? activeFunctionId + 1 : 0 
+          newState.activeFunctionId = code[category][activeFunctionId + 1] !== undefined ? activeFunctionId + 1 : 0
 
           if (newState.codeCategory !== category) {
             newState.activeFunctionId = 0
             newState.codeCategory = category
           }
 
-          newState.rest = code[newState.codeCategory][newState.activeFunctionId] 
+          newState.rest = code[newState.codeCategory][newState.activeFunctionId]
         }
 
         return newState
@@ -120,13 +120,13 @@ const CodeText = ({category = ''}) => {
 
   }, [state])
 
-                     
+
   return <div dangerouslySetInnerHTML={{__html: state.currentText}}></div>
 }
 
 const CommandLine = ({category = 'services'}) => (
-  <m.div 
-    className='CommandLine' 
+  <m.div
+    className='CommandLine'
     initial={{ height: 0, opacity: 0 }}
     animate={{ height: 'auto', opacity: 1}}
     transition={{ duration: 0.5, delay: .5 }}
