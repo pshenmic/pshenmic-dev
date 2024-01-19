@@ -95,4 +95,24 @@
         background-image: url(../../assets/img/icons/twitterx.svg);
         background-size: contain;
     }
+
+    @media screen and ( max-width: 680px) {
+        flex-direction: column;
+        height: auto;
+        width: calc(50% - 10px);
+
+        &:last-child {
+            margin-bottom: 30px;
+        }
+
+        &__ImageContainer {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    @media screen and ( max-width: 580px) {
+        height: auto;
+        width: 100%;
+    }
 }
