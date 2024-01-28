@@ -49,7 +49,7 @@ function Post ({post, id}) {
                     </div>
                 )}
 
-                <div className='Project__ContentContainer'>
+                <div className='Post__ContentContainer'>
 
                     <div  
                         className='Post__Content' 

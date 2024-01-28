@@ -13,7 +13,8 @@ function Team () {
 
                 <Teammate
                     id={1}
-                    name={'Mikhail (pshenmic)'}
+                    name={'Mikhail'}
+                    username={'pshenmic'}
                     role={'Guru / Lead / Coder'}
                     photoSrc={'https://avatars.githubusercontent.com/u/17009187?v=4'}
                     github={'https://github.com/pshenmic'}
@@ -23,8 +24,9 @@ function Team () {
 
                 <Teammate
                     id={2}
-                    name={'Alex (alexeyandreevsky)'}
-                    role={'Frontend Developer'}
+                    name={'Alex'}
+                    username={'alexeyandreevsky'}
+                    role={'Designer / Frontend dev'}
                     photoSrc={'https://avatars.githubusercontent.com/u/143793672?v=4'}
                     github={'https://github.com/alexeyandreevsky'}
                     discord={'https://discordapp.com/users/390865069195657216'}

@@ -24,11 +24,21 @@
         }
     }
 
+    &__Name {
+        display: inline-block;
+    }
+
+    &__Username {
+        display: inline-block;
+        font-size: 14px;
+        color: #A7A7A7;
+        margin-left: 14px;
+    }
+
     &__ContentContainer {
         flex-grow: 1;
         padding: 32px 44px;
     }
-
 
     &__Socials {
         display: flex;
@@ -80,7 +90,6 @@
         display: block;
     }
 
-
     &__Discord {
         background-image: url(../../assets/img/icons/discord.svg);
         background-size: contain;
@@ -94,5 +103,44 @@
     &__Twitter {
         background-image: url(../../assets/img/icons/twitterx.svg);
         background-size: contain;
+    }
+
+    @mixin columnsView {
+        flex-direction: column;
+        height: auto;
+        width: calc(50% - 10px);
+
+        &:last-child {
+            margin-bottom: 30px;
+        }
+
+        &__Title {
+            margin-bottom: 14px;
+        }
+
+        &__Username {
+            width: 100%;
+            margin-left: 0;
+            font-size: 10px;
+            line-height: 1;
+        }
+
+        &__ImageContainer {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    @media screen and ( min-width: 940px ) and ( max-width: 1200px ) {
+        @include columnsView;
+    }
+
+    @media screen and ( max-width: 720px) {
+        @include columnsView;
+    }
+
+    @media screen and ( max-width: 580px) {
+        height: auto;
+        width: 100%;
     }
 }

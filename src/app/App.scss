@@ -125,6 +125,10 @@ body {
         width: 100%;
         overflow: unset;
     }
+
+    @media screen and ( max-width: 420px) {
+        padding: 20px;
+    }
 }
 
 

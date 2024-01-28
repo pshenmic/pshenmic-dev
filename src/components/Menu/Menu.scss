@@ -179,4 +179,10 @@
             height: calc(100% - 70px);
         }
     }
+
+    @media screen and ( max-width: 360px) {
+        &__Title {
+            font-size: 20px;
+        }
+    }
 }

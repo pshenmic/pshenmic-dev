@@ -4,6 +4,7 @@
     @include listItem;
 
     position: relative;
+    height: auto;
 
     &__ContentWrapper {
         display: flex;
@@ -38,6 +39,27 @@
 
         a {
             @include contextLink;
+        }
+    }
+
+    @media screen and ( max-width: 680px) {
+        &__Content {
+            font-size: 14px;
+        }
+
+        &__ContentWrapper {
+            display: block;
+        }
+
+        &__ImageContainer {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    @media screen and ( max-width: 420px) {
+        &__Content {
+            font-size: 12px;
         }
     }
 }
