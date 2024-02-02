@@ -4,7 +4,7 @@ import './Project.scss'
 
 function Project ({ project, closeHandler, id }) {
     return (
-      <m.div 
+      <m.div
         className = 'Project'
         initial={{ scale: 1.2, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -24,10 +24,10 @@ function Project ({ project, closeHandler, id }) {
           <div className='Project__Description'>{ project.description }</div>
 
           <div className='Project__LinksContainer'>
-            {( project.gihubLink &&
-              <Link 
-                className='Project__Link Project__Link--Github' 
-                href={ project.gihubLink } 
+            {( project.githubLink &&
+              <Link
+                className='Project__Link Project__Link--Github'
+                href={ project.githubLink }
                 target="_blank"
               >
                 <span>Github</span>
@@ -35,9 +35,9 @@ function Project ({ project, closeHandler, id }) {
             )}
 
             {( project.projectLink &&
-              <Link 
-                className='Project__Link Project__Link--Project' 
-                href={ project.projectLink } 
+              <Link
+                className='Project__Link Project__Link--Project'
+                href={ project.projectLink }
                 target="_blank"
               >
                 <span>Project</span>

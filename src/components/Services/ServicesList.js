@@ -5,36 +5,38 @@ import './Service.scss'
 const defaultServicesList = [
     {
       title: 'ElectrumX (Dash)',
-      description: 'Ok lets write something about project.Great project for everybody. Check it!',
-      imgSrc: '',
-      link: '#'
+      description: 'Electrum Dash is a lightweight wallet that allows you to send, receive and mix Dash without downloading blockchain. It distributes for Linux, Mac, Windows and Android devices.',
+      link: 'dash-electrum.pshenmic.dev:50002'
     },
     {
-      title: 'Blockbook (Dash)',
-      description: 'Ok lets write something about project.Great project for everybody. Check it!',
-      imgSrc: '',
-      link: '#'
+      title: 'Platform Explorer (testnet)',
+      description: 'Blockchain explorer for the upcoming L2 Dash Platform chain',
+      link: 'https://platform-explorer.com'
     },
     {
-      title: 'Dash Platform Explorer',
-      description: 'Ok lets write something about project.Great project for everybody. Check it!',
-      imgSrc: '',
-      link: '#'
-    }
+      title: 'Anypay Backend',
+      description: 'An independent Anypay backend instance providing a reliable backend service for a Point-of-Sales mobile terminals',
+      link: 'https://anypay.pshenmic.dev'
+    },
+    {
+      title: 'Dashboards (Monitoring)',
+      description: 'A set of dashboards showing the current state of the projects and services of the pshenmic cloud.',
+      link: 'https://dashboards.pshenmic.dev'
+    },
 ]
 
 
 function ServicesList ({servicesList = defaultServicesList}) {
-    
-    const ListItems = servicesList.map((service, id) => 
+
+    const ListItems = servicesList.map((service, id) =>
         <m.div
             key={'service' + id}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: .5, delay: id/10 }}
         >
-            <Link 
-                href={service.link} 
+            <Link
+                href={service.link}
                 target="_blank"
                 className='Service'
             >
