@@ -9,6 +9,11 @@ const defaultServicesList = [
       link: 'dash-electrum.pshenmic.dev:50002'
     },
     {
+      title: 'ElectrumX Dash Testnet [use copy link address]',
+      description: 'Electrum Dash is a lightweight wallet that allows you to send, receive and mix Dash without downloading blockchain. It distributes for Linux, Mac, Windows and Android devices.',
+      link: 'dash-electrum-testnet.pshenmic.dev:50002'
+    },
+    {
       title: 'Platform Explorer (testnet)',
       description: 'Blockchain explorer for the upcoming L2 Dash Platform chain',
       link: 'https://platform-explorer.com'
