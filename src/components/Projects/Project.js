@@ -37,7 +37,7 @@ function Project ({ project, closeHandler, id }) {
             {( project.projectLink &&
               <Link 
                 className='Project__Link Project__Link--Project' 
-                href={ project.gihubLink } 
+                href={ project.projectLink } 
                 target="_blank"
               >
                 <span>Project</span>

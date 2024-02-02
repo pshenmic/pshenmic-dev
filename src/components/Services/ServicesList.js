@@ -35,6 +35,7 @@ function ServicesList ({servicesList = defaultServicesList}) {
         >
             <Link 
                 href={service.link} 
+                target="_blank"
                 className='Service'
             >
                 <div className='Service__Title'>{ service.title }</div>
