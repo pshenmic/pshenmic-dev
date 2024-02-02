@@ -4,6 +4,12 @@ import { PostTypeEnum } from '../../enums/postTypeEnum'
 
 const posts = [
     {
+        content: 'Electrum Dash 4.1.7.4 stable release is out. Build includes working PrivateSend for Linux, Mac and Windows. https://github.com/pshenmic/electrum-dash/releases/tag/4.1.7.4',
+        imgSrc: '',
+        externalLink: '',
+        type: PostTypeEnum.STATIC
+    },
+    {
         content: 'Electrum Dash release candidate build is out with PrivateSend support back in the game. Feel free to test and report any bugs! https://github.com/pshenmic/electrum-dash/releases/tag/4.1.7.4-rc.9',
         imgSrc: '',
         externalLink: 'https://twitter.com/pshenmic/status/1747739859605709104',
