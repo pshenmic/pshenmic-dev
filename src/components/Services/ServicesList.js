@@ -4,7 +4,7 @@ import './Service.scss'
 
 const defaultServicesList = [
     {
-      title: 'ElectrumX Dash [press copy link address]',
+      title: 'ElectrumX Dash [use copy link address]',
       description: 'Electrum Dash is a lightweight wallet that allows you to send, receive and mix Dash without downloading blockchain. It distributes for Linux, Mac, Windows and Android devices.',
       link: 'dash-electrum.pshenmic.dev:50002'
     },
