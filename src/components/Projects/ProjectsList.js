@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState } from 'react'
 import ProjectListItem from './ProjectListItem'
 import Project from './Project'
 import { motion as m, AnimatePresence } from 'framer-motion'

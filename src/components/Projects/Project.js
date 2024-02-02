@@ -12,10 +12,12 @@ function Project ({ project, closeHandler, id }) {
       >
 
         <div className='Project__CloseButton' onClick = { closeHandler }><span>X</span></div>
-
-        <div className='Project__ImageContainer'>
-          <img src={ project.imgSrc }/>
-        </div>
+        
+        {( project.imgSrc &&
+          <div className='Project__ImageContainer'>
+            <img src={ project.imgSrc }/>
+          </div>
+        )}
 
         <div className='Project__ContentContainer'>
 

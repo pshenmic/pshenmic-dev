@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import Link from 'next/link'
-import { motion as m } from 'framer-motion'
-import './Service.scss'
+import { motion as m, AnimatePresence } from 'framer-motion'
+import Service from './Service'
+import './ServiceListItem.scss'
 
 const defaultServicesList = [
     {
@@ -25,6 +27,7 @@ const defaultServicesList = [
 
 
 function ServicesList ({servicesList = defaultServicesList}) {
+    const [openedItem, setOpenedItem] = useState(null);
     
     const ListItems = servicesList.map((service, id) => 
         <m.div
@@ -32,22 +35,38 @@ function ServicesList ({servicesList = defaultServicesList}) {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: .5, delay: id/10 }}
+            id={id}
+            onClick = {  () => setOpenedItem(id)  }
         >
-            <Link 
-                href={service.link} 
-                target="_blank"
-                className='Service'
-            >
-                <div className='Service__Title'>{ service.title }</div>
-            </Link>
+            <div className='ServiceListItem'>
+                <div className='ServiceListItem__Title'>{ service.title }</div>
+            </div>
         </m.div>
     );
 
     return (
-        <div className='ServicesList'>
-            { ListItems }
-        </div>
-    )
+        <AnimatePresence mode="wait">
+          { openedItem !== null && (
+            <m.div
+              key={'service'}
+            >
+              <Service 
+                service = { servicesList[openedItem] } 
+                closeHandler = { () => setOpenedItem(null) }
+              />
+            </m.div>)
+          }
+          
+          { openedItem === null && ( 
+            <m.div
+              key={'servicesList'}
+              className='ServicesList'
+            >
+                {ListItems}
+            </m.div>
+          )}
+        </AnimatePresence>
+      )
 }
 
 export default ServicesList
