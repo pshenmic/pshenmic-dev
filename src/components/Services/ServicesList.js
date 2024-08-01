@@ -7,7 +7,7 @@ const defaultServicesList = [
     {
       title: 'ElectrumX (Dash)',
       description: 'Electrum Dash is a lightweight wallet that allows you to send, receive and mix Dash without downloading blockchain. It distributes for Linux, Mac, Windows and Android devices.',
-      link: 'dash-electrum.pshenmic.dev:50002'
+      link: 'https://electrum-dash.com'
     },
     {
       title: 'Platform Explorer (testnet)',
@@ -15,15 +15,10 @@ const defaultServicesList = [
       link: 'https://platform-explorer.com'
     },
     {
-      title: 'Anypay Backend',
-      description: 'An independent Anypay backend instance providing a reliable backend service for a Point-of-Sales mobile terminals',
-      link: 'https://anypay.pshenmic.dev'
-    },
-    {
       title: 'Dashboards (Monitoring)',
       description: 'A set of dashboards showing the current state of the projects and services of the pshenmic cloud.',
       link: 'https://dashboards.pshenmic.dev'
-    },
+    }
 ]
 
 
