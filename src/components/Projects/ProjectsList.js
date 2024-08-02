@@ -28,13 +28,6 @@ const defaultProjectsList = [
     projectLink: 'https://www.dashmate.org/'
   },
   {
-    title: 'Anypay',
-    description: 'Anypay is an easy-to-use, multi-coin payment processor helping businesses accept Dash since 2016. A fully open-source suite of tools offers e-commerce plugins, POS integrations, web & mobile apps, and APIs for developers.',
-    imgSrc: '/assets/img/anypay-preview-400x400.jpg',
-    githubLink: 'https://github.com/anypay',
-    projectLink: 'https://anypayx.com/'
-  },
-  {
     title: 'Dashboards',
     description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
     imgSrc: '/assets/img/dashboards-preview-400x400.png',

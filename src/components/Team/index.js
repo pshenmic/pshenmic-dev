@@ -26,10 +26,40 @@ function Team () {
                     id={2}
                     name={'Alex'}
                     username={'alexeyandreevsky'}
-                    role={'Designer / Frontend dev'}
+                    role={'Frontend dev'}
                     photoSrc={'https://avatars.githubusercontent.com/u/143793672?v=4'}
                     github={'https://github.com/alexeyandreevsky'}
                     discord={'https://discordapp.com/users/390865069195657216'}
+                />
+
+                <Teammate
+                    id={2}
+                    name={'Owl352'}
+                    username={'owl352'}
+                    role={'Designer / Frontend dev'}
+                    photoSrc={'https://avatars.githubusercontent.com/u/64574305?v=4'}
+                    github={'https://github.com/alexeyandreevsky'}
+                    discord={'owl352'}
+                />
+
+                <Teammate
+                    id={2}
+                    name={'Designer'}
+                    username={'designer'}
+                    role={'UX designer'}
+                    photoSrc={'https://avatars.githubusercontent.com/u/91994843?v=4'}
+                    github={'https://github.com/blackmirrordesigner'}
+                    discord={'blackmirrordesigner'}
+                />
+
+                <Teammate
+                    id={2}
+                    name={'Den Kravchu'}
+                    username={'designer'}
+                    role={'Frontend dev'}
+                    photoSrc={'https://avatars.githubusercontent.com/u/58281610?v=4'}
+                    github={'https://github.com/denkravchu'}
+                    discord={'blackmirrordesigner'}
                 />
 
             </div>

@@ -5,14 +5,9 @@ import './ServiceListItem.scss'
 
 const defaultServicesList = [
     {
-      title: 'ElectrumX Dash [use copy link address]',
+      title: 'ElectrumX Dash',
       description: 'Electrum Dash is a lightweight wallet that allows you to send, receive and mix Dash without downloading blockchain. It distributes for Linux, Mac, Windows and Android devices.',
       link: 'https://electrum-dash.com'
-    },
-    {
-      title: 'ElectrumX Dash Testnet [use copy link address]',
-      description: 'Electrum Dash is a lightweight wallet that allows you to send, receive and mix Dash without downloading blockchain. It distributes for Linux, Mac, Windows and Android devices.',
-      link: 'dash-electrum-testnet.pshenmic.dev:50002'
     },
     {
       title: 'Platform Explorer (testnet)',
@@ -29,8 +24,8 @@ const defaultServicesList = [
 
 function ServicesList ({servicesList = defaultServicesList}) {
     const [openedItem, setOpenedItem] = useState(null);
-    
-    const ListItems = servicesList.map((service, id) => 
+
+    const ListItems = servicesList.map((service, id) =>
         <m.div
             key={'service' + id}
             initial={{ y: 30, opacity: 0 }}
@@ -51,14 +46,14 @@ function ServicesList ({servicesList = defaultServicesList}) {
             <m.div
               key={'service'}
             >
-              <Service 
-                service = { servicesList[openedItem] } 
+              <Service
+                service = { servicesList[openedItem] }
                 closeHandler = { () => setOpenedItem(null) }
               />
             </m.div>)
           }
-          
-          { openedItem === null && ( 
+
+          { openedItem === null && (
             <m.div
               key={'servicesList'}
               className='ServicesList'
