@@ -1,6 +1,6 @@
 import './Updates.scss'
 import Post from './Post.js'
-import { PostTypeEnum } from '../../enums/postTypeEnum'
+import { PostTypeEnum } from '@/enums/postTypeEnum'
 
 const posts = [
     {
