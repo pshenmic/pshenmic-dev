@@ -16,6 +16,7 @@ function Team () {
                     name={'Mikhail'}
                     username={'pshenmic'}
                     role={'Lead / Coder'}
+                    gpg={"A0CE DD79 11C6 3ACB 60D3  8648 9468 3166 E328 0A61"}
                     photoSrc={'https://avatars.githubusercontent.com/u/17009187?v=4'}
                     github={'https://github.com/pshenmic'}
                     twitter={'https://twitter.com/pshenmic'}
