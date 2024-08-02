@@ -5,7 +5,7 @@ import { PostTypeEnum } from '@/enums/postTypeEnum'
 const posts = [
     {
         content: 'Validators finally arrived on the Platform Explorer. You can see active masternodes and their proposed blocks.',
-        imgSrc: '',
+        imgSrc: 'assets/img/pe_validators.jpg',
         externalLink: 'https://platform-explorer.com/validators',
         type: PostTypeEnum.STATIC,
         date: '08.07.2024'
