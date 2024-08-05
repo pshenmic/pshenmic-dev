@@ -37,7 +37,7 @@ function Team () {
                     id={2}
                     name={'Owl352'}
                     username={'owl352'}
-                    role={'Designer / Frontend dev'}
+                    role={'Backend dev'}
                     photoSrc={'https://avatars.githubusercontent.com/u/64574305?v=4'}
                     github={'https://github.com/alexeyandreevsky'}
                     discord={'owl352'}
