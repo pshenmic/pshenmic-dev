@@ -66,6 +66,7 @@ function Team () {
 
                 {data.map((_, idx) => (
                     <Teammate
+                        key={idx}
                         id={idx}
                         name={_.name}
                         username={_.username}
