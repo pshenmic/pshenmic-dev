@@ -1,6 +1,7 @@
 import './Updates.scss'
 import Post from './Post.js'
 import { PostTypeEnum } from '@/enums/postTypeEnum'
+import { useMemo } from 'react'
 
 const posts = [
     {
@@ -83,13 +84,13 @@ const posts = [
 ]
 
 function Updates () {
-    const ListItems = posts.map((post, id) =>
+    const ListItems = useMemo(() => posts.map((post, id) =>
         <Post
             key={'post' + id}
             post = {post}
             id={id}
         />
-    )
+    ), [posts])
 
     return (
         <div

@@ -42,6 +42,13 @@
         }
     }
 
+    small {
+        font-size: 10px;
+        margin-top: 16px;
+        display: inline-block;
+        color: #A7A7A7;
+    }
+
     @media screen and ( max-width: 680px) {
         &__Content {
             font-size: 14px;
