@@ -30,9 +30,14 @@
 
     &__Gpg {
         font-size: 8px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
         line-height: 120%;
-        color: #A7A7A7;
+        color: #94363C;
+        display: inline-block;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     &__Username {
