@@ -39,8 +39,8 @@ function Team () {
                     username={'owl352'}
                     role={'Backend dev'}
                     photoSrc={'https://avatars.githubusercontent.com/u/64574305?v=4'}
-                    github={'https://github.com/alexeyandreevsky'}
-                    discord={'owl352'}
+                    github={'https://github.com/owl352'}
+                    discord={'https://discordapp.com/users/489364520251162627'}
                 />
 
                 <Teammate
@@ -50,7 +50,7 @@ function Team () {
                     role={'UX designer'}
                     photoSrc={'https://avatars.githubusercontent.com/u/91994843?v=4'}
                     github={'https://github.com/blackmirrordesigner'}
-                    discord={'blackmirrordesigner'}
+                    discord={'https://discordapp.com/users/593372910794571776'}
                 />
 
                 <Teammate
@@ -60,7 +60,7 @@ function Team () {
                     role={'Frontend dev'}
                     photoSrc={'https://avatars.githubusercontent.com/u/58281610?v=4'}
                     github={'https://github.com/denkravchu'}
-                    discord={'blackmirrordesigner'}
+                    discord={'https://discordapp.com/users/926201806487437352'}
                 />
 
             </div>
