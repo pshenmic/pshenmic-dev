@@ -31,7 +31,7 @@ const Menu = ({ selectItemCallback, defaultItem }) => {
 
   useEffect(() => {
     selectItemCallback(activeItem)
-  }, [activeItem])
+  }, [activeItem, selectItemCallback])
 
   return (
     <m.div

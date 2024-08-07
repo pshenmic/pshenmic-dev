@@ -101,7 +101,7 @@ const CodeText = ({ category = '' }) => {
         return newState
       })
     }, [frameTime])
-  }, [state])
+  }, [state, category])
 
   return <div dangerouslySetInnerHTML={{ __html: state.currentText }}></div>
 }
