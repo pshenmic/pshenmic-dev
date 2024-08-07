@@ -4,7 +4,6 @@ import Project from './Project'
 import { motion as m, AnimatePresence } from 'framer-motion'
 import './ProjectsList.scss'
 
-
 const defaultProjectsList = [
   {
     title: 'Electrum Dash',
@@ -36,38 +35,33 @@ const defaultProjectsList = [
   }
 ]
 
-export default function ProjectsList ({projects = defaultProjectsList }) {
-  const [openedItem, setOpenedItem] = useState(null);
+export default function ProjectsList ({ projects = defaultProjectsList }) {
+  const [openedItem, setOpenedItem] = useState(null)
 
   const ListItems = projects.map((project, id) =>
     <ProjectListItem
       key={'project' + id}
       id={id}
-      project = {project}
-      hidden = {openedItem !== null && openedItem !== id}
-      openHandler = {  () => setOpenedItem(id)  }
+      project={project}
+      hidden={openedItem !== null && openedItem !== id}
+      openHandler = {() => setOpenedItem(id)}
     />
   )
 
   return (
-    <AnimatePresence  mode="wait">
-      { openedItem !== null && (
-        <m.div
-          key={'project'}
-        >
+    <AnimatePresence mode={'wait'}>
+      {openedItem !== null && (
+        <m.div key={'project'}>
           <Project
-            project = { projects[openedItem] }
-            closeHandler = { () => setOpenedItem(null) }
+            project={projects[openedItem]}
+            closeHandler={() => setOpenedItem(null)}
           />
-        </m.div>)
-      }
+        </m.div>
+      )}
 
-      { openedItem === null && (
-        <m.div
-          key={'projectsList'}
-          className='ProjectsList'
-        >
-            {ListItems}
+      {openedItem === null && (
+        <m.div key={'projectsList'} className='ProjectsList'>
+          {ListItems}
         </m.div>
       )}
     </AnimatePresence>
