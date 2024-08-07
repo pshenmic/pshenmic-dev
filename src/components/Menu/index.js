@@ -1,7 +1,7 @@
-import './Menu.scss'
 import React, { useState, useEffect } from 'react'
 import { motion as m } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import './Menu.scss'
 
 const menuItems = [
   {
@@ -45,12 +45,12 @@ const Menu = ({ selectItemCallback, defaultItem }) => {
       <div className={'Menu__Items'}>
         {menuItems.map((link) =>
           <m.div
-              key={'menuitem' + link.id}
-              className={`Menu__Item ${activeItem === link.id ? 'active' : ''}`}
-              onClick={() => setAtiveItem(link.id)}
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1 / 5 }}
+            key={'menuitem' + link.id}
+            className={`Menu__Item ${activeItem === link.id ? 'active' : ''}`}
+            onClick={() => setAtiveItem(link.id)}
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 / 5 }}
           >
             <Link to={link.href}><span>{link.title}</span></Link>
           </m.div>

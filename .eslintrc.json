@@ -2,5 +2,23 @@
   "extends": [
     "eslint-config-standard", 
     "next/core-web-vitals"
+  ],
+  "rules": {
+    "no-mixed-operators": "off" // Отключение правила no-mixed-operators
+  },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        // Установка всех предупреждений на уровень ошибок
+        "no-console": "error",
+        "no-debugger": "error",
+        "no-warning-comments": ["error", { "terms": ["todo", "fixme"], "location": "start" }],
+        "semi": "error",
+        "quotes": ["error", "single"],
+        "comma-dangle": ["error", "never"]
+        // Добавьте сюда другие правила, которые должны быть на уровне ошибки
+      }
+    }
   ]
 }  

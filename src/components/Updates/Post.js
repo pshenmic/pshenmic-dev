@@ -17,11 +17,11 @@ function Post ({ post, id }) {
 
     return (
       <Link
-          href={post.externalLink}
-          className={'Post__ContentWrapper'}
-          target={'_blank'}
+        href={post.externalLink}
+        className={'Post__ContentWrapper'}
+        target={'_blank'}
       >
-          {children}
+        {children}
       </Link>
     )
   }
@@ -40,15 +40,15 @@ function Post ({ post, id }) {
     >
       <ContentWrapper>
         {(post.imgSrc &&
-            <div className={'Post__ImageContainer'}>
-                <img src={post.imgSrc}/>
-            </div>
+          <div className={'Post__ImageContainer'}>
+            <img src={post.imgSrc}/>
+          </div>
         )}
         <div className={'Post__ContentContainer'}>
-            <div
-                className={'Post__Content'}
-                dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+          <div
+            className={'Post__Content'}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
         </div>
       </ContentWrapper>
     </m.div>
