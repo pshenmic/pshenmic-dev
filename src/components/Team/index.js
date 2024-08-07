@@ -29,33 +29,33 @@ function Team () {
         />
 
         <Teammate
-          id={2}
-          name={'Owl352'}
-          username={'owl352'}
-          role={'Designer / Frontend dev'}
-          photoSrc={'https://avatars.githubusercontent.com/u/64574305?v=4'}
-          github={'https://github.com/alexeyandreevsky'}
-          discord={'owl352'}
+            id={2}
+            name={'Owl352'}
+            username={'owl352'}
+            role={'Backend dev'}
+            photoSrc={'https://avatars.githubusercontent.com/u/64574305?v=4'}
+            github={'https://github.com/owl352'}
+            discord={'https://discordapp.com/users/489364520251162627'}
         />
 
         <Teammate
-          id={2}
-          name={'Designer'}
-          username={'designer'}
-          role={'UX designer'}
-          photoSrc={'https://avatars.githubusercontent.com/u/91994843?v=4'}
-          github={'https://github.com/blackmirrordesigner'}
-          discord={'blackmirrordesigner'}
+            id={2}
+            name={'Designer'}
+            username={'designer'}
+            role={'UX designer'}
+            photoSrc={'https://avatars.githubusercontent.com/u/91994843?v=4'}
+            github={'https://github.com/blackmirrordesigner'}
+            discord={'https://discordapp.com/users/593372910794571776'}
         />
 
         <Teammate
-          id={2}
-          name={'Den Kravchu'}
-          username={'designer'}
-          role={'Frontend dev'}
-          photoSrc={'https://avatars.githubusercontent.com/u/58281610?v=4'}
-          github={'https://github.com/denkravchu'}
-          discord={'blackmirrordesigner'}
+            id={2}
+            name={'Den Kravchu'}
+            username={'designer'}
+            role={'Frontend dev'}
+            photoSrc={'https://avatars.githubusercontent.com/u/58281610?v=4'}
+            github={'https://github.com/denkravchu'}
+            discord={'https://discordapp.com/users/926201806487437352'}
         />
       </div>
     </m.div>
