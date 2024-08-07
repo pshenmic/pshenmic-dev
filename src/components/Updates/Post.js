@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion as m } from 'framer-motion'
 import { PostTypeEnum } from '../../enums/postTypeEnum'
 import './Post.scss'
@@ -41,7 +42,7 @@ function Post ({ post, id }) {
       <ContentWrapper>
         {(post.imgSrc &&
           <div className={'Post__ImageContainer'}>
-            <img src={post.imgSrc}/>
+            <Image alt={''} src={post.imgSrc} width={300} height={300}/>
           </div>
         )}
         <div className={'Post__ContentContainer'}>

@@ -1,4 +1,5 @@
 import { motion as m } from 'framer-motion'
+import Image from 'next/image'
 import './ProjectListItem.scss'
 
 function ProjectListItem ({ project, openHandler, id }) {
@@ -16,7 +17,7 @@ function ProjectListItem ({ project, openHandler, id }) {
       transition={{ duration: 0.5, delay: id / 10 }}
     >
       <div className={'ProjectListItem__ImageContainer'}>
-        <img src={project.imgSrc}/>
+        <Image alt={project.title || ''} src={project.imgSrc} width={300} height={300}/>
       </div>
       <div className={'ProjectListItem__ContentContainer'}>
         <div className={'ProjectListItem__Title'}>{project.title}</div>

@@ -1,5 +1,6 @@
 'use client'
 
+import './App.scss'
 import { useState, useEffect } from 'react'
 import Menu from '../components/Menu'
 import CommandLine from '../components/CommandLine/CommandLine'
@@ -9,7 +10,6 @@ import ProjectsList from '../components/Projects/ProjectsList'
 import Team from '../components/Team'
 import { motion as m, AnimatePresence } from 'framer-motion'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.scss'
 
 const defaultContent = 'updates'
 

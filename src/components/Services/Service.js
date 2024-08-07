@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion as m } from 'framer-motion'
 import './Service.scss'
 
@@ -16,7 +17,7 @@ function Service ({ service, closeHandler }) {
 
       {(service.imgSrc &&
         <div className={'Service__ImageContainer'}>
-          <img src={service.imgSrc}/>
+          <Image alt={service?.title || ''} src={service.imgSrc} width={300} height={300}/>
         </div>
       )}
 

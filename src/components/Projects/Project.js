@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion as m } from 'framer-motion'
 import './Project.scss'
 
@@ -16,7 +17,7 @@ function Project ({ project, closeHandler }) {
 
       {(project.imgSrc &&
         <div className={'Project__ImageContainer'}>
-          <img src={project.imgSrc}/>
+          <Image alt={project.title || ''} src={project.imgSrc} width={300} height={300}/>
         </div>
       )}
 

@@ -5,7 +5,7 @@ import './Updates.scss'
 const posts = [
   {
     content: 'Validators finally arrived on the Platform Explorer. You can see active masternodes and their proposed blocks.',
-    imgSrc: 'assets/img/pe_validators.jpg',
+    imgSrc: '/assets/img/pe_validators.jpg',
     externalLink: 'https://platform-explorer.com/validators',
     type: PostTypeEnum.STATIC,
     date: '08.07.2024'
@@ -75,7 +75,7 @@ const posts = [
   },
   {
     content: 'How to install Dashmate on Ubuntu',
-    imgSrc: '//img.youtube.com/vi/' + '_aQF46s12HI' + '/0.jpg',
+    imgSrc: 'https://img.youtube.com/vi/' + '_aQF46s12HI' + '/0.jpg',
     externalLink: 'https://www.youtube.com/watch?v=_aQF46s12HI',
     date: '21.11.2023',
     type: PostTypeEnum.YOUTUBE

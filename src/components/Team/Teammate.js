@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { motion as m } from 'framer-motion'
+import Image from 'next/image'
 import './Teammate.scss'
 
 function Teammate ({ name, username, role, photoSrc, discord, github, twitter, id }) {
@@ -16,7 +17,7 @@ function Teammate ({ name, username, role, photoSrc, discord, github, twitter, i
       transition={{ duration: 0.5, delay: id / 10 }}
     >
       <div className={'Teammate__ImageContainer'}>
-        <img src={photoSrc}/>
+        <Image alt={name || ''} src={photoSrc} width={300} height={300}/>
       </div>
 
       <div className={'Teammate__ContentContainer'}>
