@@ -5,9 +5,17 @@
 
     position: relative;
     height: auto;
+    width: 100%;
 
     &__ContentWrapper {
         display: flex;
+    }
+
+    &__WrapperEditButton {
+        position: absolute;
+        top: 8px;
+        right: 14px;
+        z-index: 10;
     }
 
     &::after {

@@ -46,6 +46,17 @@
         margin-top: 20px;
     }
 
+    &__WrapperEditButton {
+        position: absolute;
+        top: 8px;
+        right: 14px;
+        z-index: 10;
+
+        @media screen and ( max-width: 1220px ) {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    }
+
     &__SocialLink {
         display: block;
         background-repeat: no-repeat;

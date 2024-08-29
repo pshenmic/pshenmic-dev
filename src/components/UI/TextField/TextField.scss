@@ -1,0 +1,53 @@
+@import '../../../assets/styles/mixins.scss';
+
+.TextField {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    > p {
+        font-size: 18px;
+        color: #8F8F8F;
+
+        @media screen and ( max-width: 1024px ) {
+            font-size: 14px;
+        }
+
+        @media screen and ( max-width: 600px ) {
+            font-size: 10px;
+        }
+
+        > span {
+            color: #7D0000;
+        }
+    }
+
+    > input, textarea {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        padding: 19px 16px;
+        background-color: #181818;
+        font-size: 16px;
+        font-family: 'Press Start 2P';
+        font-weight: 400;
+        color: #fff;
+        line-height: 110%;
+
+        @media screen and ( max-width: 1024px ) {
+            padding: 12px;
+        }
+
+        @media screen and ( max-width: 600px ) {
+            font-size: 16px;
+        }
+    }
+}
+
+.TextFieldError {
+    > input, textarea {
+        border: 1px solid #fe5858 !important;
+    }
+}

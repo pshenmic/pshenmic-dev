@@ -1,3 +1,20 @@
+
+.ServiceListItemAdmin {
+    min-height: 70px;
+    margin-bottom: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding-right: 40px !important;
+}
+
+.ServicesList {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .ServiceListItem {
     display: block;
     font-size: 18px;
@@ -8,6 +25,14 @@
     overflow: hidden;
     line-height: 1.3em;
 
+    &__WrapperEditButton {
+        position: absolute;
+        top: 50%;
+        transform: translate(0%, -50%);
+        right: 14px;
+        z-index: 10;
+    }
+
     &:hover {
         cursor: pointer;
     }
@@ -17,11 +42,13 @@
     }
 
     &:hover {
-        padding-left: 66px;
+        @media screen and ( min-width: 480px ) {
+            padding-left: 66px;
         
-        &::before {
-            opacity: 1;
-            left: 16px;
+            &::before {
+                opacity: 1;
+                left: 16px;
+            }
         }
 
         &:after {

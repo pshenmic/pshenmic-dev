@@ -1,10 +1,14 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import useGlobalStore from '@/store/store'
+import EditButton from '../UI/Button/EditButton/EditButton'
 import { motion as m } from 'framer-motion'
 import { PostTypeEnum } from '../../enums/postTypeEnum'
 import './Post.scss'
 
-function Post ({ post, id }) {
+function Post ({ post, id, handleClick }) {
+  const admin = useGlobalStore(state => state.admin)
+
   const postClassMapping = {
     [PostTypeEnum.STATIC]: 'Post Post--static',
     [PostTypeEnum.TWITTER]: 'Post Post--twitter',
@@ -39,6 +43,11 @@ function Post ({ post, id }) {
       }}
       transition={{ duration: 0.5, delay: id / 10 }}
     >
+      { admin ?
+        <div className={'Post__WrapperEditButton'}>
+          <EditButton handleClick={handleClick}/>
+        </div>
+      : null }
       <ContentWrapper>
         {(post.imgSrc &&
           <div className={'Post__ImageContainer'}>
