@@ -1,5 +1,5 @@
 export const PostTypeEnum = {
-    STATIC: 'STATIC',
-    TWITTER: 'TWITTER',
-    YOUTUBE: 'YOUTUBE'
-};
+  STATIC: 'STATIC',
+  TWITTER: 'TWITTER',
+  YOUTUBE: 'YOUTUBE'
+}

@@ -1,7 +1,6 @@
-import { useState, useEffect, React } from 'react';
+import { useState, useEffect, React } from 'react'
 import { motion as m } from 'framer-motion'
 import './CommandLine.scss'
-
 
 const code = {
   projects: [
@@ -23,10 +22,10 @@ const code = {
     'blablalba',
     'Time to read Twitter!... Oh sorry, more precisely X!',
     'OMG! New post!'
-  ],
+  ]
 }
 
-const CodeText = ({category = ''}) => {
+const CodeText = ({ category = '' }) => {
   const finalAwaitTimes = 10
 
   const [state, setState] = useState({
@@ -37,60 +36,48 @@ const CodeText = ({category = ''}) => {
     activeFunctionId: 0,
     awaiting: false,
     direction: true
-  });
+  })
 
-  useEffect(()=> setState( state=> ({
-      ...state,
-      direction: !state.currentText.length > 0,
-      awaiting: false,
-    }
-  )), [category])
+  useEffect(() => setState(state => ({
+    ...state,
+    direction: !state.currentText.length > 0,
+    awaiting: false
+  })), [category])
 
   useEffect(() => {
-
     const frameTime = (() => {
-
       if (state.awaiting) return 1000
-
       if (!state.direction) return 25
-
       if (state.tik % 3 === 0 || state.tik % 4 === 0) return 200
-
       return 10
-
     })()
 
     setTimeout(() => {
-
-      setState(({currentText, rest, activeFunctionId, direction, codeCategory, tik}) => {
+      setState(({ currentText, rest, activeFunctionId, direction, codeCategory, tik }) => {
         const newState = {
-          currentText: currentText,
-          rest: rest,
-          codeCategory: codeCategory,
+          currentText,
+          rest,
+          codeCategory,
           tik: tik + 1,
-          activeFunctionId: activeFunctionId,
+          activeFunctionId,
           awaiting: tik > rest.length && tik < rest.length + finalAwaitTimes && direction === true,
-          direction: direction
+          direction
         }
 
         if (direction) { // print text
+          if (tik < rest.length) {
+            newState.currentText = newState.currentText + (rest[tik] !== '\n' ? rest[tik] : '<br/>')
+          } else if (currentText[currentText.length - 1] === '_') {
+            newState.currentText = currentText.slice(0, -1)
+          } else {
+            newState.currentText = newState.currentText + '_'
+          }
 
-          newState.currentText = (() => {
-
-            if (tik < rest.length) return newState.currentText += rest[tik] !== '\n' ? rest[tik] : '<br/>'
-
-            if (currentText[currentText.length - 1] === '_') return newState.currentText = currentText.slice(0, -1)
-
-            return newState.currentText += '_'
-
-          })()
-
-          if (tik > rest.length + finalAwaitTimes && newState.currentText.length > 0 || codeCategory !== category) { // rename category to 'activeCategory' or something like this
+          if ((tik > rest.length + finalAwaitTimes && newState.currentText.length > 0) || codeCategory !== category) { // Изменено
             newState.direction = false
           }
 
           return newState
-
         }
 
         // earth text
@@ -101,7 +88,6 @@ const CodeText = ({category = ''}) => {
         if (currentText.length === 0) { // setting new code function
           newState.direction = true
           newState.tik = 0
-
           newState.activeFunctionId = code[category][activeFunctionId + 1] !== undefined ? activeFunctionId + 1 : 0
 
           if (newState.codeCategory !== category) {
@@ -113,30 +99,26 @@ const CodeText = ({category = ''}) => {
         }
 
         return newState
+      })
+    }, [frameTime])
+  }, [state, category])
 
-      }); // setState
-
-    }, [frameTime]); // setInterval
-
-  }, [state])
-
-
-  return <div dangerouslySetInnerHTML={{__html: state.currentText}}></div>
+  return <div dangerouslySetInnerHTML={{ __html: state.currentText }}></div>
 }
 
-const CommandLine = ({category = 'services'}) => (
+const CommandLine = ({ category = 'services' }) => (
   <m.div
-    className='CommandLine'
+    className={'CommandLine'}
     initial={{ height: 0, opacity: 0 }}
-    animate={{ height: 'auto', opacity: 1}}
-    transition={{ duration: 0.5, delay: .5 }}
+    animate={{ height: 'auto', opacity: 1 }}
+    transition={{ duration: 0.5, delay: 0.5 }}
   >
-    <div className='CommandLine__Title'>letscode</div>
+    <div className={'CommandLine__Title'}>letscode</div>
 
-    <div className='CommandLine__StageContainer'>
+    <div className={'CommandLine__StageContainer'}>
       <CodeText category={category}/>
     </div>
   </m.div>
-);
+)
 
-export default CommandLine;
+export default CommandLine
