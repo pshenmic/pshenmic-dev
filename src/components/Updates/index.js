@@ -1,5 +1,6 @@
 import Post from './Post.js'
 import { PostTypeEnum } from '@/enums/postTypeEnum'
+import { useMemo } from 'react'
 import './Updates.scss'
 
 const posts = [
