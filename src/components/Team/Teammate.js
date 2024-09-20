@@ -3,7 +3,7 @@ import { motion as m } from 'framer-motion'
 import Image from 'next/image'
 import './Teammate.scss'
 
-function Teammate ({ name, username, role, photoSrc, discord, github, twitter, id }) {
+function Teammate ({ name, username, role, photoSrc, discord, github, twitter, gpg, id }) {
   return (
     <m.div
       className={'Teammate'}
@@ -25,6 +25,14 @@ function Teammate ({ name, username, role, photoSrc, discord, github, twitter, i
           <div className={'Teammate__Name'}>{name}</div>
           <div className={'Teammate__Username'}>@{username}</div>
         </div>
+
+        {gpg && <a
+          href={gpg.link}
+          aria-label='Download Finger Print'
+          className='Teammate__Gpg'
+        >
+          GPG: { gpg.message }
+        </a>}
 
         <div className={'Teammate__Description'}>{role}</div>
 

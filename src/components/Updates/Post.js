@@ -50,6 +50,7 @@ function Post ({ post, id }) {
             className={'Post__Content'}
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+          <small>{ post.date }</small>
         </div>
       </ContentWrapper>
     </m.div>
