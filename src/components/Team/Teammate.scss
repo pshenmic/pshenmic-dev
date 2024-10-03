@@ -28,6 +28,18 @@
         display: inline-block;
     }
 
+    &__Gpg {
+        font-size: 8px;
+        margin-bottom: 12px;
+        line-height: 120%;
+        color: #94363C;
+        display: inline-block;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
     &__Username {
         display: inline-block;
         font-size: 14px;
@@ -126,7 +138,7 @@
         }
 
         &__Title {
-            margin-bottom: 14px;
+            margin-bottom: 10px;
         }
 
         &__Username {

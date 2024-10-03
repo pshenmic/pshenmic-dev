@@ -5,7 +5,7 @@ import useGlobalStore from '@/store/store'
 import EditButton from '../UI/Button/EditButton/EditButton'
 import './Teammate.scss'
 
-function Teammate ({ name, username, role, photoSrc, discord, github, twitter, id, handleClick }) {
+function Teammate ({ name, username, role, photoSrc, discord, github, twitter, gpg, id, handleClick }) {
   const admin = useGlobalStore(state => state.admin)
 
   return (
@@ -34,6 +34,14 @@ function Teammate ({ name, username, role, photoSrc, discord, github, twitter, i
           <div className={'Teammate__Name'}>{name}</div>
           <div className={'Teammate__Username'}>@{username}</div>
         </div>
+
+        {gpg && <a
+          href={gpg.link}
+          aria-label='Download Finger Print'
+          className='Teammate__Gpg'
+        >
+          GPG: { gpg.message }
+        </a>}
 
         <div className={'Teammate__Description'}>{role}</div>
 

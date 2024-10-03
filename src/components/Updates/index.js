@@ -5,6 +5,7 @@ import useGlobalStore from '@/store/store.js'
 import { useCallback } from 'react'
 import { PostTypeEnum } from '@/enums/postTypeEnum'
 import ActionButtons from '../UI/Button/ActionButtons/ActionButtons.js'
+import { useMemo } from 'react'
 import './Updates.scss'
 
 const posts = [
@@ -90,10 +91,12 @@ const posts = [
 function Updates () {
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const admin = useGlobalStore(state => state.admin)
-
   const openEditingWindow = useCallback(() => {
     setOpenEditingWindow(true)
   }, [setOpenEditingWindow])
+  const ListItems = useMemo(() => posts.map((post, id) =>
+    <Post key={'post' + id} post = {post} id={id}/>
+  ), [posts])
 
   return (
     <div className={'Devspace'}>
