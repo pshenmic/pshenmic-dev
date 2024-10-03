@@ -1,6 +1,11 @@
 @import '../../assets/styles/mixins.scss';
 
 .Team {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
     &__TeammateList {
         @mixin columnsView {
             display: flex;
@@ -17,6 +22,10 @@
         }
     }
 
+    @media screen and ( max-width: 940px) {
+        gap: 20px;
+    }
+
     @media screen and ( max-width: 680px) {
         &__TeammateList {
             margin-bottom: -30px;
@@ -24,6 +33,7 @@
     }
 
     @media screen and ( max-width: 500px) {
+        gap: 15px;
         &__TeammateList {
             margin-bottom: 0;
         }

@@ -1,5 +1,8 @@
-import Teammate from './Teammate'
 import { motion as m } from 'framer-motion'
+import { useCallback } from 'react'
+import Teammate from './Teammate'
+import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
+import useGlobalStore from '@/store/store'
 import './Team.scss'
 
 const data = [
@@ -59,6 +62,13 @@ const data = [
 ]
 
 function Team () {
+  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+  const admin = useGlobalStore(state => state.admin)
+
+  const openEditingWindow = useCallback(() => {
+    setOpenEditingWindow(true)
+  }, [])
+
   return (
     <m.div className={'Team'}>
       <div className={'Team__TeammateList'}>
@@ -74,9 +84,17 @@ function Team () {
             github={_.github}
             discord={_.discord}
             twitter={_.twitter}
+            handleClick={openEditingWindow}
           />
         ))}
       </div>
+      {admin
+        ? <ActionButtons
+          text={'Add to the team'}
+          ariaLabel={'Add to the team'}
+          handleClick={openEditingWindow}
+        />
+        : null}
     </m.div>
   )
 }

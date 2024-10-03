@@ -1,0 +1,14 @@
+@import '../../assets/styles/mixins.scss';
+
+.WrapperButton {
+    position: relative;
+    padding: 0px 64px;
+
+    @media screen and ( max-width: 1024px ) {
+        padding: 0px 32px;
+    }
+
+    @media screen and ( max-width: 600px ) {
+        padding: 0px 16px;
+    }
+}

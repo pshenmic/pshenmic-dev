@@ -77,6 +77,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
 }
 
 html,

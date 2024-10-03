@@ -1,9 +1,13 @@
-import Link from 'next/link'
 import { motion as m } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
+import useGlobalStore from '@/store/store'
+import EditButton from '../UI/Button/EditButton/EditButton'
 import './Teammate.scss'
 
-function Teammate ({ name, username, role, photoSrc, discord, github, twitter, gpg, id }) {
+function Teammate ({ name, username, role, photoSrc, discord, github, twitter, gpg, id, handleClick }) {
+  const admin = useGlobalStore(state => state.admin)
+
   return (
     <m.div
       className={'Teammate'}
@@ -16,6 +20,11 @@ function Teammate ({ name, username, role, photoSrc, discord, github, twitter, g
       }}
       transition={{ duration: 0.5, delay: id / 10 }}
     >
+      {admin
+        ? <div className={'Teammate__WrapperEditButton'}>
+            <EditButton handleClick={handleClick}/>
+          </div>
+        : null}
       <div className={'Teammate__ImageContainer'}>
         <Image alt={name || ''} src={photoSrc} width={300} height={300}/>
       </div>

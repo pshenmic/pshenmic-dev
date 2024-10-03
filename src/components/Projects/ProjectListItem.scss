@@ -1,5 +1,16 @@
 @import '../../assets/styles/mixins.scss';
 
 .ProjectListItem {
+    &__WrapperEditButton {
+        position: absolute;
+        top: 8px;
+        right: 14px;
+        z-index: 10;
+
+        @media screen and ( max-width: 580px ) {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    }
+    
     @include listItem;
 }

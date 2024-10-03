@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import ProjectListItem from './ProjectListItem'
 import Project from './Project'
 import { motion as m, AnimatePresence } from 'framer-motion'
 import './ProjectsList.scss'
+import useGlobalStore from '@/store/store'
+import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
 
 const defaultProjectsList = [
   {
@@ -37,6 +39,12 @@ const defaultProjectsList = [
 
 export default function ProjectsList ({ projects = defaultProjectsList }) {
   const [openedItem, setOpenedItem] = useState(null)
+  const admin = useGlobalStore(state => state.admin)
+  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+
+  const openEditingWindow = useCallback(() => {
+    setOpenEditingWindow(true)
+  }, [setOpenEditingWindow])
 
   const ListItems = projects.map((project, id) =>
     <ProjectListItem
@@ -44,7 +52,8 @@ export default function ProjectsList ({ projects = defaultProjectsList }) {
       id={id}
       project={project}
       hidden={openedItem !== null && openedItem !== id}
-      openHandler = {() => setOpenedItem(id)}
+      openHandler={() => setOpenedItem(id)}
+      openEditor={openEditingWindow}
     />
   )
 
@@ -60,8 +69,15 @@ export default function ProjectsList ({ projects = defaultProjectsList }) {
       )}
 
       {openedItem === null && (
-        <m.div key={'projectsList'} className='ProjectsList'>
+        <m.div key={'projectsList'} className={'ProjectsList'}>
           {ListItems}
+          {admin && openedItem === null
+            ? <ActionButtons
+              text={'add Project'}
+              ariaLabel={'add Project '}
+              handleClick={openEditingWindow}
+            />
+            : null}
         </m.div>
       )}
     </AnimatePresence>

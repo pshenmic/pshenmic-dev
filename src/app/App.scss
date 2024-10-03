@@ -61,12 +61,6 @@ body {
         justify-content: space-between;
     }
 
-    &__Content {
-        position: relative;
-        width: 60%;
-        height: 100%;
-    }
-
     @media screen and ( max-width: 1700px) {
         &__Sidebar {
             width: calc(40% - 50px);
@@ -104,32 +98,3 @@ body {
         }
     }
 }
-
-.ContentBlock {
-    padding: 50px;
-    border: 1px solid rgba(0, 117, 255, 0.35);
-    background: rgba(0, 117, 255, 0.01);
-    backdrop-filter: blur(15px);
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    &__Title {
-        font-size: 24px;
-    }
-
-    @media screen and ( max-width: 1500px) {
-        padding: 30px;
-    }
-
-    @media screen and ( max-width: $width-tablet) {
-        width: 100%;
-        overflow: unset;
-    }
-
-    @media screen and ( max-width: 420px) {
-        padding: 20px;
-    }
-}
-
-
