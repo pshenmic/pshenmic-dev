@@ -24,7 +24,7 @@ const defaultServicesList = [
   }
 ]
 
-function ServicesList({ servicesList = defaultServicesList }) {
+function ServicesList ({ servicesList = defaultServicesList }) {
   const [openedItem, setOpenedItem] = useState(null)
   const admin = useGlobalStore(state => state.admin)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
@@ -40,13 +40,13 @@ function ServicesList({ servicesList = defaultServicesList }) {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: id / 10 }}
       id={id}
-      style={{width: '100%'}}
+      style={{ width: '100%' }}
     >
       <div className={`ServiceListItem ${admin ? 'ServiceListItemAdmin' : null}`} onClick={(e) => setOpenedItem(id)}>
-        {admin ?
-          <div className={'ServiceListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
-            <EditButton handleClick={openEditingWindow} type={'buttom'} />
-          </div>
+        {admin
+          ? <div className={'ServiceListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
+              <EditButton handleClick={openEditingWindow} type={'buttom'} />
+            </div>
           : null}
         <div className={'ServiceListItem__Title'}>{service.title}</div>
       </div>
@@ -54,7 +54,7 @@ function ServicesList({ servicesList = defaultServicesList }) {
   )
 
   return (
-    <AnimatePresence mode={"wait"}>
+    <AnimatePresence mode={'wait'}>
       {openedItem !== null && (
         <m.div key={'service'}>
           <Service

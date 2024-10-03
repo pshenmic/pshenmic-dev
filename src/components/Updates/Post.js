@@ -43,11 +43,11 @@ function Post ({ post, id, handleClick }) {
       }}
       transition={{ duration: 0.5, delay: id / 10 }}
     >
-      { admin ?
-        <div className={'Post__WrapperEditButton'}>
+      {admin
+        ? <div className={'Post__WrapperEditButton'}>
           <EditButton handleClick={handleClick}/>
         </div>
-      : null }
+        : null}
       <ContentWrapper>
         {(post.imgSrc &&
           <div className={'Post__ImageContainer'}>

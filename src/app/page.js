@@ -23,7 +23,6 @@ export default function App () {
   useEffect(() => {
     const hasAdminAccess = localStorage.getItem('isAdminPshenmic')
     const isAdminPath = path.includes('admin')
-  
     setOpenAdminAccessPopup(isAdminPath && !hasAdminAccess)
     setAdmin(isAdminPath && !!hasAdminAccess)
   }, [path, openAdminAccessPopup])
@@ -33,8 +32,8 @@ export default function App () {
     const dataClear = localStorage.getItem('dataClear')
     const now = new Date()
     // localStorage.clear()
-    if ( dataClear && now.getTime() >= dataClear) {
-        localStorage.clear()
+    if (dataClear && now.getTime() >= dataClear) {
+      localStorage.clear()
     }
 
     const pathArray = window.location.pathname.split('/').slice(1)

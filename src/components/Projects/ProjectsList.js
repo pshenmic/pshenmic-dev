@@ -5,7 +5,6 @@ import { motion as m, AnimatePresence } from 'framer-motion'
 import './ProjectsList.scss'
 import useGlobalStore from '@/store/store'
 import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
-import EditButton from '../UI/Button/EditButton/EditButton'
 
 const defaultProjectsList = [
   {
@@ -38,7 +37,7 @@ const defaultProjectsList = [
   }
 ]
 
-export default function ProjectsList({ projects = defaultProjectsList }) {
+export default function ProjectsList ({ projects = defaultProjectsList }) {
   const [openedItem, setOpenedItem] = useState(null)
   const admin = useGlobalStore(state => state.admin)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)

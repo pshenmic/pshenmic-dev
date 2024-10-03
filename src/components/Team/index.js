@@ -61,7 +61,7 @@ const data = [
   }
 ]
 
-function Team() {
+function Team () {
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const admin = useGlobalStore(state => state.admin)
 

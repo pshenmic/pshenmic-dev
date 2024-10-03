@@ -20,11 +20,11 @@ function Teammate ({ name, username, role, photoSrc, discord, github, twitter, g
       }}
       transition={{ duration: 0.5, delay: id / 10 }}
     >
-      { admin ?
-        <div className={'Teammate__WrapperEditButton'}>
-          <EditButton handleClick={handleClick}/>
-        </div>
-      : null }
+      {admin
+        ? <div className={'Teammate__WrapperEditButton'}>
+            <EditButton handleClick={handleClick}/>
+          </div>
+        : null}
       <div className={'Teammate__ImageContainer'}>
         <Image alt={name || ''} src={photoSrc} width={300} height={300}/>
       </div>

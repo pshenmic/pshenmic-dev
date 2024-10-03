@@ -20,10 +20,10 @@ function ProjectListItem ({ project, openHandler, id, openEditor }) {
       }}
       transition={{ duration: 0.5, delay: id / 10 }}
     >
-       { admin ?
-          <div className={'ProjectListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
-            <EditButton handleClick={openEditor} type={'buttom'}/>
-          </div>
+      {admin
+        ? <div className={'ProjectListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
+          <EditButton handleClick={openEditor} type={'buttom'}/>
+        </div>
         : null }
       <div className={'ProjectListItem__ImageContainer'}>
         <Image alt={project.title || ''} src={project.imgSrc} width={300} height={300}/>
