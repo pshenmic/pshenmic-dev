@@ -1,6 +1,10 @@
+'use client'
+
 import Post from './Post.js'
+import useGlobalStore from '@/store/store.js'
+import { useCallback } from 'react'
 import { PostTypeEnum } from '@/enums/postTypeEnum'
-import { useMemo } from 'react'
+import ActionButtons from '../UI/Button/ActionButtons/ActionButtons.js'
 import './Updates.scss'
 
 const posts = [
@@ -84,13 +88,24 @@ const posts = [
 ]
 
 function Updates () {
-  const ListItems = useMemo(() => posts.map((post, id) =>
-    <Post key={'post' + id} post = {post} id={id}/>
-  ), [posts])
+  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+  const admin = useGlobalStore(state => state.admin)
+  const openEditingWindow = useCallback(() => {
+    setOpenEditingWindow(true)
+  }, [setOpenEditingWindow])
 
   return (
     <div className={'Devspace'}>
-      {ListItems}
+      { posts.map((post, id) =>
+        <Post key={'post' + id} post = {post} id={id} handleClick={openEditingWindow}/>
+      )}
+      {admin
+        ? <ActionButtons
+          text={'add update'}
+          ariaLabel={'add update '}
+          handleClick={openEditingWindow}
+        />
+        : null }
     </div>
   )
 }

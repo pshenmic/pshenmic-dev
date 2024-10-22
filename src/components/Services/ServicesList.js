@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { motion as m, AnimatePresence } from 'framer-motion'
 import Service from './Service'
+import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
+import useGlobalStore from '@/store/store'
+import EditButton from '../UI/Button/EditButton/EditButton'
 import './ServiceListItem.scss'
 
 const defaultServicesList = [
@@ -23,6 +26,12 @@ const defaultServicesList = [
 
 function ServicesList ({ servicesList = defaultServicesList }) {
   const [openedItem, setOpenedItem] = useState(null)
+  const admin = useGlobalStore(state => state.admin)
+  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+
+  const openEditingWindow = useCallback(() => {
+    setOpenEditingWindow(true)
+  }, [setOpenEditingWindow])
 
   const ListItems = servicesList.map((service, id) =>
     <m.div
@@ -31,21 +40,26 @@ function ServicesList ({ servicesList = defaultServicesList }) {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: id / 10 }}
       id={id}
-      onClick = {() => setOpenedItem(id)}
+      style={{ width: '100%' }}
     >
-      <div className='ServiceListItem'>
-        <div className='ServiceListItem__Title'>{ service.title }</div>
+      <div className={`ServiceListItem ${admin ? 'ServiceListItemAdmin' : null}`} onClick={(e) => setOpenedItem(id)}>
+        {admin
+          ? <div className={'ServiceListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
+              <EditButton handleClick={openEditingWindow} type={'buttom'} />
+            </div>
+          : null}
+        <div className={'ServiceListItem__Title'}>{service.title}</div>
       </div>
     </m.div>
   )
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode={'wait'}>
       {openedItem !== null && (
         <m.div key={'service'}>
           <Service
-            service = { servicesList[openedItem] }
-            closeHandler = { () => setOpenedItem(null) }
+            service={servicesList[openedItem]}
+            closeHandler={() => setOpenedItem(null)}
           />
         </m.div>
       )}
@@ -53,6 +67,13 @@ function ServicesList ({ servicesList = defaultServicesList }) {
       {openedItem === null && (
         <m.div key={'servicesList'} className={'ServicesList'}>
           {ListItems}
+          {admin && openedItem === null
+            ? <ActionButtons
+              text={'add Service'}
+              ariaLabel={'add update '}
+              handleClick={openEditingWindow}
+            />
+            : null}
         </m.div>
       )}
     </AnimatePresence>
