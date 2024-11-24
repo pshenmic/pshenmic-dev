@@ -1,6 +1,7 @@
 import HasAdminAccess from '@/components/HasAdminAccess/HasAdminAccess'
-import './globals.css'
 import EditingWindow from '@/components/UI/EditingWindow/EditingWindow'
+import RegistrationWindow from '@/components/Registration/RegistrationWindow'
+import './globals.css'
 
 export const metadata = {
   title: 'pshenmic.Dev',
@@ -13,6 +14,7 @@ export default function RootLayout ({ children }) {
       <body>
         <HasAdminAccess />
         <EditingWindow />
+        <RegistrationWindow />
         {children}
       </body>
     </html>
