@@ -5,11 +5,17 @@
     width: 800px;
     height: 100vh;
     background-color: #fff;
-    padding: 60px 100px;
-    display: flex;
-    flex-direction: column;
     z-index: 11;
-    gap: 50px;
+
+    &__Wrapper {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 60px 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
 
     &__CloseButton {
         position: absolute;
