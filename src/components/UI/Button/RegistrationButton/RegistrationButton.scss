@@ -14,6 +14,20 @@
     -ms-user-select: none;
     user-select: none;
 
+    &.disabled {
+        cursor: not-allowed;
+
+        &:hover {
+            padding: 13px 22px;
+
+            span {
+                &::before {
+                    animation-name: none;
+                }
+            }
+        }
+    }
+
     span {
         transition: all .5s;
 

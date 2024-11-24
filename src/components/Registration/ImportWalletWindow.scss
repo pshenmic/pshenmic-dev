@@ -1,0 +1,12 @@
+.ImportWalletWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 800px;
+    height: 100vh;
+    background-color: #fff;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
