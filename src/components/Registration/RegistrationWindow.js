@@ -12,8 +12,15 @@ export default function RegistrationWindow() {
         <div className={'RegistrationWindow'}>
             <p className={'RegistrationWindow__Title'}>Import to your Dash Wallet</p>
             <div className={'RegistrationWindow__Buttons'}>
-                <RegistrationButton text={'SEED PHRASE'} onClick={() => setOpenImportWalletWindow(true)} style={{ background: '#0275ff' }} />
-                <RegistrationButton text={'PRIVATE KEY'} disabled={true} />
+                <RegistrationButton
+                    text={'SEED PHRASE'}
+                    onClick={() => setOpenImportWalletWindow(true)}
+                    style={{ background: '#0275ff' }}
+                />
+                <RegistrationButton
+                    text={'PRIVATE KEY'}
+                    disabled={true}
+                />
             </div>
             <div className={'RegistrationWindow__CallToAction'}>
                 <p>Not using Dash yet?</p>

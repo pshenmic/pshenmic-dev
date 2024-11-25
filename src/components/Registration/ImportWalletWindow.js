@@ -6,7 +6,7 @@ import useGlobalStore from "@/store/store";
 import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
-import Dash from 'dash';
+import Dash from "dash";
 import './ImportWalletWindow.scss'
 
 const dataSeedPhrase = {
@@ -24,20 +24,23 @@ const dataPrivateKey = {
 }
 
 export default function ImportWalletWindow() {
-    const { openImportWalletWindow, setOpenImportWalletWindow } = useGlobalStore();
+    const { openImportWalletWindow, setOpenImportWalletWindow, setClient } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
-    const { setClient } = useGlobalStore();
 
     const getNewClient = useCallback((mnemonic) => {
-        const client = new Dash.Client({
-            network: "testnet",
-            wallet: {
-                mnemonic: mnemonic,
-            },
-        });
-        console.log('client', client)
-        return setClient(client)
+        const words = mnemonic.trim().split(/\s+/)
+
+        if (words.length <= 12) {
+            const client = new Dash.Client({
+                network: "testnet",
+                wallet: {
+                    mnemonic: words,
+                },
+            });
+            console.log('client', client)
+            return setClient(client)
+        }
     }, [setClient])
 
     const animation = useSpring({
@@ -50,19 +53,19 @@ export default function ImportWalletWindow() {
 
     useEffect(() => {
         if (activeButton === 'seedPhrase') {
-            setForm(<RegistrationForm data={dataSeedPhrase} handleFunction={getNewClient}/>)
+            setForm(<RegistrationForm data={dataSeedPhrase} handleFunction={getNewClient} />)
         } else if (activeButton === 'privateKey') {
-            setForm(<RegistrationForm data={dataPrivateKey} />)
+            setForm(<RegistrationForm data={dataPrivateKey} handleFunction={getNewClient} />)
         } else {
             setForm(<p>Off course</p>)
         }
     }, [activeButton])
 
     const transitions = useTransition(form, {
-        from: { opacity: 0, transform: 'translateX(-30%)' },
-        enter: { opacity: 1, transform: 'translateX(0%)' },
-        leave: { opacity: 0, transform: 'translateX(30%)' },
-        config: { duration: 400, easing: easings.easeInBack },
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0 },
+        config: { duration: 400, easing: easings.easeInOut },
         trail: 100,
         exitBeforeEnter: true,
     })
