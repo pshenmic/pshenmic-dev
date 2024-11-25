@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSpring, animated, useTransition, easings } from "@react-spring/web";
 import useGlobalStore from "@/store/store";
 import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
+import Dash from 'dash';
 import './ImportWalletWindow.scss'
 
 const dataSeedPhrase = {
@@ -26,6 +27,18 @@ export default function ImportWalletWindow() {
     const { openImportWalletWindow, setOpenImportWalletWindow } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
+    const { setClient } = useGlobalStore();
+
+    const getNewClient = useCallback((mnemonic) => {
+        const client = new Dash.Client({
+            network: "testnet",
+            wallet: {
+                mnemonic: mnemonic,
+            },
+        });
+        console.log('client', client)
+        return setClient(client)
+    }, [setClient])
 
     const animation = useSpring({
         transform: openImportWalletWindow ? 'translateX(0%)' : 'translateX(100%)',
@@ -37,7 +50,7 @@ export default function ImportWalletWindow() {
 
     useEffect(() => {
         if (activeButton === 'seedPhrase') {
-            setForm(<RegistrationForm data={dataSeedPhrase} />)
+            setForm(<RegistrationForm data={dataSeedPhrase} handleFunction={getNewClient}/>)
         } else if (activeButton === 'privateKey') {
             setForm(<RegistrationForm data={dataPrivateKey} />)
         } else {

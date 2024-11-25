@@ -2,6 +2,9 @@ import { createWithEqualityFn } from 'zustand/traditional'
 
 const useGlobalStore = createWithEqualityFn(
   (set, get) => ({
+    client: null,
+    setClient: (client) => set({ client }),
+
     openImportWalletWindow: false,
     setOpenImportWalletWindow: (openImportWalletWindow) => set({ openImportWalletWindow }),
 

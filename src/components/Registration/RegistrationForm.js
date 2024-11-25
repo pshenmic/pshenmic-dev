@@ -1,14 +1,26 @@
 'use client'
 
+import './RegistrationForm.scss'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import { useSpring, animated } from '@react-spring/web'
 import { useState } from 'react'
-import './RegistrationForm.scss'
+import { showToast } from '@/lib/showToast'
 
 // type:
 // data: { description: string, inputDescription: string, placeholder: string, buttonText: string }
-export default function RegistrationForm({ data }) {
+export default function RegistrationForm({ data, handleFunction }) {
     const [inputValue, setInputValue] = useState('')
+
+    const handleInputChange = (value) => {
+        const words = value.trim().split(/\s+/)
+
+        if (words.length <= 12) {
+            setInputValue(value)
+           
+        } else {
+            showToast('warn', '12 words max!');
+        }
+    };
 
     const animation = useSpring({
         transform: inputValue ? 'translate(0%, 20%)' : 'translate(-50%, 20%)',
@@ -19,8 +31,13 @@ export default function RegistrationForm({ data }) {
         }
     });
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        handleFunction(inputValue)
+    }
+
     return (
-        <form className={'RegistrationForm'}>
+        <form className={'RegistrationForm'} onSubmit={handleSubmit}>
             {data?.description && <div className={'RegistrationForm__Description'}>
                 <p>{data.description}</p>
             </div>}
@@ -29,7 +46,7 @@ export default function RegistrationForm({ data }) {
                 {data?.inputDescription && <p className={'RegistrationForm__InputWrapper__InputDescription'}>{data.inputDescription}</p>}
                 <input
                     value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={(e) => handleInputChange(e.target.value)}
                     type={"text"}
                     placeholder={data?.placeholder || ''}
                     required
