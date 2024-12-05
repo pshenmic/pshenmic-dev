@@ -7,6 +7,7 @@ import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Dash from "dash";
+import { validateMnemonic } from 'bip39';
 import './ImportWalletWindow.scss'
 
 const dataSeedPhrase = {
@@ -24,24 +25,66 @@ const dataPrivateKey = {
 }
 
 export default function ImportWalletWindow() {
-    const { openImportWalletWindow, setOpenImportWalletWindow, setClient } = useGlobalStore();
+    const { openImportWalletWindow, setOpenImportWalletWindow, setClient, client } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
 
-    const getNewClient = useCallback((mnemonic) => {
-        const words = mnemonic.trim().split(/\s+/)
-
-        if (words.length <= 12) {
+    const getNewClient = useCallback(async (mnemonic) => {
+        const mnemonicTrim = mnemonic.trim();
+        if (validateMnemonic(mnemonicTrim)) {
             const client = new Dash.Client({
-                network: "testnet",
+                network: 'testnet',
                 wallet: {
-                    mnemonic: words,
+                    mnemonic: mnemonicTrim,
+                    unsafeOptions: {
+                        skipSynchronizationBeforeHeight: 1000000,
+                    },
                 },
             });
-            console.log('client', client)
-            return setClient(client)
+            try{
+                const account = await client.getWalletAccount();
+                const identityIds = account.identities.getIdentityIds();
+
+                if (identityIds.length > 0) {
+                    const identity = await client.platform.identities.get(identityIds[0]);
+                    console.log('identity', identity)
+                    const identityIdentifier = identity.getId().toString();
+                    console.log('identityIdentifier:', identityIdentifier);
+
+                    const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
+                    console.log('document', document)
+
+                    if ( document.length > 0 ) {
+                        let name
+                        document.forEach(doc => {
+                            console.log('doc.getData()', doc.getData())
+                            const data = doc.getData()
+                            data.records.identity === identityIdentifier ? 
+                                data.label && data.parentDomainName ? name = `${data.label}.${data.parentDomainName}`
+                                : name = data.records.identity
+                            : name = null
+                        })
+                        
+                        if ( name ) {
+                            setClient({
+                                name,
+                                identityIdentifier,
+                                identityIds
+                            })
+                            console.log('name', name)
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error retrieving account:', error);
+                setClient(null)
+            }
+        } else {
+            console.error('Invalid mnemonic phrase.');
         }
-    }, [setClient])
+    }, [setClient]);
+
+    console.log('client', client)
 
     const animation = useSpring({
         transform: openImportWalletWindow ? 'translateX(0%)' : 'translateX(100%)',
@@ -53,9 +96,9 @@ export default function ImportWalletWindow() {
 
     useEffect(() => {
         if (activeButton === 'seedPhrase') {
-            setForm(<RegistrationForm data={dataSeedPhrase} handleFunction={getNewClient} />)
+            setForm(<RegistrationForm data={dataSeedPhrase} handleFunction={getNewClient} type={'seedPhrase'} />)
         } else if (activeButton === 'privateKey') {
-            setForm(<RegistrationForm data={dataPrivateKey} handleFunction={getNewClient} />)
+            setForm(<RegistrationForm data={dataPrivateKey} handleFunction={getNewClient} type={'privateKey'} />)
         } else {
             setForm(<p>Off course</p>)
         }
@@ -90,6 +133,8 @@ export default function ImportWalletWindow() {
                             SEED PHRASE
                         </button>
                         <button
+                            disabled={true}
+                            style={{ cursor: 'not-allowed' }}
                             onClick={() => setActiveButton('privateKey')}
                             className={`ImportWalletWindow__ButtonsContent__Button ${activeButton === 'privateKey' ? 'Active' : ''}`}
                         >

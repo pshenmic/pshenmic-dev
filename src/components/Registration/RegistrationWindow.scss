@@ -3,12 +3,15 @@
     bottom: 25px;
     left: 25px;
     width: 618px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
     padding: 40px;
     background: #131619;
     z-index: 3;
+
+    &__Container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 
     &__Title {
         font-weight: 400;
