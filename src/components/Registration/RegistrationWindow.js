@@ -4,6 +4,7 @@ import './RegistrationWindow.scss'
 import Link from 'next/link'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import useGlobalStore from '@/store/store';
+import WalletSelection from '../UI/WalletSelection/WalletSelection';
 import { useEffect, useState } from 'react';
 import { easings, useTransition, animated } from '@react-spring/web';
 
@@ -72,7 +73,7 @@ function UserWindow( {data} ) {
     return (
         <div className={'RegistrationWindow__Container'}>
             <p className={'RegistrationWindow__Title'}>{data?.name}</p>
-            
+            <WalletSelection identityIds={data?.identityIds} identityIdentifier={data?.identityIdentifier} />
         </div>
     )
 }

@@ -17,18 +17,15 @@ export default function WalletSelection({ identityIds, identityIdentifier }) {
 
     return (
         <button
-            className={ 'WalletSelection' + (identityIds?.length > 1 ? ' WalletSelection__Open' : '') }
-            onClick={ () => identityIds?.length > 1 ? setOpenWalletSelection(true) : null }
+            className={'WalletSelection' + (identityIds?.length > 1 ? ' WalletSelection__Open' : '')}
+            onClick={() => identityIds?.length > 1 ? setOpenWalletSelection(true) : null}
         >
             <p>{identityIdentifier}</p>
-            { identityIds?.length > 1 &&
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 10L12 15L17 10H7Z" fill="currentColor" />
-                </svg> }
+            { identityIds?.length > 1 && <SvgIcons type={'arrowSelection'} /> }
             <animated.div className={'WalletSelection__Dropdown'} style={animation}>
-                { identityIds?.map( (id, index) => (
+                {identityIds?.map((id, index) => (
                     <p key={index}>{id}</p>
-                )) }
+                ))}
             </animated.div>
         </button>
     )
