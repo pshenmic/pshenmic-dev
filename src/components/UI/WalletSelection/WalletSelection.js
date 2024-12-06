@@ -1,11 +1,17 @@
 'use client'
 
 import './WalletSelection.scss'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useSpring, animated } from '@react-spring/web'
+import SvgIcons from '../SvgIcons/SvgIcons'
+import { useLocalstorageState } from 'rooks'
+import useGlobalStore from '@/store/store'
 
 export default function WalletSelection({ identityIds, identityIdentifier }) {
     const [openWalletSelection, setOpenWalletSelection] = useState(false)
+    const [clientDash] = useLocalstorageState('clientDash', '');
+    const [client] = useLocalstorageState('userDash', '');
+    const { setIndexWallet } = useGlobalStore();
 
     const animation = useSpring({
         opacity: openWalletSelection ? 1 : 0,
@@ -15,16 +21,28 @@ export default function WalletSelection({ identityIds, identityIdentifier }) {
         }
     });
 
+    const handleClick = useCallback(async (index) => {
+        setOpenWalletSelection(false)
+        setIndexWallet(index)
+    }, [clientDash, client])
+
     return (
         <button
             className={'WalletSelection' + (identityIds?.length > 1 ? ' WalletSelection__Open' : '')}
-            onClick={() => identityIds?.length > 1 ? setOpenWalletSelection(true) : null}
+            onClick={() => identityIds?.length > 1 ? setOpenWalletSelection(!openWalletSelection) : null}
         >
             <p className={'WalletSelection__Text'}>{identityIdentifier}</p>
-            { identityIds?.length > 1 && <SvgIcons type={'arrowSelection'} /> }
+            {identityIds?.length > 1 && <SvgIcons type={'arrowSelection'} />}
             <animated.div className={'WalletSelection__Dropdown'} style={animation}>
                 {identityIds?.map((id, index) => (
-                    <p className={'WalletSelection__Text'} key={index}>{id}</p>
+                    <span
+                        className={'WalletSelection__Text'}
+                        style={id.identityIdentifier === identityIdentifier ? { color: '#5199fc' } : null}
+                        key={index}
+                        onClick={() => { id.identityIdentifier === identityIdentifier ? null : handleClick(index) }}
+                    >
+                        {id.identityIdentifier}
+                    </span>
                 ))}
             </animated.div>
         </button>

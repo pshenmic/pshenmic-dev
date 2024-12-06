@@ -10,6 +10,8 @@ import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Dash from "dash";
 import Loading from '../UI/Loading/Loading';
+import { showToast } from '@/lib/showToast';
+import { validateMnemonic } from 'bip39';
 
 const dataSeedPhrase = {
     description: 'Make sure your device is safe & no one is watching, don\'t show this info to anyone.',
@@ -31,12 +33,11 @@ export default function ImportWalletWindow() {
     const [form, setForm] = useState(<p>Off course</p>)
     const [client, setClient] = useLocalstorageState('userDash', '');
 
-
-    const getNewClient = useCallback(async (mnemonic) => {
+    const getNewClientd = useCallback(async (mnemonic) => {
         const mnemonicTrim = mnemonic.trim();
         setLoadingGetUser(true)
 
-        if (mnemonicTrim) {
+        if (validateMnemonic(mnemonicTrim)) {
             const client = new Dash.Client({
                 network: 'testnet',
                 wallet: {
@@ -46,51 +47,129 @@ export default function ImportWalletWindow() {
                     },
                 },
             });
+            if (!client) {
+                showToast('error', 'Error retrieving account')
+                setClient(null)
+                setLoadingGetUser(false)
+                return
+            }
             try {
-                console.log('client', client)
                 const account = await client.getWalletAccount();
+                // const newAccount = await client.platform.identities.register();;
                 const identityIds = account.identities.getIdentityIds();
 
                 if (identityIds.length > 0) {
-                    const identity = await client.platform.identities.get(identityIds[0]);
-                    console.log('identity', identity)
-                    const identityIdentifier = identity.getId().toString();
-                    console.log('identityIdentifier:', identityIdentifier);
+                    const identitiesData = await Promise.all(identityIds.map(async (id) => {
+                        const identity = await client.platform.identities.get(id);
+                        const identityIdentifier = identity.getId().toString();
+                        const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
 
-                    const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
-                    console.log('document', document)
+                        const firstPart = identityIdentifier.slice(0, 5);
+                        const lastPart = identityIdentifier.slice(-5);
 
-                    if (document.length > 0) {
-                        let name
-                        document.forEach(doc => {
-                            console.log('doc.getData()', doc.getData())
-                            const data = doc.getData()
-                            data.records.identity === identityIdentifier ?
-                                data.label && data.parentDomainName ? name = `${data.label}.${data.parentDomainName}`
-                                    : name = data.records.identity
-                                : name = null
-                        })
-
-                        if (name) {
-                            setClient({
-                                name,
-                                identityIdentifier,
-                                identityIds
-                            })
-                            setLoadingGetUser(false)
-                            setOpenImportWalletWindow(false)
-                            console.log('name', name)
+                        let name = `${firstPart}...${lastPart}`;
+                        if (document.length > 0) {
+                            document.forEach(doc => {
+                                const data = doc.getData();
+                                if (data.records.identity === identityIdentifier) {
+                                    name = data.label && data.parentDomainName ? `${data.label}.${data.parentDomainName}` : name;
+                                }
+                            });
                         }
+                        return { name, identityIdentifier };
+                    }));
+                    if (identitiesData) {
+                        showToast('success', 'Wallet imported successfully')
+                        setClient({
+                            identities: identitiesData,
+                            identityIds
+                        });
+                        setLoadingGetUser(false)
+                        setOpenImportWalletWindow(false)
                     }
                 }
             } catch (error) {
-                console.error('Error retrieving account:', error);
+                showToast('error', 'Error retrieving account')
                 setClient(null)
                 setLoadingGetUser(false)
             }
         } else {
-            console.error('Invalid mnemonic phrase.');
+            showToast('error', 'Invalid mnemonic phrase.')
             setLoadingGetUser(false)
+            setClient(null)
+        }
+    }, [setClient, setLoadingGetUser]);
+
+    const getNewClient = useCallback(async (mnemonic) => {
+        const mnemonicTrim = mnemonic.trim();
+        setLoadingGetUser(true);
+
+        // Validate the mnemonic phrase
+        if (!validateMnemonic(mnemonicTrim)) {
+            showToast('error', 'Invalid mnemonic phrase.');
+            setLoadingGetUser(false);
+            setClient(null);
+            return;
+        }
+
+        let client;
+        try {
+            client = new Dash.Client({
+                network: 'testnet',
+                wallet: {
+                    mnemonic: mnemonicTrim,
+                    unsafeOptions: {
+                        skipSynchronizationBeforeHeight: 1000000,
+                    },
+                },
+            });
+
+            // Check if the client was created successfully
+            if (!client) {
+                throw new Error('Client creation failed');
+            }
+
+            const account = await client.getWalletAccount();
+            const identityIds = account.identities.getIdentityIds();
+
+            if (identityIds.length > 0) {
+                const identitiesData = await Promise.all(identityIds.map(async (id) => {
+                    const identity = await client.platform.identities.get(id);
+                    const identityIdentifier = identity.getId().toString();
+                    const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
+
+                    const firstPart = identityIdentifier.slice(0, 5);
+                    const lastPart = identityIdentifier.slice(-5);
+
+                    let name = `${firstPart}...${lastPart}`;
+                    if (document.length > 0) {
+                        document.forEach(doc => {
+                            const data = doc.getData();
+                            if (data.records.identity === identityIdentifier) {
+                                name = data.label && data.parentDomainName ? `${data.label}.${data.parentDomainName}` : name;
+                            }
+                        });
+                    }
+                    return { name, identityIdentifier };
+                }));
+
+                if (identitiesData) {
+                    showToast('success', 'Wallet imported successfully');
+                    setClient({
+                        identities: identitiesData,
+                        identityIds
+                    });
+                    setLoadingGetUser(false);
+                    setOpenImportWalletWindow(false);
+                }
+            } else {
+                throw new Error('No identities found for the account');
+            }
+        } catch (error) {
+            console.error('Error:', error); // Log the error for debugging
+            showToast('error', error.message || 'Error retrieving account');
+            setClient(null);
+            setLoadingGetUser(false);
         }
     }, [setClient, setLoadingGetUser]);
 

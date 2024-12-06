@@ -2,6 +2,9 @@ import { createWithEqualityFn } from 'zustand/traditional'
 
 const useGlobalStore = createWithEqualityFn(
   (set, get) => ({
+    indexWallet: 0,
+    setIndexWallet: (indexWallet) => set({ indexWallet }),
+
     loadingGetUser: false,
     setLoadingGetUser: (loadingGetUser) => set({ loadingGetUser }),
 

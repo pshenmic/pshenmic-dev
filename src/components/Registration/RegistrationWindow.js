@@ -1,6 +1,7 @@
 'use client'
 
 import './RegistrationWindow.scss'
+import Loading from '../UI/Loading/Loading';
 import Link from 'next/link'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import useGlobalStore from '@/store/store';
@@ -9,33 +10,33 @@ import SvgIcons from '../UI/SvgIcons/SvgIcons';
 import { useEffect, useRef, useState } from 'react';
 import { easings, useTransition, animated } from '@react-spring/web';
 import { useLocalstorageState } from 'rooks';
-import Loading from '../UI/Loading/Loading';
 
 export default function RegistrationWindow() {
     const [client, setClient] = useLocalstorageState('userDash', '');
+    const { setOpenImportWalletWindow, indexWallet } = useGlobalStore();
     const [data, setData] = useState(null)
     const statusTextRef = useRef(null)
     const statusStyleRef = useRef({})
-    console.log(client)
+
     useEffect(() => {
         if (!client) {
-            setData(<LogInWindow />);
+            setData(<LogInWindow setOpenImportWalletWindow={setOpenImportWalletWindow} />);
             statusTextRef.current.innerText = 'LOG IN';
             statusStyleRef.current = { backgroundColor: '#2e3845' };
         } else {
             const listAdmin = process.env.NEXT_PUBLIC_LIST_ADMIN;
             const listAdminArray = listAdmin.split(',');
-            if (listAdminArray.includes(client?.identityIdentifier)) {
-                setData(<AdminWindow data={client} setClient={setClient} />);
+            if (listAdminArray.includes(client?.identities[indexWallet]?.identityIdentifier)) {
+                setData(<AdminWindow data={client?.identities[indexWallet]} identities={client?.identities} setClient={setClient} />);
                 statusTextRef.current.innerText = 'ADMIN';
                 statusStyleRef.current = { backgroundColor: '#8bcc49' };
-            } else if (client.identityIds) {
-                setData(<UserWindow data={client} setClient={setClient} />);
+            } else if (client?.identities[indexWallet]?.identityIdentifier) {
+                setData(<UserWindow data={client?.identities[indexWallet]} identities={client?.identities} setClient={setClient} />);
                 statusTextRef.current.innerText = 'USER';
                 statusStyleRef.current = { backgroundColor: '#0275ff' };
             }
         }
-    }, [client])
+    }, [client, indexWallet])
 
     const transitions = useTransition(data, {
         from: { opacity: 0 },
@@ -60,8 +61,8 @@ export default function RegistrationWindow() {
     )
 }
 
-function LogInWindow() {
-    const { setOpenImportWalletWindow, loadingGetUser } = useGlobalStore();
+function LogInWindow({ setOpenImportWalletWindow }) {
+    const { loadingGetUser } = useGlobalStore();
 
     return (
         <div className={'RegistrationWindow__Container'}>
@@ -78,28 +79,28 @@ function LogInWindow() {
                     disabled={true}
                 />
                 {loadingGetUser ?
-                    <>
+                    <div className={'RegistrationWindow__Buttons'}>
                         <div className={'RegistrationWindow__Loading'}>
                             <Loading style={{ border: '1.5px solid #0275ff', borderTop: '1.5px solid transparent' }} />
                         </div>
                         <p className={'RegistrationWindow__Connecting'}>connecting...</p>
-                    </>
+                    </div>
                     : null}
             </div>
-            <div className={'RegistrationWindow__CallToAction'}>
+            {/* <div className={'RegistrationWindow__CallToAction'}>
                 <p>Not using Dash yet?</p>
                 <Link href={'/'}>Generate a new wallet here</Link>
-            </div>
+            </div> */}
         </div>
     )
 }
 
-function UserWindow({ data, setClient }) {
+function UserWindow({ data, identities, setClient }) {
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
-                <p className={'RegistrationWindow__Title'}>{data?.name}</p>
-                <WalletSelection identityIds={data?.identityIds} identityIdentifier={data?.identityIdentifier} />
+                <p className={'RegistrationWindow__Title'}>{data?.name || data?.identityIdentifier}</p>
+                <WalletSelection identityIds={identities} identityIdentifier={data?.identityIdentifier} />
             </div>
             <button className={'RegistrationWindow__LogOut'} onClick={() => setClient(null)}>
                 <SvgIcons type={'logOut'} />
@@ -108,12 +109,12 @@ function UserWindow({ data, setClient }) {
     )
 }
 
-function AdminWindow({ data, setClient }) {
+function AdminWindow({ data, identities, setClient }) {
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
-                <p className={'RegistrationWindow__Title'}>{data?.name}</p>
-                <WalletSelection identityIds={data?.identityIds} identityIdentifier={data?.identityIdentifier} />
+                <p className={'RegistrationWindow__Title'}>{data?.name || data?.identityIdentifier}</p>
+                <WalletSelection identityIds={identities} identityIdentifier={data?.identityIdentifier} />
                 <div className={'RegistrationWindow__Buttons'}>
                     <RegistrationButton
                         text={'NEW TASK'}

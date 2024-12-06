@@ -4,7 +4,6 @@ import './RegistrationForm.scss'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import { useSpring, animated } from '@react-spring/web'
 import { useEffect, useRef, useState } from 'react'
-import { showToast } from '@/lib/showToast'
 
 // type:
 // data: { description: string, inputDescription: string, placeholder: string, buttonText: string }
@@ -16,7 +15,6 @@ export default function RegistrationForm({ data, handleFunction, type }) {
     const validationSeedPhrase = (value) => {
         const words = value.trim().split(/\s+/)
         if (words.length > 12) {
-            showToast('warn', '12 words max!')
             return false
         }
         return true

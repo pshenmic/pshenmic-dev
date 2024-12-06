@@ -73,4 +73,23 @@
             transition: .5s;
         }
     }
+
+    @media screen and ( max-width: 520px) {
+        gap: 30px;
+
+        &__Description {
+            padding: 20px;
+        }
+
+        &__InputWrapper {
+            &__Arrow {
+                left: -14px;
+                font-size: 12px;
+            }
+
+            > textarea {
+                font-size: 16px;
+            }
+        }
+    }
 }
