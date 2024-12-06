@@ -8,7 +8,7 @@ export default function WalletSelection({ identityIds, identityIdentifier }) {
     const [openWalletSelection, setOpenWalletSelection] = useState(false)
 
     const animation = useSpring({
-        opacity: openWalletSelection ? 0 : 1,
+        opacity: openWalletSelection ? 1 : 0,
         config: {
             tension: 200,
             friction: 30
@@ -20,11 +20,11 @@ export default function WalletSelection({ identityIds, identityIdentifier }) {
             className={'WalletSelection' + (identityIds?.length > 1 ? ' WalletSelection__Open' : '')}
             onClick={() => identityIds?.length > 1 ? setOpenWalletSelection(true) : null}
         >
-            <p>{identityIdentifier}</p>
+            <p className={'WalletSelection__Text'}>{identityIdentifier}</p>
             { identityIds?.length > 1 && <SvgIcons type={'arrowSelection'} /> }
             <animated.div className={'WalletSelection__Dropdown'} style={animation}>
                 {identityIds?.map((id, index) => (
-                    <p key={index}>{id}</p>
+                    <p className={'WalletSelection__Text'} key={index}>{id}</p>
                 ))}
             </animated.div>
         </button>

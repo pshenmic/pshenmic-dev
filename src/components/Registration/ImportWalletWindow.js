@@ -1,14 +1,15 @@
 'use client'
 
+import './ImportWalletWindow.scss'
 import { useCallback, useEffect, useState } from "react";
 import { useSpring, animated, useTransition, easings } from "@react-spring/web";
+import { useLocalstorageState } from 'rooks';
 import useGlobalStore from "@/store/store";
 import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Dash from "dash";
-import { validateMnemonic } from 'bip39';
-import './ImportWalletWindow.scss'
+import Loading from '../UI/Loading/Loading';
 
 const dataSeedPhrase = {
     description: 'Make sure your device is safe & no one is watching, don\'t show this info to anyone.',
@@ -25,13 +26,17 @@ const dataPrivateKey = {
 }
 
 export default function ImportWalletWindow() {
-    const { openImportWalletWindow, setOpenImportWalletWindow, setClient, client } = useGlobalStore();
+    const { openImportWalletWindow, setOpenImportWalletWindow, setLoadingGetUser, loadingGetUser } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
+    const [client, setClient] = useLocalstorageState('userDash', '');
+
 
     const getNewClient = useCallback(async (mnemonic) => {
         const mnemonicTrim = mnemonic.trim();
-        if (validateMnemonic(mnemonicTrim)) {
+        setLoadingGetUser(true)
+
+        if (mnemonicTrim) {
             const client = new Dash.Client({
                 network: 'testnet',
                 wallet: {
@@ -41,7 +46,8 @@ export default function ImportWalletWindow() {
                     },
                 },
             });
-            try{
+            try {
+                console.log('client', client)
                 const account = await client.getWalletAccount();
                 const identityIds = account.identities.getIdentityIds();
 
@@ -54,23 +60,25 @@ export default function ImportWalletWindow() {
                     const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
                     console.log('document', document)
 
-                    if ( document.length > 0 ) {
+                    if (document.length > 0) {
                         let name
                         document.forEach(doc => {
                             console.log('doc.getData()', doc.getData())
                             const data = doc.getData()
-                            data.records.identity === identityIdentifier ? 
+                            data.records.identity === identityIdentifier ?
                                 data.label && data.parentDomainName ? name = `${data.label}.${data.parentDomainName}`
-                                : name = data.records.identity
-                            : name = null
+                                    : name = data.records.identity
+                                : name = null
                         })
-                        
-                        if ( name ) {
+
+                        if (name) {
                             setClient({
                                 name,
                                 identityIdentifier,
                                 identityIds
                             })
+                            setLoadingGetUser(false)
+                            setOpenImportWalletWindow(false)
                             console.log('name', name)
                         }
                     }
@@ -78,16 +86,25 @@ export default function ImportWalletWindow() {
             } catch (error) {
                 console.error('Error retrieving account:', error);
                 setClient(null)
+                setLoadingGetUser(false)
             }
         } else {
             console.error('Invalid mnemonic phrase.');
+            setLoadingGetUser(false)
         }
-    }, [setClient]);
-
-    console.log('client', client)
+    }, [setClient, setLoadingGetUser]);
 
     const animation = useSpring({
         transform: openImportWalletWindow ? 'translateX(0%)' : 'translateX(100%)',
+        config: {
+            tension: 200,
+            friction: 30
+        }
+    });
+
+    const animationLoading = useSpring({
+        opacity: loadingGetUser ? 1 : 0,
+        pointerEvents: loadingGetUser ? 'auto' : 'none',
         config: {
             tension: 200,
             friction: 30
@@ -116,6 +133,12 @@ export default function ImportWalletWindow() {
     return (
         <DarkWrapper open={openImportWalletWindow} >
             <animated.div style={animation} className={'ImportWalletWindow'}>
+                <animated.div style={animationLoading} className={'ImportWalletWindow__ContainerLoading'}>
+                    <div className={'ImportWalletWindow__ContainerLoading__Loading'}>
+                        <Loading />
+                    </div>
+                    <p>It usually takes up to 3 minutes to connect to the blockchain. You can continue using the platform, and we will notify you once the process is successful or if it fails.</p>
+                </animated.div>
                 <button
                     className={"ImportWalletWindow__CloseButton"}
                     onClick={() => setOpenImportWalletWindow(false)}

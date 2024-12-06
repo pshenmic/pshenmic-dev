@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     gap: 3px;
+    background-color: transparent;
 
     &__Open {
         cursor: pointer;
@@ -21,7 +22,7 @@
         }
     }
 
-    > p {
+    &__Text {
         font-weight: 400;
         font-size: 10px;
         color: #97e8fc;
@@ -39,7 +40,7 @@
     &__Dropdown {
         position: absolute;
         width: 100%;
-        top: 100%;
+        bottom: calc(100% + 7px);
         right: 0;
         display: flex;
         flex-direction: column;

@@ -7,6 +7,35 @@
     background-color: #fff;
     z-index: 11;
 
+    &__ContainerLoading {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+        display: flex;
+        align-items: flex-end;
+        padding: 40px 50px;
+        gap: 15px;
+
+        > p {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 120%;
+            color: #fff;
+            font-family: var(--font-mono);
+        }
+
+        &__Loading {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+    }
+
     &__Wrapper {
         width: 100%;
         height: 100%;
@@ -120,7 +149,7 @@
         width: 100%;
         left: 0;
     }
-  
+
     to {
         width: 0;
         left: 100%;

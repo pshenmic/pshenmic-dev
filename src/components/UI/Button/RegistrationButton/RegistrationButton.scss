@@ -16,6 +16,18 @@
 
     &.disabled {
         cursor: not-allowed;
+        color: #caf6fd;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background: #2e3845;
+            opacity: 0.4;
+        }
 
         &:hover {
             padding: 13px 22px;

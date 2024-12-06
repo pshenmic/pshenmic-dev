@@ -6,16 +6,18 @@ export default function SvgIcons({ type }) {
                     <path d="M7 10L12 15L17 10H7Z" fill="currentColor" />
                 </svg>
             case 'logOut':
-                return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="2" height="11" fill="#currentColor" />
-                    <path d="M8.5 11V9.8H9.75V8.6H11V7.4H9.75V6.2H8.5V5L9.75 5L11 5V6.2H12.25V7.4H13.5V8.6H12.25V9.8H11V11H9.75H8.5Z" fill="#currentColor" />
-                    <path d="M4.5 8.59844V7.39844H9.75H11V8.59844H9.75H4.5Z" fill="#currentColor" />
-                    <rect y="11" width="2" height="5" fill="#currentColor" />
-                    <rect x="2" width="14" height="2" fill="#currentColor" />
-                    <rect x="14" width="2" height="5" fill="#currentColor" />
-                    <rect x="14" y="11" width="2" height="5" fill="#currentColor" />
-                    <rect x="2" y="14" width="14" height="2" fill="#currentColor" />
-                </svg>;
+                return <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="36" height="36" fill="#2E3845" />
+                    <rect x="10" y="10" width="2" height="11" fill="currentColor" />
+                    <path d="M18.5 21V19.8H19.75V18.6H21V17.4H19.75V16.2H18.5V15L19.75 15L21 15V16.2H22.25V17.4H23.5V18.6H22.25V19.8H21V21H19.75H18.5Z" fill="currentColor" />
+                    <path d="M14.5 18.5984V17.3984H19.75H21V18.5984H19.75H14.5Z" fill="currentColor" />
+                    <rect x="10" y="21" width="2" height="5" fill="currentColor" />
+                    <rect x="12" y="10" width="14" height="2" fill="currentColor" />
+                    <rect x="24" y="10" width="2" height="5" fill="currentColor" />
+                    <rect x="24" y="21" width="2" height="5" fill="currentColor" />
+                    <rect x="12" y="24" width="14" height="2" fill="currentColor" />
+                </svg>
+
             default:
                 return null;
         }
