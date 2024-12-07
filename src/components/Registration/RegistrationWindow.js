@@ -2,7 +2,6 @@
 
 import './RegistrationWindow.scss'
 import Loading from '../UI/Loading/Loading';
-import Link from 'next/link'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import useGlobalStore from '@/store/store';
 import WalletSelection from '../UI/WalletSelection/WalletSelection';
@@ -27,11 +26,19 @@ export default function RegistrationWindow() {
             const listAdmin = process.env.NEXT_PUBLIC_LIST_ADMIN;
             const listAdminArray = listAdmin.split(',');
             if (listAdminArray.includes(client?.identities[indexWallet]?.identityIdentifier)) {
-                setData(<AdminWindow data={client?.identities[indexWallet]} identities={client?.identities} setClient={setClient} />);
+                setData(<AdminWindow
+                    data={client?.identities[indexWallet]}
+                    identities={client?.identities}
+                    setClient={setClient}
+                />);
                 statusTextRef.current.innerText = 'ADMIN';
                 statusStyleRef.current = { backgroundColor: '#8bcc49' };
             } else if (client?.identities[indexWallet]?.identityIdentifier) {
-                setData(<UserWindow data={client?.identities[indexWallet]} identities={client?.identities} setClient={setClient} />);
+                setData(<UserWindow
+                    data={client?.identities[indexWallet]}
+                    identities={client?.identities}
+                    setClient={setClient}
+                />);
                 statusTextRef.current.innerText = 'USER';
                 statusStyleRef.current = { backgroundColor: '#0275ff' };
             }

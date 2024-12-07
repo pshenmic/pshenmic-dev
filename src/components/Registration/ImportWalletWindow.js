@@ -4,14 +4,14 @@ import './ImportWalletWindow.scss'
 import { useCallback, useEffect, useState } from "react";
 import { useSpring, animated, useTransition, easings } from "@react-spring/web";
 import { useLocalstorageState } from 'rooks';
+import { showToast } from '@/lib/showToast';
+import { validateMnemonic } from 'bip39';
 import useGlobalStore from "@/store/store";
 import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Dash from "dash";
 import Loading from '../UI/Loading/Loading';
-import { showToast } from '@/lib/showToast';
-import { validateMnemonic } from 'bip39';
 
 const dataSeedPhrase = {
     description: 'Make sure your device is safe & no one is watching, don\'t show this info to anyone.',
@@ -32,73 +32,6 @@ export default function ImportWalletWindow() {
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
     const [client, setClient] = useLocalstorageState('userDash', '');
-
-    const getNewClientd = useCallback(async (mnemonic) => {
-        const mnemonicTrim = mnemonic.trim();
-        setLoadingGetUser(true)
-
-        if (validateMnemonic(mnemonicTrim)) {
-            const client = new Dash.Client({
-                network: 'testnet',
-                wallet: {
-                    mnemonic: mnemonicTrim,
-                    unsafeOptions: {
-                        skipSynchronizationBeforeHeight: 1000000,
-                    },
-                },
-            });
-            if (!client) {
-                showToast('error', 'Error retrieving account')
-                setClient(null)
-                setLoadingGetUser(false)
-                return
-            }
-            try {
-                const account = await client.getWalletAccount();
-                // const newAccount = await client.platform.identities.register();;
-                const identityIds = account.identities.getIdentityIds();
-
-                if (identityIds.length > 0) {
-                    const identitiesData = await Promise.all(identityIds.map(async (id) => {
-                        const identity = await client.platform.identities.get(id);
-                        const identityIdentifier = identity.getId().toString();
-                        const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
-
-                        const firstPart = identityIdentifier.slice(0, 5);
-                        const lastPart = identityIdentifier.slice(-5);
-
-                        let name = `${firstPart}...${lastPart}`;
-                        if (document.length > 0) {
-                            document.forEach(doc => {
-                                const data = doc.getData();
-                                if (data.records.identity === identityIdentifier) {
-                                    name = data.label && data.parentDomainName ? `${data.label}.${data.parentDomainName}` : name;
-                                }
-                            });
-                        }
-                        return { name, identityIdentifier };
-                    }));
-                    if (identitiesData) {
-                        showToast('success', 'Wallet imported successfully')
-                        setClient({
-                            identities: identitiesData,
-                            identityIds
-                        });
-                        setLoadingGetUser(false)
-                        setOpenImportWalletWindow(false)
-                    }
-                }
-            } catch (error) {
-                showToast('error', 'Error retrieving account')
-                setClient(null)
-                setLoadingGetUser(false)
-            }
-        } else {
-            showToast('error', 'Invalid mnemonic phrase.')
-            setLoadingGetUser(false)
-            setClient(null)
-        }
-    }, [setClient, setLoadingGetUser]);
 
     const getNewClient = useCallback(async (mnemonic) => {
         const mnemonicTrim = mnemonic.trim();
@@ -124,7 +57,6 @@ export default function ImportWalletWindow() {
                 },
             });
 
-            // Check if the client was created successfully
             if (!client) {
                 throw new Error('Client creation failed');
             }
@@ -166,7 +98,7 @@ export default function ImportWalletWindow() {
                 throw new Error('No identities found for the account');
             }
         } catch (error) {
-            console.error('Error:', error); // Log the error for debugging
+            console.error('Error:', error);
             showToast('error', error.message || 'Error retrieving account');
             setClient(null);
             setLoadingGetUser(false);
