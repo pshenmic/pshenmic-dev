@@ -33,7 +33,7 @@ export default function ImportWalletWindow() {
     const [form, setForm] = useState(<p>Off course</p>)
     const [client, setClient] = useLocalstorageState('userDash', '');
 
-    const getNewClient = useCallback(async (mnemonic) => {
+    const getNewClients = useCallback(async (mnemonic) => {
         const mnemonicTrim = mnemonic.trim();
         setLoadingGetUser(true);
 
@@ -104,6 +104,36 @@ export default function ImportWalletWindow() {
             setLoadingGetUser(false);
         }
     }, [setClient, setLoadingGetUser]);
+
+    const getNewClient = useCallback(async (mnemonic) => {
+        const mnemonicTrim = mnemonic.trim();
+
+        if (!validateMnemonic(mnemonicTrim)) {
+            showToast('error', 'Invalid mnemonic phrase.');
+            setLoadingGetUser(false);
+            setClient(null);
+            return;
+        }
+
+        await useDashForageClient({
+            network: 'testnet',
+            wallet: {
+                mnemonic: mnemonicTrim,
+                unsafeOptions: {
+                    skipSynchronizationBeforeHeight: 1000000,
+                },
+            },
+            successCallback: (identitiesData) => {
+                showToast('success', 'Wallet imported successfully');
+                setLoadingGetUser(false);
+                setOpenImportWalletWindow(false);
+            },
+            errorCallback: () => {
+                showToast('error', 'Error retrieving account');
+                setLoadingGetUser(false);
+            }
+        });
+    }, [setLoadingGetUser]);
 
     const animation = useSpring({
         transform: openImportWalletWindow ? 'translateX(0%)' : 'translateX(100%)',
