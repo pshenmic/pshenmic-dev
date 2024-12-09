@@ -3,15 +3,14 @@
 import './ImportWalletWindow.scss'
 import { useCallback, useEffect, useState } from "react";
 import { useSpring, animated, useTransition, easings } from "@react-spring/web";
-import { useLocalstorageState } from 'rooks';
 import { showToast } from '@/lib/showToast';
 import { validateMnemonic } from 'bip39';
+import { useDash } from '@/hooks/useDashClient';
 import useGlobalStore from "@/store/store";
 import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Loading from '../UI/Loading/Loading';
-import { useDashStoreClient } from '@/hooks/useDashStoreClient';
 
 const dataSeedPhrase = {
     description: 'Make sure your device is safe & no one is watching, don\'t show this info to anyone.',
@@ -31,8 +30,7 @@ export default function ImportWalletWindow() {
     const { openImportWalletWindow, setOpenImportWalletWindow, setLoadingGetUser, loadingGetUser, userDash, setUserDash } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
-   
-    const { processIdentities } = useDashStoreClient()
+    const { connect } = useDash();
 
     const errorCallback = () => {
         showToast('error', 'Error retrieving account');
@@ -46,6 +44,7 @@ export default function ImportWalletWindow() {
     };
 
     const getNewClient = useCallback(async (mnemonic) => {
+        if (typeof window === 'undefined') return;
         const mnemonicTrim = mnemonic.trim();
         setLoadingGetUser(true);
 
@@ -55,12 +54,24 @@ export default function ImportWalletWindow() {
                 setUserDash(null);
                 return;
             }
-            await processIdentities(mnemonicTrim, errorCallback, successCallback);
+            connect({network: 'testnet',
+                wallet: {
+                    mnemonic: mnemonicTrim,
+                    unsafeOptions: {
+                        skipSynchronizationBeforeHeight: 1000000,
+                    },
+                }}).then(async (resolveClient) => {
+                    if (resolveClient?.identitiesData) {
+                        setUserDash(resolveClient.identitiesData);
+                        successCallback()
+                    }
+                }).catch((error) => {
+                    errorCallback()
+                })
 
         } catch (error) {
             console.error('Error:', error);
             showToast('error', 'Client creation failed');
-        } finally {
             setLoadingGetUser(false);
         }
 

@@ -7,6 +7,7 @@ export function useDashClient (props) {
     const [client, setClient] = useState(null);
     const [account, setAccount] = useState(null);
     const [identityIds, setIdentityIds] = useState(null);
+    
     const methods = useRef({
         disconnect: () => {
             setClient(null);
@@ -34,7 +35,27 @@ export function useDashClient (props) {
                     throw new Error('Failed to retrieve account or identity IDs');
                 }
 
-                return Promise.resolve({client, identityIds, account});
+                const identitiesData = await Promise.all(identityIds.map(async (id) => {
+                    const identity = await client.platform.identities.get(id);
+                    const identityIdentifier = identity.getId().toString();
+                    const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
+
+                    const firstPart = identityIdentifier.slice(0, 5);
+                    const lastPart = identityIdentifier.slice(-5);
+
+                    let name = `${firstPart}...${lastPart}`;
+                    if (document.length > 0) {
+                        document.forEach(doc => {
+                            const data = doc.getData();
+                            if (data.records.identity === identityIdentifier) {
+                                name = data.label && data.parentDomainName ? `${data.label}.${data.parentDomainName}` : name;
+                            }
+                        });
+                    }
+                    return { name, identityIdentifier };
+                }));
+
+                return Promise.resolve({client, identityIds, account, identitiesData});
             } catch (error) {
                 console.error('Error add client:', error);
                 return Promise.reject(error);

@@ -13,7 +13,6 @@
     "bip39": "^3.1.0",
     "dash": "^4.5.1",
     "framer-motion": "^10.16.16",
-    "localforage": "^1.10.0",
     "next": "^14.0.0",
     "react": "^18",
     "react-dom": "^18",
@@ -22,13 +21,14 @@
     "react-router": "^6.21.1",
     "react-router-dom": "^6.21.1",
     "react-toastify": "^10.0.6",
-    "rooks": "^7.14.1",
     "sass": "^1.69.5",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
-    "eslint-config-standard": "^17.1.0"
-  }
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-n": "^17.14.0"
+  },
+  "license": "MIT"
 }

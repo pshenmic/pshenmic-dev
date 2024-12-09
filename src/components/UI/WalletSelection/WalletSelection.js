@@ -4,13 +4,10 @@ import './WalletSelection.scss'
 import { useCallback, useState } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import SvgIcons from '../SvgIcons/SvgIcons'
-import { useLocalstorageState } from 'rooks'
 import useGlobalStore from '@/store/store'
 
 export default function WalletSelection({ identityIds, identityIdentifier }) {
     const [openWalletSelection, setOpenWalletSelection] = useState(false)
-    const [clientDash] = useLocalstorageState('clientDash', '');
-    const [client] = useLocalstorageState('userDash', '');
     const { setIndexWallet } = useGlobalStore();
 
     const animation = useSpring({
@@ -24,7 +21,7 @@ export default function WalletSelection({ identityIds, identityIdentifier }) {
     const handleClick = useCallback(async (index) => {
         setOpenWalletSelection(false)
         setIndexWallet(index)
-    }, [clientDash, client])
+    }, [setOpenWalletSelection, setIndexWallet])
 
     return (
         <button
