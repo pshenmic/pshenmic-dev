@@ -6,44 +6,49 @@ import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButt
 import useGlobalStore from '@/store/store';
 import WalletSelection from '../UI/WalletSelection/WalletSelection';
 import SvgIcons from '../UI/SvgIcons/SvgIcons';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { easings, useTransition, animated } from '@react-spring/web';
-import { useLocalstorageState } from 'rooks';
+import { useDashClient } from '@/hooks/useDashClient';
 
 export default function RegistrationWindow() {
-    const [client, setClient] = useLocalstorageState('userDash', '');
-    const { setOpenImportWalletWindow, indexWallet } = useGlobalStore();
+    const { userDash, setUserDash, setOpenImportWalletWindow, indexWallet } = useGlobalStore();
+    const { disconnect } = useDashClient()
     const [data, setData] = useState(null)
     const statusTextRef = useRef(null)
     const statusStyleRef = useRef({})
 
+    const handleLogout = useCallback(async () => {
+        setUserDash(null);
+        disconnect()
+    }, [disconnect]);
+
     useEffect(() => {
-        if (!client) {
+        if (!userDash) {
             setData(<LogInWindow setOpenImportWalletWindow={setOpenImportWalletWindow} />);
             statusTextRef.current.innerText = 'LOG IN';
             statusStyleRef.current = { backgroundColor: '#2e3845' };
         } else {
             const listAdmin = process.env.NEXT_PUBLIC_LIST_ADMIN;
             const listAdminArray = listAdmin.split(',');
-            if (listAdminArray.includes(client?.identities[indexWallet]?.identityIdentifier)) {
+            if (listAdminArray.includes(userDash?.[indexWallet]?.identityIdentifier)) {
                 setData(<AdminWindow
-                    data={client?.identities[indexWallet]}
-                    identities={client?.identities}
-                    setClient={setClient}
+                    data={userDash?.[indexWallet]}
+                    identities={userDash}
+                    handleLogout={() => handleLogout()}
                 />);
                 statusTextRef.current.innerText = 'ADMIN';
                 statusStyleRef.current = { backgroundColor: '#8bcc49' };
-            } else if (client?.identities[indexWallet]?.identityIdentifier) {
+            } else if (userDash?.[indexWallet]?.identityIdentifier) {
                 setData(<UserWindow
-                    data={client?.identities[indexWallet]}
-                    identities={client?.identities}
-                    setClient={setClient}
+                    data={userDash?.[indexWallet]}
+                    identities={userDash}
+                    handleLogout={() => handleLogout()}
                 />);
                 statusTextRef.current.innerText = 'USER';
                 statusStyleRef.current = { backgroundColor: '#0275ff' };
             }
         }
-    }, [client, indexWallet])
+    }, [userDash, indexWallet, setUserDash, handleLogout]);
 
     const transitions = useTransition(data, {
         from: { opacity: 0 },
@@ -102,21 +107,21 @@ function LogInWindow({ setOpenImportWalletWindow }) {
     )
 }
 
-function UserWindow({ data, identities, setClient }) {
+function UserWindow({ data, identities, handleLogout }) {
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
                 <p className={'RegistrationWindow__Title'}>{data?.name || data?.identityIdentifier}</p>
                 <WalletSelection identityIds={identities} identityIdentifier={data?.identityIdentifier} />
             </div>
-            <button className={'RegistrationWindow__LogOut'} onClick={() => setClient(null)}>
+            <button className={'RegistrationWindow__LogOut'} onClick={() => handleLogout()}>
                 <SvgIcons type={'logOut'} />
             </button>
         </div>
     )
 }
 
-function AdminWindow({ data, identities, setClient }) {
+function AdminWindow({ data, identities, handleLogout }) {
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
@@ -139,7 +144,7 @@ function AdminWindow({ data, identities, setClient }) {
                     />
                 </div>
             </div>
-            <button className={'RegistrationWindow__LogOut'} onClick={() => setClient(null)}>
+            <button className={'RegistrationWindow__LogOut'} onClick={() => handleLogout()}>
                 <SvgIcons type={'logOut'} />
             </button>
         </div>

@@ -10,8 +10,8 @@ import useGlobalStore from "@/store/store";
 import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
-import Dash from "dash";
 import Loading from '../UI/Loading/Loading';
+import { useDashStoreClient } from '@/hooks/useDashStoreClient';
 
 const dataSeedPhrase = {
     description: 'Make sure your device is safe & no one is watching, don\'t show this info to anyone.',
@@ -28,112 +28,43 @@ const dataPrivateKey = {
 }
 
 export default function ImportWalletWindow() {
-    const { openImportWalletWindow, setOpenImportWalletWindow, setLoadingGetUser, loadingGetUser } = useGlobalStore();
+    const { openImportWalletWindow, setOpenImportWalletWindow, setLoadingGetUser, loadingGetUser, userDash, setUserDash } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
-    const [client, setClient] = useLocalstorageState('userDash', '');
+   
+    const { processIdentities } = useDashStoreClient()
 
-    const getNewClients = useCallback(async (mnemonic) => {
-        const mnemonicTrim = mnemonic.trim();
-        setLoadingGetUser(true);
+    const errorCallback = () => {
+        showToast('error', 'Error retrieving account');
+        setLoadingGetUser(false);
+    };
 
-        // Validate the mnemonic phrase
-        if (!validateMnemonic(mnemonicTrim)) {
-            showToast('error', 'Invalid mnemonic phrase.');
-            setLoadingGetUser(false);
-            setClient(null);
-            return;
-        }
-
-        let client;
-        try {
-            client = new Dash.Client({
-                network: 'testnet',
-                wallet: {
-                    mnemonic: mnemonicTrim,
-                    unsafeOptions: {
-                        skipSynchronizationBeforeHeight: 1000000,
-                    },
-                },
-            });
-
-            if (!client) {
-                throw new Error('Client creation failed');
-            }
-
-            const account = await client.getWalletAccount();
-            const identityIds = account.identities.getIdentityIds();
-
-            if (identityIds.length > 0) {
-                const identitiesData = await Promise.all(identityIds.map(async (id) => {
-                    const identity = await client.platform.identities.get(id);
-                    const identityIdentifier = identity.getId().toString();
-                    const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
-
-                    const firstPart = identityIdentifier.slice(0, 5);
-                    const lastPart = identityIdentifier.slice(-5);
-
-                    let name = `${firstPart}...${lastPart}`;
-                    if (document.length > 0) {
-                        document.forEach(doc => {
-                            const data = doc.getData();
-                            if (data.records.identity === identityIdentifier) {
-                                name = data.label && data.parentDomainName ? `${data.label}.${data.parentDomainName}` : name;
-                            }
-                        });
-                    }
-                    return { name, identityIdentifier };
-                }));
-
-                if (identitiesData) {
-                    showToast('success', 'Wallet imported successfully');
-                    setClient({
-                        identities: identitiesData,
-                        identityIds
-                    });
-                    setLoadingGetUser(false);
-                    setOpenImportWalletWindow(false);
-                }
-            } else {
-                throw new Error('No identities found for the account');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            showToast('error', error.message || 'Error retrieving account');
-            setClient(null);
-            setLoadingGetUser(false);
-        }
-    }, [setClient, setLoadingGetUser]);
+    const successCallback = () => {
+        showToast('success', 'Wallet imported successfully');
+        setLoadingGetUser(false);
+        setOpenImportWalletWindow(false);
+    };
 
     const getNewClient = useCallback(async (mnemonic) => {
         const mnemonicTrim = mnemonic.trim();
+        setLoadingGetUser(true);
 
-        if (!validateMnemonic(mnemonicTrim)) {
-            showToast('error', 'Invalid mnemonic phrase.');
+        try {
+            if (!validateMnemonic(mnemonicTrim)) {
+                showToast('error', 'Invalid mnemonic phrase.');
+                setUserDash(null);
+                return;
+            }
+            await processIdentities(mnemonicTrim, errorCallback, successCallback);
+
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('error', 'Client creation failed');
+        } finally {
             setLoadingGetUser(false);
-            setClient(null);
-            return;
         }
 
-        await useDashForageClient({
-            network: 'testnet',
-            wallet: {
-                mnemonic: mnemonicTrim,
-                unsafeOptions: {
-                    skipSynchronizationBeforeHeight: 1000000,
-                },
-            },
-            successCallback: (identitiesData) => {
-                showToast('success', 'Wallet imported successfully');
-                setLoadingGetUser(false);
-                setOpenImportWalletWindow(false);
-            },
-            errorCallback: () => {
-                showToast('error', 'Error retrieving account');
-                setLoadingGetUser(false);
-            }
-        });
-    }, [setLoadingGetUser]);
+    }, [setLoadingGetUser, setOpenImportWalletWindow, setUserDash, errorCallback, successCallback]);
 
     const animation = useSpring({
         transform: openImportWalletWindow ? 'translateX(0%)' : 'translateX(100%)',
