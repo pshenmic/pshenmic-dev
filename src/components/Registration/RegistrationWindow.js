@@ -8,7 +8,7 @@ import WalletSelection from '../UI/WalletSelection/WalletSelection';
 import SvgIcons from '../UI/SvgIcons/SvgIcons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { easings, useTransition, animated } from '@react-spring/web';
-import { useDashClient } from '@/hooks/useDashClient';
+import { useDash, useDashClient } from '@/hooks/useDashClient';
 
 export default function RegistrationWindow() {
     const { userDash, setUserDash, setOpenImportWalletWindow, indexWallet } = useGlobalStore();
@@ -75,6 +75,7 @@ export default function RegistrationWindow() {
 
 function LogInWindow({ setOpenImportWalletWindow }) {
     const { loadingGetUser } = useGlobalStore();
+    const { totalProgress } = useDash();
 
     return (
         <div className={'RegistrationWindow__Container'}>
@@ -95,7 +96,9 @@ function LogInWindow({ setOpenImportWalletWindow }) {
                         <div className={'RegistrationWindow__Loading'}>
                             <Loading style={{ border: '1.5px solid #0275ff', borderTop: '1.5px solid transparent' }} />
                         </div>
-                        <p className={'RegistrationWindow__Connecting'}>connecting...</p>
+                        <p className={'RegistrationWindow__Connecting'}>
+                            <span className={'RegistrationWindow__Connecting__Progress'}>{totalProgress}%</span> loaded
+                        </p>
                     </div>
                     : null}
             </div>
