@@ -3,7 +3,7 @@
 import { easings, useSpring, animated } from '@react-spring/web'
 import './DarkWrapper.scss'
 
-function DarkWrapper ({ duration = 600, open, children }) {
+function DarkWrapper ({ duration = 600, open, handleClick, children }) {
   const animationPopUpWrapper = useSpring({
     to: {
       opacity: open ? '1' : '0',
@@ -16,7 +16,7 @@ function DarkWrapper ({ duration = 600, open, children }) {
   })
 
   return (
-    <animated.div className={'DarkWrapper'} style={animationPopUpWrapper} >
+    <animated.div className={'DarkWrapper'} style={animationPopUpWrapper} onClick={handleClick} >
       {children}
     </animated.div>
   )

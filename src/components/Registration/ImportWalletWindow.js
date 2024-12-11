@@ -35,12 +35,12 @@ export default function ImportWalletWindow() {
     const errorCallback = () => {
         showToast('error', 'Error retrieving account');
         setLoadingGetUser(false);
+        setOpenImportWalletWindow(true);
     };
 
     const successCallback = () => {
         showToast('success', 'Wallet imported successfully');
         setLoadingGetUser(false);
-        setOpenImportWalletWindow(false);
     };
 
     const getNewClient = useCallback(async (mnemonic) => {
@@ -52,8 +52,10 @@ export default function ImportWalletWindow() {
             if (!validateMnemonic(mnemonicTrim)) {
                 showToast('error', 'Invalid mnemonic phrase.');
                 setUserDash(null);
+                setLoadingGetUser(false);
                 return;
             }
+            setOpenImportWalletWindow(false);
             connect({network: 'testnet',
                 wallet: {
                     mnemonic: mnemonicTrim,
@@ -73,6 +75,7 @@ export default function ImportWalletWindow() {
             console.error('Error:', error);
             showToast('error', 'Client creation failed');
             setLoadingGetUser(false);
+            setOpenImportWalletWindow(true);
         }
 
     }, [setLoadingGetUser, setOpenImportWalletWindow, setUserDash, errorCallback, successCallback]);
@@ -114,8 +117,8 @@ export default function ImportWalletWindow() {
     })
 
     return (
-        <DarkWrapper open={openImportWalletWindow} >
-            <animated.div style={animation} className={'ImportWalletWindow'}>
+        <DarkWrapper open={openImportWalletWindow} handleClick={() => setOpenImportWalletWindow(false)} >
+            <animated.div style={animation} className={'ImportWalletWindow'} onClick={(e) => e.stopPropagation()}>
                 <animated.div style={animationLoading} className={'ImportWalletWindow__ContainerLoading'}>
                     <div className={'ImportWalletWindow__ContainerLoading__Loading'}>
                         <Loading />
