@@ -45,12 +45,12 @@ export function useDashClient(props) {
 
     const methods = useRef({
         disconnect: () => {
-            setClient(null);
-            setAccount(null);
-            setIdentityIds(null);
             if (client) {
                 client.disconnect()
             }
+            setClient(null);
+            setAccount(null);
+            setIdentityIds(null);
         },
         connect: async (innerProps) => {
             methods.current.disconnect();
