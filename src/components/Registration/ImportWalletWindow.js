@@ -11,6 +11,7 @@ import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Loading from '../UI/Loading/Loading';
+import localforage from 'localforage';
 
 const dataSeedPhrase = {
     description: 'Make sure your device is safe & no one is watching, don\'t show this info to anyone.',
@@ -48,6 +49,15 @@ export default function ImportWalletWindow() {
         const mnemonicTrim = mnemonic.trim();
         setLoadingGetUser(true);
 
+        const walletStore = localforage.createInstance({
+            name: 'dash-wallet',
+            storeName: 'wallet_store',
+            driver: [
+                localforage.INDEXEDDB,
+                localforage.WEBSQL,
+                localforage.LOCALSTORAGE
+            ]
+        });
         try {
             if (!validateMnemonic(mnemonicTrim)) {
                 showToast('error', 'Invalid mnemonic phrase.');
@@ -59,8 +69,9 @@ export default function ImportWalletWindow() {
             connect({network: 'testnet',
                 wallet: {
                     mnemonic: mnemonicTrim,
+                    adapter: walletStore,
                     unsafeOptions: {
-                        skipSynchronizationBeforeHeight: 1000000,
+                        skipSynchronizationBeforeHeight: 1029000,
                     },
                 }}).then(async (resolveClient) => {
                     if (resolveClient?.identitiesData) {

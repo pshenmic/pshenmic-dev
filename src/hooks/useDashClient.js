@@ -48,6 +48,7 @@ export function useDashClient(props) {
             if (client) {
                 client.disconnect()
             }
+            setTotalProgress(0);
             setClient(null);
             setAccount(null);
             setIdentityIds(null);
