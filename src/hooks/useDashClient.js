@@ -95,7 +95,10 @@ export function useDashClient(props) {
                         throw new Error(`Invalid identity identifier for ID: ${id}`);
                     }
                     const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
-
+                    if (!document) {
+                        throw new Error(`Document not found for identity ID: ${id}`);
+                    }
+                    
                     const firstPart = identityIdentifier.slice(0, 5);
                     const lastPart = identityIdentifier.slice(-5);
 

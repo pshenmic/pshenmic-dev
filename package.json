@@ -31,5 +31,8 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-n": "^17.14.0"
   },
+  "engines": {
+    "node": ">=20.8.0"
+  },
   "license": "MIT"
 }
