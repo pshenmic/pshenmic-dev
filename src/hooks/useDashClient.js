@@ -79,13 +79,13 @@ export function useDashClient(props) {
 
                 const identitiesData = await Promise.all(identityIds.map(async (id) => {
                     const identity = await client.platform.identities.get(id);
-                    const meta = identity.getMetadata();
+                    // const meta = identity.getMetadata();
 
-                    if (!meta) {
-                        throw new Error(`Metadata not found for identity ID: ${id}`);
-                    }
-                    console.log('meta', meta);
-                    identity.setMetadata(meta);
+                    // if (!meta) {
+                    //     throw new Error(`Metadata not found for identity ID: ${id}`);
+                    // }
+                    // console.log('meta', meta);
+                    // identity.setMetadata(meta);
 
                     if (!identity) {
                         throw new Error(`Identity not found for ID: ${id}`);
@@ -98,7 +98,7 @@ export function useDashClient(props) {
                     if (!document) {
                         throw new Error(`Document not found for identity ID: ${id}`);
                     }
-                    
+
                     const firstPart = identityIdentifier.slice(0, 5);
                     const lastPart = identityIdentifier.slice(-5);
 
