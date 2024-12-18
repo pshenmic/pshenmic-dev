@@ -15,6 +15,10 @@ export function useDashClient(props) {
         async function initializeAccount() {
             try {
                 const account = await client.wallet.getAccount();
+                if (!account) {
+                    throw new Error('Failed to retrieve account');
+                }
+
                 let headerProgress = 0;
                 let transactionProgress = 0;
 
@@ -65,9 +69,7 @@ export function useDashClient(props) {
                 setClient(client);
 
                 const account = await client.getWalletAccount();
-
                 const identityIds = account.identities.getIdentityIds();
-
                 if (account && identityIds) {
                     setAccount(account);
                     setIdentityIds(identityIds);
@@ -77,7 +79,21 @@ export function useDashClient(props) {
 
                 const identitiesData = await Promise.all(identityIds.map(async (id) => {
                     const identity = await client.platform.identities.get(id);
+                    const meta = identity.getMetadata();
+
+                    if (!meta) {
+                        throw new Error(`Metadata not found for identity ID: ${id}`);
+                    }
+                    console.log('meta', meta);
+                    identity.setMetadata(meta);
+
+                    if (!identity) {
+                        throw new Error(`Identity not found for ID: ${id}`);
+                    }
                     const identityIdentifier = identity.getId().toString();
+                    if (typeof identityIdentifier !== 'string') {
+                        throw new Error(`Invalid identity identifier for ID: ${id}`);
+                    }
                     const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
 
                     const firstPart = identityIdentifier.slice(0, 5);
