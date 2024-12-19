@@ -6,7 +6,6 @@ import { useState, useRef, createContext, useContext, useEffect } from "react";
 export function useDashClient() {
     const [client, setClient] = useState(null);
     const [account, setAccount] = useState(null);
-    const [identityIds, setIdentityIds] = useState(null);
     const [totalProgress, setTotalProgress] = useState(0);
 
     useEffect(() => {
@@ -55,7 +54,6 @@ export function useDashClient() {
             setTotalProgress(0);
             setClient(null);
             setAccount(null);
-            setIdentityIds(null);
         },
         connect: async (innerProps) => {
             methods.current.disconnect();
@@ -81,12 +79,11 @@ export function useDashClient() {
                 const identityIds = account.identities.getIdentityIds();
                 if (account && identityIds?.length > 0) {
                     setAccount(account);
-                    setIdentityIds(identityIds);
                 } else {
                     throw new Error('Failed to retrieve account or identity IDs');
                 }
 
-                const identitiesData = await Promise.all(identityIds.map(async (id) => {
+                const identities = await Promise.all(identityIds.map(async (id) => {
 
                     const identity = await client.platform.identities.get(id);
                     if (!identity) {
@@ -125,7 +122,7 @@ export function useDashClient() {
                     return { name, identifier };
                 }));
 
-                return Promise.resolve({ client, identityIds, account, identitiesData });
+                return Promise.resolve({ client, account, identities });
             } catch (error) {
                 console.error('Error add client:', error);
                 return Promise.reject(error);
@@ -133,7 +130,7 @@ export function useDashClient() {
         }
     })
 
-    return { identityIds, account, client, totalProgress, ...methods.current };
+    return { account, client, totalProgress, ...methods.current };
 };
 
 const DashContext = createContext();

@@ -76,8 +76,8 @@ export default function ImportWalletWindow() {
                     },
                 }
             }).then(async (resolveClient) => {
-                if (resolveClient?.identitiesData) {
-                    setUserDash(resolveClient.identitiesData);
+                if (resolveClient?.identities) {
+                    setUserDash(resolveClient.identities);
                     successCallback()
                 }
             }).catch((error) => {

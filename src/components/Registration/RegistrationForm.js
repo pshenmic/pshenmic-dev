@@ -43,6 +43,7 @@ export default function RegistrationForm({ data, handleFunction, type }) {
     const handleSubmit = (e) => {
         e.preventDefault()
         handleFunction(inputValue)
+        setInputValue('')
     }
 
     useEffect(() => {
