@@ -30,7 +30,7 @@ export default function RegistrationWindow() {
         } else {
             const listAdmin = process.env.NEXT_PUBLIC_LIST_ADMIN;
             const listAdminArray = listAdmin.split(',');
-            if (listAdminArray.includes(userDash?.[indexWallet]?.identityIdentifier)) {
+            if (listAdminArray.includes(userDash?.[indexWallet]?.identifier)) {
                 setData(<AdminWindow
                     data={userDash?.[indexWallet]}
                     identities={userDash}
@@ -38,7 +38,7 @@ export default function RegistrationWindow() {
                 />);
                 statusTextRef.current.innerText = 'ADMIN';
                 statusStyleRef.current = { backgroundColor: '#8bcc49' };
-            } else if (userDash?.[indexWallet]?.identityIdentifier) {
+            } else if (userDash?.[indexWallet]?.identifier) {
                 setData(<UserWindow
                     data={userDash?.[indexWallet]}
                     identities={userDash}
@@ -111,22 +111,21 @@ function LogInWindow({ setOpenImportWalletWindow }) {
 }
 
 function UserWindow({ data, identities, handleLogout }) {
-
     const name = useMemo(() => {
-        if (data?.name === data?.identityIdentifier) {
+        if (data?.name === data?.identifier) {
             const firstPart = data?.name.slice(0, 5);
             const lastPart = data?.name.slice(-5);
             return `${firstPart}...${lastPart}`;
         } else {
             return data?.name;
         }
-    }, [data?.identityIdentifier, data?.name]);
+    }, [data?.identifier, data?.name]);
 
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
                 <p className={'RegistrationWindow__Title'}>{name}</p>
-                <WalletSelection identityIds={identities} identityIdentifier={data?.identityIdentifier} />
+                <WalletSelection identityIds={identities} identityIdentifier={data?.identifier} />
             </div>
             <button className={'RegistrationWindow__LogOut'} onClick={() => handleLogout()}>
                 <SvgIcons type={'logOut'} />
@@ -139,8 +138,8 @@ function AdminWindow({ data, identities, handleLogout }) {
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
-                <p className={'RegistrationWindow__Title'}>{data?.name || data?.identityIdentifier}</p>
-                <WalletSelection identityIds={identities} identityIdentifier={data?.identityIdentifier} />
+                <p className={'RegistrationWindow__Title'}>{data?.name || data?.identifier}</p>
+                <WalletSelection identityIds={identities} identityIdentifier={data?.identifier} />
                 <div className={'RegistrationWindow__Buttons'}>
                     <RegistrationButton
                         text={'NEW TASK'}

@@ -94,26 +94,26 @@ export function useDashClient(props) {
                         throw new Error(`Identity not found for ID: ${id}`);
                     }
 
-                    const identityIdentifier = identity.getId().toString();
-                    if (typeof identityIdentifier !== 'string') {
+                    const identifier = identity.getId().toString();
+                    if (typeof identifier !== 'string') {
                         throw new Error(`Invalid identity identifier for ID: ${id}`);
                     }
 
-                    const document = await client.platform.names.resolveByRecord('identity', identityIdentifier);
+                    const document = await client.platform.names.resolveByRecord('identity', identifier);
                     if (!document) {
                         throw new Error(`Document not found for identity ID: ${id}`);
                     }
-                    
-                    let name = identityIdentifier;
+
+                    let name = identifier;
                     if (document.length > 0) {
                         document.forEach(doc => {
                             const data = doc.getData();
-                            if (data.records.identity === identityIdentifier) {
+                            if (data.records.identity === identifier) {
                                 name = data.label ? `${data.label}.${data.parentDomainName}` : name;
                             }
                         });
                     }
-                    return { name, identityIdentifier };
+                    return { name, identifier };
                 }));
 
                 return Promise.resolve({ client, identityIds, account, identitiesData });

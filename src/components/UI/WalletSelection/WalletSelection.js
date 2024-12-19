@@ -34,11 +34,11 @@ export default function WalletSelection({ identityIds, identityIdentifier }) {
                 {identityIds?.map((id, index) => (
                     <span
                         className={'WalletSelection__Text'}
-                        style={id.identityIdentifier === identityIdentifier ? { color: '#5199fc' } : null}
+                        style={id.identifier === identityIdentifier ? { color: '#5199fc' } : null}
                         key={index}
-                        onClick={() => { id.identityIdentifier === identityIdentifier ? null : handleClick(index) }}
+                        onClick={() => { id.identifier === identityIdentifier ? null : handleClick(index) }}
                     >
-                        {id.identityIdentifier}
+                        {id.identifier}
                     </span>
                 ))}
             </animated.div>
