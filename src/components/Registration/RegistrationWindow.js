@@ -8,11 +8,12 @@ import WalletSelection from '../UI/WalletSelection/WalletSelection';
 import SvgIcons from '../UI/SvgIcons/SvgIcons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { easings, useTransition, animated } from '@react-spring/web';
-import { useDash, useDashClient } from '@/hooks/useDashClient';
+import { useDash } from '@/hooks/useDashClient';
 
 export default function RegistrationWindow() {
     const { userDash, setUserDash, setOpenImportWalletWindow, indexWallet } = useGlobalStore();
-    const { disconnect } = useDashClient()
+    const { disconnect } = useDash();
+
     const [data, setData] = useState(null)
     const statusTextRef = useRef(null)
     const statusStyleRef = useRef({})

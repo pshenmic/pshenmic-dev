@@ -66,22 +66,23 @@ export default function ImportWalletWindow() {
                 return;
             }
             setOpenImportWalletWindow(false);
-            connect({network: 'testnet',
+            connect({
+                network: 'testnet',
                 wallet: {
                     mnemonic: mnemonicTrim,
                     adapter: walletStore,
                     unsafeOptions: {
                         skipSynchronizationBeforeHeight: 1029000,
                     },
-                }}).then(async (resolveClient) => {
-                    if (resolveClient?.identitiesData) {
-                        setUserDash(resolveClient.identitiesData);
-                        successCallback()
-                    }
-                }).catch((error) => {
-                    errorCallback()
-                })
-
+                }
+            }).then(async (resolveClient) => {
+                if (resolveClient?.identitiesData) {
+                    setUserDash(resolveClient.identitiesData);
+                    successCallback()
+                }
+            }).catch((error) => {
+                errorCallback()
+            })
         } catch (error) {
             console.error('Error:', error);
             showToast('error', 'Client creation failed');

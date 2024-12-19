@@ -3,7 +3,7 @@
 import Dash from "dash";
 import { useState, useRef, createContext, useContext, useEffect } from "react";
 
-export function useDashClient(props) {
+export function useDashClient() {
     const [client, setClient] = useState(null);
     const [account, setAccount] = useState(null);
     const [identityIds, setIdentityIds] = useState(null);
@@ -60,7 +60,16 @@ export function useDashClient(props) {
         connect: async (innerProps) => {
             methods.current.disconnect();
             try {
-                const client = new Dash.Client({ ...props, ...innerProps });
+                const client = new Dash.Client({
+                    network: innerProps.network || 'testnet',
+                    wallet: {
+                        mnemonic: innerProps.wallet.mnemonic,
+                        adapter: innerProps.wallet.adapter,
+                        unsafeOptions: {
+                            skipSynchronizationBeforeHeight: innerProps.wallet.unsafeOptions.skipSynchronizationBeforeHeight,
+                        },
+                    },
+                });
 
                 if (!client) {
                     throw new Error('Client creation failed');
@@ -78,7 +87,7 @@ export function useDashClient(props) {
                 }
 
                 const identitiesData = await Promise.all(identityIds.map(async (id) => {
-                   
+
                     const identity = await client.platform.identities.get(id);
                     if (!identity) {
                         throw new Error(`Identity not found for ID: ${id}`);
