@@ -29,9 +29,8 @@ export default function RegistrationWindow() {
             statusTextRef.current.innerText = 'LOG IN';
             statusStyleRef.current = { backgroundColor: '#2e3845' };
         } else {
-            const listAdmin = process.env.NEXT_PUBLIC_LIST_ADMIN;
-            const listAdminArray = listAdmin.split(',');
-            if (listAdminArray.includes(userDash?.[indexWallet]?.identifier)) {
+            const admin = process.env.NEXT_PUBLIC_ADMIN_IDENTIFIER;
+            if (admin === userDash?.[indexWallet]?.identifier) {
                 setData(<AdminWindow
                     data={userDash?.[indexWallet]}
                     identities={userDash}

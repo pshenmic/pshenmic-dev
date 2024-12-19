@@ -79,7 +79,7 @@ export function useDashClient() {
 
                 const account = await client.getWalletAccount();
                 const identityIds = account.identities.getIdentityIds();
-                if (account && identityIds) {
+                if (account && identityIds?.length > 0) {
                     setAccount(account);
                     setIdentityIds(identityIds);
                 } else {
