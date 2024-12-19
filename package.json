@@ -26,15 +26,15 @@
     "sass": "^1.69.5",
     "zustand": "^4.5.5"
   },
+  "engines": {
+    "node": ">=20.8.0"
+  },
+  "license": "MIT",
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-n": "^17.14.0"
-  },
-  "engines": {
-    "node": ">=20.8.0"
-  },
-  "license": "MIT",
-  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
+  }
 }
