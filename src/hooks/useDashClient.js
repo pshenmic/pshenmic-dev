@@ -34,7 +34,7 @@ export function useDashClient(props) {
                     transactionProgress = progress.progress;
                     const headersContribution = headerProgress * 0.5;
                     const transactionsContribution = progress.progress * 0.5;
-                    
+
                     setTotalProgress(Math.floor(headersContribution + transactionsContribution))
                 });
 
@@ -44,7 +44,7 @@ export function useDashClient(props) {
         }
 
         initializeAccount();
-       
+
     }, [client]);
 
     const methods = useRef({
@@ -78,8 +78,9 @@ export function useDashClient(props) {
                 }
 
                 const identitiesData = await Promise.all(identityIds.map(async (id) => {
+                   
                     const identity = await client.platform.identities.get(id);
-                    if(!identity) {
+                    if (!identity) {
                         throw new Error(`Identity not found for ID: ${id}`);
                     }
 
@@ -87,7 +88,7 @@ export function useDashClient(props) {
                     if (!meta) {
                         throw new Error(`Metadata not found for identity ID: ${id}`);
                     }
-                    
+
                     identity.setMetadata(meta);
                     if (!identity) {
                         throw new Error(`Identity not found for ID: ${id}`);
@@ -103,15 +104,12 @@ export function useDashClient(props) {
                         throw new Error(`Document not found for identity ID: ${id}`);
                     }
                     
-                    const firstPart = identityIdentifier.slice(0, 5);
-                    const lastPart = identityIdentifier.slice(-5);
-
-                    let name = `${firstPart}...${lastPart}`;
+                    let name = identityIdentifier;
                     if (document.length > 0) {
                         document.forEach(doc => {
                             const data = doc.getData();
                             if (data.records.identity === identityIdentifier) {
-                                name = data.label && data.parentDomainName ? `${data.label}.${data.parentDomainName}` : name;
+                                name = data.label ? `${data.label}.${data.parentDomainName}` : name;
                             }
                         });
                     }

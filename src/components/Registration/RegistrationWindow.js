@@ -6,7 +6,7 @@ import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButt
 import useGlobalStore from '@/store/store';
 import WalletSelection from '../UI/WalletSelection/WalletSelection';
 import SvgIcons from '../UI/SvgIcons/SvgIcons';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { easings, useTransition, animated } from '@react-spring/web';
 import { useDash, useDashClient } from '@/hooks/useDashClient';
 
@@ -111,10 +111,21 @@ function LogInWindow({ setOpenImportWalletWindow }) {
 }
 
 function UserWindow({ data, identities, handleLogout }) {
+
+    const name = useMemo(() => {
+        if (data?.name === data?.identityIdentifier) {
+            const firstPart = data?.name.slice(0, 5);
+            const lastPart = data?.name.slice(-5);
+            return `${firstPart}...${lastPart}`;
+        } else {
+            return data?.name;
+        }
+    }, [data?.identityIdentifier, data?.name]);
+
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
-                <p className={'RegistrationWindow__Title'}>{data?.name || data?.identityIdentifier}</p>
+                <p className={'RegistrationWindow__Title'}>{name}</p>
                 <WalletSelection identityIds={identities} identityIdentifier={data?.identityIdentifier} />
             </div>
             <button className={'RegistrationWindow__LogOut'} onClick={() => handleLogout()}>
