@@ -90,16 +90,6 @@ export function useDashClient() {
                         throw new Error(`Identity not found for ID: ${id}`);
                     }
 
-                    const meta = identity.getMetadata();
-                    if (!meta) {
-                        throw new Error(`Metadata not found for identity ID: ${id}`);
-                    }
-
-                    identity.setMetadata(meta);
-                    if (!identity) {
-                        throw new Error(`Identity not found for ID: ${id}`);
-                    }
-
                     const identifier = identity.getId().toString();
                     if (typeof identifier !== 'string') {
                         throw new Error(`Invalid identity identifier for ID: ${id}`);
