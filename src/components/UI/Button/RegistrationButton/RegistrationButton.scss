@@ -1,0 +1,105 @@
+.RegistrationButton {
+    position: relative;
+    padding: 13px 22px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 120%;
+    color: #d2e8fe;
+    width: fit-content;
+    font-family: "Press Start 2P";
+    text-transform: uppercase;
+    background-color: #2e3845;
+    cursor: pointer;
+    transition: padding .5s;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &.disabled {
+        cursor: not-allowed;
+        color: #caf6fd;
+
+        &::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background: #2e3845;
+            opacity: 0.4;
+        }
+
+        &:hover {
+            padding: 13px 22px;
+
+            span {
+                &::before {
+                    animation-name: none;
+                }
+            }
+        }
+    }
+
+    span {
+        transition: all .5s;
+
+        &::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0;
+            top: 0;
+            left: 0;
+            background: rgba(0, 117, 255, 0.10);
+            transition: .5s;
+        }
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 0;
+        top: 0;
+        left: 0;
+        background: rgba(0, 117, 255, 0.10);
+        transition: .5s;
+    }
+
+    &:hover {
+        padding:  13px 17px 13px 27px;
+
+        @media screen and ( max-width: 1024px ) {
+            // padding: 15px 30px 15px 50px;
+        }
+
+        @media screen and ( max-width: 600px ) {
+            // padding:  15px 30px;
+        }
+        
+        span {
+            &:before {
+                animation-duration: .5s;
+                animation-name: slidein;
+            }
+        }
+    }
+}
+
+@keyframes slidein {
+    from {
+        width: 0;
+        left: 0;
+    }
+
+    50% {
+        width: 100%;
+        left: 0;
+    }
+  
+    to {
+        width: 0;
+        left: 100%;
+    }
+}

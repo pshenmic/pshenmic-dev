@@ -1,0 +1,95 @@
+.RegistrationForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    &__Description {
+        position: relative;
+        padding: 32px;
+        padding-bottom: 24px;
+        background: #d2e8fe;
+        width: 100%;
+
+        >p {
+            font-family: "Press Start 2P";
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 180%;
+            color: #000;
+        }
+    }
+
+    &__InputWrapper {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        &__Arrow {
+            position: absolute;
+            top: 0;
+            left: -17px;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ff522b;
+        }
+
+        &__InputDescription {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 18px;
+            color: #01296d;
+        }
+
+        > textarea {
+            width: 100%;
+            padding: 14px 0px;
+            border-bottom: 1px solid #000;
+            background: transparent;
+            font-weight: 400;
+            font-size: 18px;
+            color: #0275ff;
+            font-family: var(--font-mono);
+            resize: none;
+            max-height: 300px;
+            height: 50px;
+
+            &::placeholder {
+                color: #000;
+                opacity: 0.3;
+            }
+        }
+    }
+
+    &__Button {
+        width: 100% !important;
+        background: #0275ff !important;
+        color: #caf6fd !important;
+        transition: all .5s;
+        
+        &.disabled {
+            background: #d2e8fe !important;
+            color: #016dc4 !important;
+            transition: .5s;
+        }
+    }
+
+    @media screen and ( max-width: 520px) {
+        gap: 30px;
+
+        &__Description {
+            padding: 20px;
+        }
+
+        &__InputWrapper {
+            &__Arrow {
+                left: -14px;
+                font-size: 12px;
+            }
+
+            > textarea {
+                font-size: 16px;
+            }
+        }
+    }
+}
