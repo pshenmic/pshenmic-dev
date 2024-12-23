@@ -54,7 +54,6 @@ export default function ImportWalletWindow() {
             storeName: 'wallet_store',
             driver: [
                 localforage.INDEXEDDB,
-                localforage.WEBSQL,
             ]
         });
         try {
