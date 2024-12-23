@@ -64,7 +64,7 @@ export function useDashClient() {
                         mnemonic: innerProps.wallet.mnemonic,
                         adapter: innerProps.wallet.adapter,
                         unsafeOptions: {
-                            skipSynchronizationBeforeHeight: innerProps.wallet.unsafeOptions.skipSynchronizationBeforeHeight,
+                            skipSynchronizationBeforeHeight: innerProps.wallet?.unsafeOptions?.skipSynchronizationBeforeHeight || 0,
                         },
                     },
                 });
@@ -84,7 +84,6 @@ export function useDashClient() {
                 }
 
                 const identities = await Promise.all(identityIds.map(async (id) => {
-
                     const identity = await client.platform.identities.get(id);
                     if (!identity) {
                         throw new Error(`Identity not found for ID: ${id}`);
@@ -96,7 +95,8 @@ export function useDashClient() {
                     }
 
                     const document = await client.platform.names.resolveByRecord('identity', identifier);
-                    if (!document) {
+
+                    if (!Array.isArray(document)) {
                         throw new Error(`Document not found for identity ID: ${id}`);
                     }
 

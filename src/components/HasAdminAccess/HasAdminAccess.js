@@ -19,7 +19,6 @@ function HasAdminAccess () {
       localStorage.setItem('isAdminPshenmic', 'true')
       localStorage.setItem('dataClear', `${now.getTime() + 86400000}`)
       setOpenAdminAccessPopup(false)
-      console.log('true'  )
     }
     reset()
   }
