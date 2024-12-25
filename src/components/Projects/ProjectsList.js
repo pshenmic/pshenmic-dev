@@ -5,6 +5,7 @@ import { motion as m, AnimatePresence } from 'framer-motion'
 import './ProjectsList.scss'
 import useGlobalStore from '@/store/store'
 import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
+import Pagination from '../UI/Pagination/Pagination'
 
 const defaultProjectsList = [
   {
@@ -34,13 +35,61 @@ const defaultProjectsList = [
     imgSrc: '/assets/img/dashboards-preview-400x400.png',
     githubLink: '',
     projectLink: 'https://dashboards.pshenmic.dev/'
+  },
+  //
+
+  {
+    title: 'Dashmate Contribution',
+    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
+    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
+    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
+    projectLink: 'https://www.dashmate.org/'
+  },
+  {
+    title: 'Dashboards',
+    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
+    imgSrc: '/assets/img/dashboards-preview-400x400.png',
+    githubLink: '',
+    projectLink: 'https://dashboards.pshenmic.dev/'
+  },
+  {
+    title: 'Dashmate Contribution',
+    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
+    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
+    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
+    projectLink: 'https://www.dashmate.org/'
+  },
+  {
+    title: 'Dashboards',
+    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
+    imgSrc: '/assets/img/dashboards-preview-400x400.png',
+    githubLink: '',
+    projectLink: 'https://dashboards.pshenmic.dev/'
+  },
+  {
+    title: 'Dashmate Contribution',
+    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
+    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
+    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
+    projectLink: 'https://www.dashmate.org/'
+  },
+  {
+    title: 'Dashboards',
+    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
+    imgSrc: '/assets/img/dashboards-preview-400x400.png',
+    githubLink: '',
+    projectLink: 'https://dashboards.pshenmic.dev/'
   }
 ]
 
-export default function ProjectsList ({ projects = defaultProjectsList }) {
+export default function ProjectsList({ projects = defaultProjectsList }) {
   const [openedItem, setOpenedItem] = useState(null)
   const admin = useGlobalStore(state => state.admin)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  }
 
   const openEditingWindow = useCallback(() => {
     setOpenEditingWindow(true)
@@ -71,6 +120,12 @@ export default function ProjectsList ({ projects = defaultProjectsList }) {
       {openedItem === null && (
         <m.div key={'projectsList'} className={'ProjectsList'}>
           {ListItems}
+          <Pagination
+            totalItems={projects.length}
+            itemsPerPage={1}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
           {admin && openedItem === null
             ? <ActionButtons
               text={'add Project'}

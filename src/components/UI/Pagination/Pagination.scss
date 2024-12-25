@@ -1,0 +1,55 @@
+@import '../../../assets/styles/mixins.scss';
+
+.Pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+
+    &__Text {
+        font-weight: 400;
+        font-size: 10px;
+        color: #caf6fd;
+        font-family: "Press Start 2P";
+        text-align: center;
+    }
+
+    &__Arrow {
+        cursor: pointer;
+        padding: 13px;
+        background: #2e3845;
+        opacity: 1;
+        transition: background ease .5s, opacity ease .5s;
+
+        &:disabled {
+            cursor: auto;
+            opacity: .5;
+
+            &:hover {
+                background: #2e3845;
+            }
+        }
+
+        &:hover {
+            background: #7f8ea1;
+        }
+    }
+
+    &__Button {
+        padding: 13px;
+        cursor: pointer;
+        flex: 1;
+        background: #2e3845;
+        transition: background ease .5s;
+
+        &.active {
+            background: #7f8ea1;
+        }
+
+        &:hover {
+            background: #7f8ea1;
+        }
+    }
+    
+}
