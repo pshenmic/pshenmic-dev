@@ -126,13 +126,6 @@ export default function ImportWalletWindow() {
                 </div>
                 <p>It usually takes up to 3 minutes to connect to the blockchain. You can continue using the platform, and we will notify you once the process is successful or if it fails.</p>
             </animated.div>
-            <button
-                className={"ImportWalletWindow__CloseButton"}
-                onClick={() => setOpenImportWalletWindow(false)}
-                aria-label={"Close Import Wallet Window"}
-            >
-                <Image className={'ImportWalletWindow__CloseButton__Icon'} src={'/assets/img/close.svg'} alt={"close"} width={16} height={16} />
-            </button>
             <div className={"ImportWalletWindow__Wrapper"}>
                 <h2 className={"ImportWalletWindow__Title"}>IMPORT WALLET</h2>
                 <div className={`ImportWalletWindow__ButtonsContent ${activeButton === 'seedPhrase' ? 'ImportWalletWindow__ButtonsContentSeedPhrase' : ''}`}>

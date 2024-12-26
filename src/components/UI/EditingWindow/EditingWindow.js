@@ -8,8 +8,9 @@ import ActionButtons from '../Button/ActionButtons/ActionButtons'
 import Image from 'next/image'
 import PageEditingWindows from '@/components/PageEditingWindows/PageEditingWindows'
 import './EditingWindow.scss'
+import WrapperUserInputModal from '../WrapperUserInputModal/WrapperUserInputModal'
 
-function EditingWindow () {
+function EditingWindow() {
   const openEditingWindow = useGlobalStore(state => state.openEditingWindow)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const admin = useGlobalStore(state => state.admin)
@@ -34,40 +35,16 @@ function EditingWindow () {
   return (
     <>
       {admin
-        ? <DarkWrapper open={openEditingWindow}>
-            <div className={'EditingWindow'}>
-              <form onKeyDown={handleKeyDown} className={'EditingWindow__Window'} onSubmit={handleSubmit(onSubmit)}>
-                <button
-                  className={'EditingWindow__Close'}
-                  aria-label={'Close The Window'}
-                  onClick={() => setOpenEditingWindow(false)}
-                  type={'button'}
-                >
-                  <Image src={'/assets/img/cross.svg'} width={24} height={24} alt={'close'}/>
-                </button>
-                <div className={'EditingWindow__WrapperEditableFields'}>
-                  <PageEditingWindows
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    clearErrors={clearErrors}
-                  />
-                </div>
-                <div className={'EditingWindow__WrapperButton'}>
-                  <ActionButtons
-                    text={'Save'}
-                    ariaLabel={'save'}
-                    type={'submit'}
-                  />
-                  <ActionButtons
-                    text={'Delete'}
-                    ariaLabel={'delete'}
-                    typeButton={'dangerous'}
-                  />
-                </div>
-              </form>
-            </div>
-          </DarkWrapper>
+        ? <WrapperUserInputModal open={openEditingWindow} setOpen={setOpenEditingWindow}>
+          <form onKeyDown={handleKeyDown} onSubmit={handleSubmit(onSubmit)}>
+              <PageEditingWindows
+                errors={errors}
+                register={register}
+                setValue={setValue}
+                clearErrors={clearErrors}
+              />
+          </form>
+        </WrapperUserInputModal>
         : null}
     </>
   )

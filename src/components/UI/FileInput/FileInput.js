@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import './FileInput.scss'
 
-function FileInput ({ clearErrors, setValue, error, text, mountedPicture, name, required = true, register }) {
+function FileInput({ clearErrors, setValue, error, textName, textLink, textDescription, mountedPicture, name, register }) {
   const [files, setFiles] = useState([])
   const { hasOwnProperty } = Object.prototype
   // TODO sending a picture to the server (filesserv)
@@ -62,38 +62,27 @@ function FileInput ({ clearErrors, setValue, error, text, mountedPicture, name, 
 
   return (
     <div className={'FileInput'}>
-      {text
-        ? <p>{text}{required && <span>*</span>}</p>
-        : null}
-
-      <div className={`FileInput__Avatar ${hasOwnProperty.call(error, name) ? 'FileInput__Error' : ''}`} { ...getRootProps() }>
-        {files.length > 0
-          ? <button
-              className={'FileInput__Delete'}
-              onClick={(e) => {
-                e.stopPropagation()
-                setFiles([])
-              }}
-            >
-              delete
-            </button>
-          : null
-        }
+      <div className={`FileInput__Avatar ${hasOwnProperty.call(error, name) ? 'FileInput__Error' : ''}`} {...getRootProps()}>
         {files.length !== 0
           ? thumbs
           : <Image
-              src={mountedPicture || '/assets/img/dash-electrum-icon.png'}
-              width={200}
-              height={200}
-              alt={'avatar'}
-            />
+            src={mountedPicture || '/assets/img/pictureOfaBlindfold.png'}
+            width={100}
+            height={100}
+            alt={'Preview Image'}
+          />
         }
         <input
-          {...register(name, { required })}
+          {...register(name, { required: true })}
           id={'fileInput'}
           {...getInputProps()}
           type={'file'}
         />
+      </div>
+      <div className={'FileInput__Info'}>
+        <p className={'FileInput__Info__Name'} style={{ opacity: textName ? 1 : 0.3 }}>{textName || 'Project name...'}</p>
+        <p className={'FileInput__Info__Link'}>{textLink || 'project link....'}</p>
+        { textDescription && <p className={'FileInput__Info__Description'}>{textDescription}</p> }
       </div>
     </div>
   )

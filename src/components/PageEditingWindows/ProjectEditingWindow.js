@@ -1,118 +1,25 @@
-import { useCallback, useState } from 'react'
-import EditFieldWrapper from '../UI/EditFieldWrapper/EditFieldWrapper'
-import FileInput from '../UI/FileInput/FileInput'
-import TextField from '../UI/TextField/TextField'
-import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
+import Image from 'next/image'
 import './PageEditingWindows.scss'
+import FileInput from '../UI/FileInput/FileInput'
 
 function ProjectEditingWindow ({ errors, register, setValue, clearErrors }) {
-  const [link, setLink] = useState([])
-
-  const addField = useCallback(() => {
-    setLink([...link, { id: Date.now() }])
-  }, [link])
-
-  const removeField = useCallback((id) => {
-    setLink(link.filter(field => field.id !== id))
-  }, [link])
 
   return (
-    <>
-      <EditFieldWrapper title={'preview card'}>
-        <FileInput
-          text={'imgPreview'}
-          error={errors}
-          name={'imgPreview_ProjectEditingWindow'}
-          register={register}
-          setValue={setValue}
-          clearErrors={clearErrors}
-        />
-        <TextField
-          text={'previewTitle'}
-          error={errors}
-          name={'previewTitle_ProjectEditingWindow'}
-          register={register}
-          required={false}
-        />
-        <TextField
-          text={'previewDescription'}
-          error={errors}
-          name={'previewDescription_ProjectEditingWindow'}
-          register={register}
-          required={false}
-          richText={true}
-        />
-      </EditFieldWrapper>
-      <EditFieldWrapper title={'Component'}>
-        <FileInput
-          text={'img'}
-          error={errors}
-          name={'img_ProjectEditingWindow'}
-          register={register}
-          setValue={setValue}
-          clearErrors={clearErrors}
-        />
-        <TextField
-          text={'title'}
-          error={errors}
-          name={'title_ProjectEditingWindow'}
-          register={register}
-          required={false}
-        />
-        <TextField
-          text={'description'}
-          error={errors}
-          name={'description_ProjectEditingWindow'}
-          register={register}
-          required={false}
-          richText={true}
-        />
-      </EditFieldWrapper>
-      {link.map((field, i) => (
-        <EditFieldWrapper key={field.id} title={`Link ${i + 1}`}>
-          <TextField
-            text={'href'}
-            error={errors}
-            name={`href_${field.id}_ProjectEditingWindow`}
-            register={register}
-          />
-          <TextField
-            text={'ariaLabel'}
-            error={errors}
-            name={`ariaLabel_${field.id}_ProjectEditingWindow`}
-            register={register}
-          />
-          <TextField
-            text={'name'}
-            error={errors}
-            name={`name_${field.id}_ProjectEditingWindow`}
-            register={register}
-          />
-          <FileInput
-            text={'icon'}
-            error={errors}
-            name={`icon_${field.id}_ProjectEditingWindow`}
-            register={register}
-            setValue={setValue}
-            clearErrors={clearErrors}
-          />
-          <ActionButtons
-            text={'Delete project'}
-            handleClick={() => removeField(field.id)}
-            ariaLabel={'Delete project'}
-            typeButton={'dangerous'}
-          />
-        </EditFieldWrapper>
-      ))}
-      <div className={'WrapperButton'}>
-        <ActionButtons
-          text={'add project'}
-          handleClick={addField}
-          ariaLabel={'add project'}
-          type={'button'}
-        />
-      </div>
-    </>
+    <div className={'ProjectEditingWindow'}>
+        <h2>CREATE A NEW PROJECT</h2>
+        <div className={'ProjectEditingWindow__ImageCard'}>
+            <div className={'ProjectEditingWindow__ImageCard__Image'}>
+              <Image src={'/images/pictureOfaBlindfold.png'} alt={'Project Image'} width={100} height={100} />
+            </div>
+            <div className={'ProjectEditingWindow__ImageCard__Info'}>
+              <p>Project name...</p>
+              <p>project link....</p>
+              <p></p>
+            </div>
+        </div>
+        <FileInput name={'ProjectEditingWindow__ImageCard__Image'} error={errors} setValue={setValue} clearErrors={clearErrors} register={register} text={'Project image'} required={false}
+          richText={true}/>
+    </div>
   )
 }
 

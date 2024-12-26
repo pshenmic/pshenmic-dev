@@ -14,7 +14,7 @@ function PageEditingWindows ({ clearErrors, errors, register, setValue }) {
     <>
       { path === '/admin' && <UpdatesEditingWindow key={'UpdatesEditingWindow'} errors={errors} register={register} setValue={setValue} clearErrors={clearErrors}/> }
       { path === '/admin/services' && <ServicesEditingWindow key={'ServicesEditingWindow'} errors={errors} register={register} setValue={setValue} clearErrors={clearErrors}/> }
-      { path === '/admin/projects' && <ProjectEditingWindow key={'ProjectEditingWindow'} errors={errors} register={register} setValue={setValue} clearErrors={clearErrors}/> }
+      { path === '/projects' && <ProjectEditingWindow key={'ProjectEditingWindow'} errors={errors} register={register} setValue={setValue} clearErrors={clearErrors}/> }
       { path === '/admin/team' && <TeamEditingWindow key={'TeamEditingWindow'} errors={errors} register={register} setValue={setValue} clearErrors={clearErrors}/> }
     </>
   )
