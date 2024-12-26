@@ -1,14 +1,16 @@
 import { motion as m } from 'framer-motion'
 import Image from 'next/image'
-import './ProjectListItem.scss'
 import useGlobalStore from '@/store/store'
 import EditButton from '../UI/Button/EditButton/EditButton'
+import './ProjectListItem.scss'
+import { truncateText } from '@/lib/truncateText'
+import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 
-function ProjectListItem ({ project, openHandler, id, openEditor }) {
+function ProjectListItem({ project, openHandler, id, openEditor }) {
   const admin = useGlobalStore(state => state.admin)
 
   return (
-    <m.div
+    <m.li
       className={'ProjectListItem'}
       onClick={openHandler}
       initial={{ y: 30, opacity: 0 }}
@@ -22,17 +24,34 @@ function ProjectListItem ({ project, openHandler, id, openEditor }) {
     >
       {admin
         ? <div className={'ProjectListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
-          <EditButton handleClick={openEditor} type={'buttom'}/>
+          <EditButton handleClick={openEditor} type={'buttom'} />
         </div>
-        : null }
+        : null}
       <div className={'ProjectListItem__ImageContainer'}>
-        <Image alt={project.title || ''} src={project.imgSrc} width={300} height={300}/>
+        <Image alt={project.title || ''} src={project.imgSrc} width={300} height={300} />
       </div>
       <div className={'ProjectListItem__ContentContainer'}>
-        <div className={'ProjectListItem__Title'}>{project.title}</div>
-        <div className={'ProjectListItem__Description'}>{project.description}</div>
+        <p className={'ProjectListItem__Title'}>{project.title}</p>
+        <p className={'ProjectListItem__Dashmate'}> {project.dashmate}</p>
+        <p className={'ProjectListItem__Description'}>{truncateText(project.description, 75)}</p>
+        <div className={'ProjectListItem__WrapperButtons'}>
+          <RegistrationButton
+            className={'ProjectListItem__ButtonTasks'}
+            text={project?.tasts?.length > 0 ? `${project.tasts.length} Tasks` : 'No Tasks'}
+            ariaLabel={'Tasks'}
+            disabled={project?.tasts?.length === 0}
+          />
+          {project?.pendingClaims?.length > 0 ?
+            <RegistrationButton
+              className={'ProjectListItem__ButtonPendingClaims'}
+              text={`${project.pendingClaims.length} Pending Claims`}
+              ariaLabel={'Pending Claims'}
+            />
+            : null
+          }
+        </div>
       </div>
-    </m.div>
+    </m.li>
   )
 }
 

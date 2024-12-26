@@ -15,7 +15,7 @@ body {
     overflow: hidden;
     height: 100%;
     width: 100%;
-    padding: 40px 20px;
+    padding-left: 20px;
 
     &::before, &:after {
         background-color: #0075FF;
@@ -59,6 +59,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        padding: 40px 0px;
     }
 
     @media screen and ( max-width: 1700px) {

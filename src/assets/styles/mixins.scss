@@ -2,12 +2,14 @@ $width-tablet: 940px;
 
 @mixin listItem {
     display: flex;
-    background: rgba(109, 124, 255, 0.07);
-    margin-bottom: 50px;
+    background: #1a212a;
+    margin-bottom: 12px;
     position: relative;
-    height: 200px;
+    gap: 30px;
+    min-height: 270px;
     transition: .5s box-shadow;
     box-shadow: none;
+    padding: 30px;
 
     &:hover {
         cursor: pointer;
@@ -21,8 +23,8 @@ $width-tablet: 940px;
     }
 
     &__ImageContainer {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 100%;
         background: rgba(109, 124, 255, 0.07);
         flex-shrink: 0;
 
@@ -38,28 +40,63 @@ $width-tablet: 940px;
     }
 
     &__ContentContainer {
-        padding: 40px;
-        width: 100%;
+        width: 440px;
+        height: 100%;
         word-wrap: break-word;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    &__Dashmate {
+        color: #62cff6;
+        font-family: 'Press Start 2P';
+        font-weight: 400;
+        font-size: 10px;
+        margin-bottom: 37px;
+        text-transform: uppercase;
     }
 
     &__Title {
-        color: #FFF;
-        font-family: Press Start 2P;
-        font-size: 18px;
-        font-style: normal;
+        font-family: 'Press Start 2P';
         font-weight: 400;
-        line-height: 1.6;
-        margin-bottom: 10px;
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 16px;
+    }
+
+    &__ButtonPendingClaims {
+        background-color: #ffbd07 !important;
+    }
+
+    &__ButtonTasks {
+
+        &.disabled {
+            border: 1px solid #2e3845;
+            color: #66727d !important;
+            background-color: transparent !important;
+            text-transform: capitalize !important;
+
+            &::after {
+                background: transparent !important;
+                opacity: 1 !important;
+            }
+        }
+    }
+
+    &__WrapperButtons {
+        display: flex;
+        gap: 12px;
+        align-self: center;
+        margin-top: 26px;
+        flex-wrap: wrap;
     }
 
     &__Description {
-        color: #A7A7A7;
-        font-family: Press Start 2P;
-        font-size: 14px;
+        color: #fff;
+        font-family: var(--font-mono);
+        font-size: 18px;
         font-style: normal;
-        font-weight: 400;
-        line-height: 24px; 
+        font-weight: 700;
         overflow: hidden;
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -68,10 +105,10 @@ $width-tablet: 940px;
     }
 
     @media screen and ( max-width: 1500px) {
-        margin-bottom: 30px;
-
         &__ContentContainer {
-            padding: 32px 44px;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 10px;
         }
 
         &__Description {
@@ -146,7 +183,7 @@ $width-tablet: 940px;
 
     &__Title {
         color: #FFF;
-        font-family: Press Start 2P;
+        font-family: 'Press Start 2P';
         font-size: 18px;
         font-style: normal;
         font-weight: 400;
@@ -156,7 +193,7 @@ $width-tablet: 940px;
 
     &__Description {
         color: #A7A7A7;
-        font-family: Press Start 2P;
+        font-family: 'Press Start 2P';
         font-size: 14px;
         font-style: normal;
         font-weight: 400;

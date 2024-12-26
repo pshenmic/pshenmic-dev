@@ -11,9 +11,9 @@ import { easings, useTransition, animated } from '@react-spring/web';
 import { useDash } from '@/hooks/useDashClient';
 
 export default function RegistrationWindow() {
+    const setAdmin = useGlobalStore(state => state.setAdmin)
     const { userDash, setUserDash, setOpenImportWalletWindow, indexWallet } = useGlobalStore();
     const { disconnect } = useDash();
-
     const [data, setData] = useState(null)
     const statusTextRef = useRef(null)
     const statusStyleRef = useRef({})
@@ -38,6 +38,7 @@ export default function RegistrationWindow() {
                 />);
                 statusTextRef.current.innerText = 'ADMIN';
                 statusStyleRef.current = { backgroundColor: '#8bcc49' };
+                setAdmin(true)
             } else if (userDash?.[indexWallet]?.identifier) {
                 setData(<UserWindow
                     data={userDash?.[indexWallet]}
@@ -46,6 +47,7 @@ export default function RegistrationWindow() {
                 />);
                 statusTextRef.current.innerText = 'USER';
                 statusStyleRef.current = { backgroundColor: '#0275ff' };
+                setAdmin(false)
             }
         }
     }, [userDash, indexWallet, setUserDash, handleLogout]);

@@ -9,10 +9,32 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import ContentBlock from '@/components/ContentBlock/ContentBlock'
 import { usePathname } from 'next/navigation'
 import useGlobalStore from '@/store/store'
-
+import Dash from "dash";
 const defaultContent = 'updates'
 
-export default function App () {
+export default function App() {
+
+  useEffect(() => {
+    const addClient = async () => {
+      const clientOpts = {
+        network: 'testnet',
+        apps: {
+          tutorialContract: {
+            contractId: '2MfmHqYmAk1jAQNv7SsGJPT22MrfKFcHKZDc7cTu2biX',
+          },
+        },
+      };
+      const client = new Dash.Client(clientOpts);
+      console.log('client', client)
+      // const documents = await client.platform.documents.get('dpns.domain', {
+      //   limit: 100,
+      //   offset: 0,
+      // });
+      // console.log('documents', documents)
+    }
+    addClient()
+  }, [])
+
   const [content, setContent] = useState(defaultContent)
   const [render, setRender] = useState(false)
   const path = usePathname()
@@ -43,18 +65,18 @@ export default function App () {
 
   return render
     ? <Router>
-        <main className={'App'}>
-          <m.div className={'App__CommonWrapper'}>
-            <div className={'App__Sidebar'}>
-              <Menu selectItemCallback={setContent} defaultItem={content}/>
-              { path.includes('admin')
-                ? null
-                : <CommandLine category={content}/>
-              }
-            </div>
-            <ContentBlock />
-          </m.div>
-        </main>
-      </Router>
+      <main className={'App'}>
+        <m.div className={'App__CommonWrapper'}>
+          <div className={'App__Sidebar'}>
+            <Menu selectItemCallback={setContent} defaultItem={content} />
+            {path.includes('admin')
+              ? null
+              : <CommandLine category={content} />
+            }
+          </div>
+          <ContentBlock />
+        </m.div>
+      </main>
+    </Router>
     : null
 }
