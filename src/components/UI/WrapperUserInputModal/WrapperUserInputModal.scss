@@ -1,0 +1,11 @@
+@import '../../../assets/styles/mixins.scss';
+
+.WalletWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 800px;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 11;
+}

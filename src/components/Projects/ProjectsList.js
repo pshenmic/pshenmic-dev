@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion as m, AnimatePresence } from 'framer-motion'
 import ProjectListItem from './ProjectListItem'
 import Project from './Project'
@@ -119,7 +119,9 @@ export default function ProjectsList({ projects = defaultProjectsList }) {
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  setAdmin(true)
+  useEffect(() => {
+    setAdmin(true)
+  }, [])
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   }

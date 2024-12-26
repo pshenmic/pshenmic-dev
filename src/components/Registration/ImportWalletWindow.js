@@ -7,11 +7,11 @@ import { showToast } from '@/lib/showToast';
 import { validateMnemonic } from 'bip39';
 import { useDash } from '@/hooks/useDashClient';
 import useGlobalStore from "@/store/store";
-import DarkWrapper from "../UI/DarkWrapper/DarkWrapper";
 import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Loading from '../UI/Loading/Loading';
 import localforage from 'localforage';
+import WrapperUserInputModal from '../UI/WrapperUserInputModal/WrapperUserInputModal';
 
 const dataSeedPhrase = {
     description: 'Make sure your device is safe & no one is watching, don\'t show this info to anyone.',
@@ -90,14 +90,6 @@ export default function ImportWalletWindow() {
 
     }, [setLoadingGetUser, setOpenImportWalletWindow, setUserDash, errorCallback, successCallback]);
 
-    const animation = useSpring({
-        transform: openImportWalletWindow ? 'translateX(0%)' : 'translateX(100%)',
-        config: {
-            tension: 200,
-            friction: 30
-        }
-    });
-
     const animationLoading = useSpring({
         opacity: loadingGetUser ? 1 : 0,
         pointerEvents: loadingGetUser ? 'auto' : 'none',
@@ -127,46 +119,44 @@ export default function ImportWalletWindow() {
     })
 
     return (
-        <DarkWrapper open={openImportWalletWindow} handleClick={() => setOpenImportWalletWindow(false)} >
-            <animated.div style={animation} className={'ImportWalletWindow'} onClick={(e) => e.stopPropagation()}>
-                <animated.div style={animationLoading} className={'ImportWalletWindow__ContainerLoading'}>
-                    <div className={'ImportWalletWindow__ContainerLoading__Loading'}>
-                        <Loading />
-                    </div>
-                    <p>It usually takes up to 3 minutes to connect to the blockchain. You can continue using the platform, and we will notify you once the process is successful or if it fails.</p>
-                </animated.div>
-                <button
-                    className={"ImportWalletWindow__CloseButton"}
-                    onClick={() => setOpenImportWalletWindow(false)}
-                    aria-label={"Close Import Wallet Window"}
-                >
-                    <Image className={'ImportWalletWindow__CloseButton__Icon'} src={'/assets/img/close.svg'} alt={"close"} width={16} height={16} />
-                </button>
-                <div className={"ImportWalletWindow__Wrapper"}>
-                    <h2 className={"ImportWalletWindow__Title"}>IMPORT WALLET</h2>
-                    <div className={`ImportWalletWindow__ButtonsContent ${activeButton === 'seedPhrase' ? 'ImportWalletWindow__ButtonsContentSeedPhrase' : ''}`}>
-                        <button
-                            onClick={() => setActiveButton('seedPhrase')}
-                            className={`ImportWalletWindow__ButtonsContent__Button ${activeButton === 'seedPhrase' ? 'Active' : ''}`}
-                        >
-                            SEED PHRASE
-                        </button>
-                        <button
-                            disabled={true}
-                            style={{ cursor: 'not-allowed' }}
-                            onClick={() => setActiveButton('privateKey')}
-                            className={`ImportWalletWindow__ButtonsContent__Button ${activeButton === 'privateKey' ? 'Active' : ''}`}
-                        >
-                            PRIVATE KEY
-                        </button>
-                    </div>
-                    {transitions((style, item) =>
-                        <animated.div style={{ ...style }}>
-                            {item}
-                        </animated.div>
-                    )}
+        <WrapperUserInputModal open={openImportWalletWindow} setOpen={setOpenImportWalletWindow}>
+            <animated.div style={animationLoading} className={'ImportWalletWindow__ContainerLoading'}>
+                <div className={'ImportWalletWindow__ContainerLoading__Loading'}>
+                    <Loading />
                 </div>
+                <p>It usually takes up to 3 minutes to connect to the blockchain. You can continue using the platform, and we will notify you once the process is successful or if it fails.</p>
             </animated.div>
-        </DarkWrapper>
+            <button
+                className={"ImportWalletWindow__CloseButton"}
+                onClick={() => setOpenImportWalletWindow(false)}
+                aria-label={"Close Import Wallet Window"}
+            >
+                <Image className={'ImportWalletWindow__CloseButton__Icon'} src={'/assets/img/close.svg'} alt={"close"} width={16} height={16} />
+            </button>
+            <div className={"ImportWalletWindow__Wrapper"}>
+                <h2 className={"ImportWalletWindow__Title"}>IMPORT WALLET</h2>
+                <div className={`ImportWalletWindow__ButtonsContent ${activeButton === 'seedPhrase' ? 'ImportWalletWindow__ButtonsContentSeedPhrase' : ''}`}>
+                    <button
+                        onClick={() => setActiveButton('seedPhrase')}
+                        className={`ImportWalletWindow__ButtonsContent__Button ${activeButton === 'seedPhrase' ? 'Active' : ''}`}
+                    >
+                        SEED PHRASE
+                    </button>
+                    <button
+                        disabled={true}
+                        style={{ cursor: 'not-allowed' }}
+                        onClick={() => setActiveButton('privateKey')}
+                        className={`ImportWalletWindow__ButtonsContent__Button ${activeButton === 'privateKey' ? 'Active' : ''}`}
+                    >
+                        PRIVATE KEY
+                    </button>
+                </div>
+                {transitions((style, item) =>
+                    <animated.div style={{ ...style }}>
+                        {item}
+                    </animated.div>
+                )}
+            </div>
+        </WrapperUserInputModal>
     )
 }
