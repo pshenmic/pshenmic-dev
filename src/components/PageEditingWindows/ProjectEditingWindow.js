@@ -1,24 +1,60 @@
-import Image from 'next/image'
+'use client'
+
 import './PageEditingWindows.scss'
 import FileInput from '../UI/FileInput/FileInput'
+import TextField from '../UI/TextField/TextField'
+import { useFormContext, useWatch } from 'react-hook-form';
+import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton';
 
-function ProjectEditingWindow ({ errors, register, setValue, clearErrors }) {
-
+function ProjectEditingWindow() {
+  const { control } = useFormContext();
+  const inputValueName = control ? useWatch({ control, name: 'name_ProjectEditingWindow' }) : '';
+  const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
+  const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
+  const image = control ? useWatch({ control, name: 'projectEditingWindow__ImageCard__Image' }) : '';
+  console.log(image)
   return (
     <div className={'ProjectEditingWindow'}>
-        <h2>CREATE A NEW PROJECT</h2>
-        <div className={'ProjectEditingWindow__ImageCard'}>
-            <div className={'ProjectEditingWindow__ImageCard__Image'}>
-              <Image src={'/images/pictureOfaBlindfold.png'} alt={'Project Image'} width={100} height={100} />
-            </div>
-            <div className={'ProjectEditingWindow__ImageCard__Info'}>
-              <p>Project name...</p>
-              <p>project link....</p>
-              <p></p>
-            </div>
-        </div>
-        <FileInput name={'ProjectEditingWindow__ImageCard__Image'} error={errors} setValue={setValue} clearErrors={clearErrors} register={register} text={'Project image'} required={false}
-          richText={true}/>
+      <h2>CREATE A NEW PROJECT</h2>
+      <FileInput
+        name={'projectEditingWindow__ImageCard__Image'}
+        required={false}
+        richText={true}
+        textName={inputValueName}
+        textDescription={inputValueDescription}
+        textLink={inputValueUrl}
+      />
+
+      <TextField
+        text={'Name'}
+        name={'name_ProjectEditingWindow'}
+        placeholder={'ex. Pshenmic.dev'}
+        arrow={true}
+        required={false}
+      />
+
+      <TextField
+        text={'Description'}
+        name={'description_ProjectEditingWindow'}
+        placeholder={'Describe your new and beautiful project...'}
+        required={true}
+      />
+
+      <TextField
+        text={'Url'}
+        name={'url_ProjectEditingWindow'}
+        placeholder={'ex. https://pshenmic.dev/img/1.png'}
+        required={true}
+        valid={/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/}
+      />
+
+      <RegistrationButton
+        className={'ProjectEditingWindow__Button'}
+        text={'CREATE PROJECT'}
+        ariaLabel={'Create project'}
+        type={'submit'}
+        disabled={!inputValueName || !inputValueDescription || !inputValueUrl}
+      />
     </div>
   )
 }

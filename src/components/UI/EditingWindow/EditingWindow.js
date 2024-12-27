@@ -1,20 +1,19 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import useGlobalStore from '@/store/store'
-import DarkWrapper from '../DarkWrapper/DarkWrapper'
-import ActionButtons from '../Button/ActionButtons/ActionButtons'
-import Image from 'next/image'
 import PageEditingWindows from '@/components/PageEditingWindows/PageEditingWindows'
-import './EditingWindow.scss'
 import WrapperUserInputModal from '../WrapperUserInputModal/WrapperUserInputModal'
+import './EditingWindow.scss'
 
 function EditingWindow() {
   const openEditingWindow = useGlobalStore(state => state.openEditingWindow)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const admin = useGlobalStore(state => state.admin)
-  const { register, handleSubmit, formState: { errors }, setValue, clearErrors } = useForm()
+
+  const methods = useForm()
+  const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control } = methods
 
   const onSubmit = (data) => {
     console.log(data)
@@ -35,16 +34,14 @@ function EditingWindow() {
   return (
     <>
       {admin
-        ? <WrapperUserInputModal open={openEditingWindow} setOpen={setOpenEditingWindow}>
-          <form onKeyDown={handleKeyDown} onSubmit={handleSubmit(onSubmit)}>
-              <PageEditingWindows
-                errors={errors}
-                register={register}
-                setValue={setValue}
-                clearErrors={clearErrors}
-              />
-          </form>
-        </WrapperUserInputModal>
+        ?
+      <FormProvider {...methods}>
+          <WrapperUserInputModal open={openEditingWindow} setOpen={setOpenEditingWindow}>
+            <form onKeyDown={handleKeyDown} onSubmit={handleSubmit(onSubmit)}>
+              <PageEditingWindows />
+            </form>
+          </WrapperUserInputModal>
+        </FormProvider>
         : null}
     </>
   )

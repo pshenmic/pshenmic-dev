@@ -29,13 +29,13 @@ function HasAdminAccess () {
       <form className={'AdminAccess'} onSubmit={handleSubmit(onSubmit)}>
         <p>pshenmic.admin</p>
         <div className={'AdminAccess__WrapperInput'}>
-          <TextField
+          {/* <TextField
             register={register}
             name={'password'}
             error={errors}
             text={'Private Key'}
             type={'password'}
-          />
+          /> */}
           <ActionButtons text={'Send'} ariaLabel={'send'}/>
         </div>
       </form>

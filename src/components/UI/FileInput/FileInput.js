@@ -2,11 +2,13 @@
 
 import { useDropzone } from 'react-dropzone'
 import { useEffect, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import Image from 'next/image'
 import './FileInput.scss'
 
-function FileInput({ clearErrors, setValue, error, textName, textLink, textDescription, mountedPicture, name, register }) {
+function FileInput({ textName, textLink, textDescription, mountedPicture, name,  }) {
   const [files, setFiles] = useState([])
+  const { control, clearErrors, setValue, formState: { errors }, register } = useFormContext();
   const { hasOwnProperty } = Object.prototype
   // TODO sending a picture to the server (filesserv)
   // const [serverFiles, setServerFiles] = useState()
@@ -50,8 +52,8 @@ function FileInput({ clearErrors, setValue, error, textName, textLink, textDescr
       <Image
         src={file.preview}
         alt={''}
-        width={200}
-        height={200}
+        width={100}
+        height={100}
       />
     </div>
   ))
@@ -62,7 +64,7 @@ function FileInput({ clearErrors, setValue, error, textName, textLink, textDescr
 
   return (
     <div className={'FileInput'}>
-      <div className={`FileInput__Avatar ${hasOwnProperty.call(error, name) ? 'FileInput__Error' : ''}`} {...getRootProps()}>
+      <div className={`FileInput__Avatar ${hasOwnProperty.call(errors || {}, name) ? 'FileInput__Error' : ''}`} {...getRootProps()}>
         {files.length !== 0
           ? thumbs
           : <Image
