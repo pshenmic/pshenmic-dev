@@ -10,8 +10,6 @@ function FileInput({ textName, textLink, textDescription, mountedPicture, name, 
   const [files, setFiles] = useState([])
   const { control, clearErrors, setValue, formState: { errors }, register } = useFormContext();
   const { hasOwnProperty } = Object.prototype
-  // TODO sending a picture to the server (filesserv)
-  // const [serverFiles, setServerFiles] = useState()
 
   const onDrop = (acceptedFiles) => {
     setFiles(acceptedFiles.map((file) => Object.assign(file, {
@@ -28,7 +26,6 @@ function FileInput({ textName, textLink, textDescription, mountedPicture, name, 
       reader.onload = function (e) {
         const base64String = e.target.result.split(',')[1]
         const imageSrc = `data:${file.type};base64,${base64String}`
-        // setServerFiles(imageSrc)
         setValue(name, imageSrc)
         clearErrors(name)
       }

@@ -40,7 +40,7 @@ $width-tablet: 940px;
     }
 
     &__ContentContainer {
-        width: 440px;
+        width: 100%;
         height: 100%;
         word-wrap: break-word;
         padding-top: 20px;
@@ -68,8 +68,12 @@ $width-tablet: 940px;
         background-color: #ffbd07 !important;
     }
 
-    &__ButtonTasks {
+    &__ButtonAddTask {
+        background-color: #0275ff !important;
+        margin-left: auto;
+    }
 
+    &__ButtonTasks {
         &.disabled {
             border: 1px solid #2e3845;
             color: #66727d !important;
@@ -95,6 +99,7 @@ $width-tablet: 940px;
         color: #fff;
         font-family: var(--font-mono);
         font-size: 18px;
+        max-width: 440px;
         font-style: normal;
         font-weight: 700;
         overflow: hidden;
@@ -114,6 +119,10 @@ $width-tablet: 940px;
         &__Description {
             font-size: 12px;
             line-height: 20px; 
+        }
+
+        &__ButtonAddTask {
+            margin-left: 0;
         }
     }
 
@@ -142,7 +151,8 @@ $width-tablet: 940px;
         }
 
         &__ContentContainer {
-            padding: 26px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
     }
 }

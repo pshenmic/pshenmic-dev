@@ -8,15 +8,32 @@ import WrapperUserInputModal from '../WrapperUserInputModal/WrapperUserInputModa
 import './EditingWindow.scss'
 
 function EditingWindow() {
-  const openEditingWindow = useGlobalStore(state => state.openEditingWindow)
-  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
-  const admin = useGlobalStore(state => state.admin)
+  const { openEditingWindow, client, setOpenEditingWindow, admin } = useGlobalStore();
+  // console.log('admin', admin)
+  // console.log('client', client)
 
   const methods = useForm()
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control } = methods
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data)
+    
+    // try {
+    //   const identityId = admin;
+    //   const identity = await client.platform.identities.get(identityId);
+
+    //   const documentData = data
+
+    //   const helloWorldDocument = await client.platform.documents.create(
+    //     'helloWorldContract.note',
+    //     identity,
+    //     documentData
+    //   );
+
+    //   console.log('Document created:', helloWorldDocument);
+    // } catch (error) {
+    //   console.error('Error creating document:', error);
+    // }
   }
 
   const handleKeyDown = (event) => {

@@ -28,11 +28,10 @@ const dataPrivateKey = {
 }
 
 export default function ImportWalletWindow() {
-    const { openImportWalletWindow, setOpenImportWalletWindow, setLoadingGetUser, loadingGetUser, userDash, setUserDash } = useGlobalStore();
+    const { openImportWalletWindow, setOpenImportWalletWindow, setLoadingGetUser, loadingGetUser, setUserDash, setClient } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
     const [form, setForm] = useState(<p>Off course</p>)
     const { connect } = useDash();
-
     const errorCallback = () => {
         showToast('error', 'Error retrieving account');
         setLoadingGetUser(false);
@@ -74,9 +73,13 @@ export default function ImportWalletWindow() {
                     },
                 }
             }).then(async (resolveClient) => {
+                console.log('resolveClient', resolveClient)
                 if (resolveClient?.identities) {
                     setUserDash(resolveClient.identities);
                     successCallback()
+                }
+                if (resolveClient?.client) {
+                    setClient(resolveClient.client)
                 }
             }).catch((error) => {
                 errorCallback()

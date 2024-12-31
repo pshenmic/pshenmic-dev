@@ -18,5 +18,14 @@
     &__Button {
         width: 100% !important;
         background-color: #0275ff !important;
+
+        &.disabled {
+            color: #016dc4 !important;
+            background-color: #d2e8fe !important;
+
+            &::after {
+                opacity: 0 !important;
+            }
+        }
     }
 }

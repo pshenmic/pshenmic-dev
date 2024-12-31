@@ -12,7 +12,7 @@ function ProjectEditingWindow() {
   const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
   const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
   const image = control ? useWatch({ control, name: 'projectEditingWindow__ImageCard__Image' }) : '';
-  console.log(image)
+
   return (
     <div className={'ProjectEditingWindow'}>
       <h2>CREATE A NEW PROJECT</h2>
@@ -53,7 +53,7 @@ function ProjectEditingWindow() {
         text={'CREATE PROJECT'}
         ariaLabel={'Create project'}
         type={'submit'}
-        disabled={!inputValueName || !inputValueDescription || !inputValueUrl}
+        disabled={!inputValueDescription || !inputValueUrl || !image}
       />
     </div>
   )

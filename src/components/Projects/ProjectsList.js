@@ -115,13 +115,10 @@ const defaultProjectsList = [
 export default function ProjectsList({ projects = defaultProjectsList }) {
   const [openedItem, setOpenedItem] = useState(null)
   const admin = useGlobalStore(state => state.admin)
-  const setAdmin = useGlobalStore(state => state.setAdmin)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  useEffect(() => {
-    setAdmin(true)
-  }, [])
+ 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   }

@@ -5,6 +5,9 @@ const useGlobalStore = createWithEqualityFn(
     userDash: null,
     setUserDash: (userDash) => set({ userDash }),
 
+    client: null,
+    setClient: (client) => set({ client }),
+
     indexWallet: 0,
     setIndexWallet: (indexWallet) => set({ indexWallet }),
 
@@ -14,10 +17,7 @@ const useGlobalStore = createWithEqualityFn(
     openImportWalletWindow: false,
     setOpenImportWalletWindow: (openImportWalletWindow) => set({ openImportWalletWindow }),
 
-    openAdminAccessPopup: false,
-    setOpenAdminAccessPopup: (openAdminAccessPopup) => set({ openAdminAccessPopup }),
-
-    admin: false,
+    admin: '',
     setAdmin: (admin) => set({ admin }),
 
     openEditingWindow: false,

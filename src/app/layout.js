@@ -1,4 +1,3 @@
-import HasAdminAccess from '@/components/HasAdminAccess/HasAdminAccess'
 import EditingWindow from '@/components/UI/EditingWindow/EditingWindow'
 import RegistrationWindow from '@/components/Registration/RegistrationWindow'
 import ImportWalletWindow from '@/components/Registration/ImportWalletWindow'
@@ -23,7 +22,6 @@ export default function RootLayout({ children }) {
       <body>
         <DashProvider>
           <ToastContainer />
-          <HasAdminAccess />
           <EditingWindow />
           <RegistrationWindow />
           <ImportWalletWindow />

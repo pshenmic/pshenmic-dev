@@ -90,6 +90,7 @@ export function useDashClient() {
                     }
 
                     const identifier = identity.getId().toString();
+
                     if (typeof identifier !== 'string') {
                         throw new Error(`Invalid identity identifier for ID: ${id}`);
                     }
@@ -109,7 +110,7 @@ export function useDashClient() {
                             }
                         });
                     }
-                    return { name, identifier };
+                    return { name, identifier, identity };
                 }));
 
                 return Promise.resolve({ client, account, identities });

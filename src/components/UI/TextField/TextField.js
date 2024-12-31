@@ -10,7 +10,7 @@ function TextField({ placeholder, name, required = true, valid, text, arrow = fa
   const textareaRef = useRef(null)
   const { control, register, formState: { errors } } = useFormContext();
   const inputValue = control ? useWatch({ control, name }) : '';
-  console.log(errors)
+
   const animation = useSpring({
     transform: inputValue ? 'translate(0%, 20%)' : 'translate(-50%, 20%)',
     opacity: inputValue ? 0 : 1,

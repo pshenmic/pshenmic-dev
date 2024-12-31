@@ -38,26 +38,8 @@ export default function App() {
   const [content, setContent] = useState(defaultContent)
   const [render, setRender] = useState(false)
   const path = usePathname()
-  const setOpenAdminAccessPopup = useGlobalStore(state => state.setOpenAdminAccessPopup)
-  const openAdminAccessPopup = useGlobalStore(state => state.openAdminAccessPopup)
-  const setAdmin = useGlobalStore(state => state.setAdmin)
 
   useEffect(() => {
-    const hasAdminAccess = localStorage.getItem('isAdminPshenmic')
-    const isAdminPath = path.includes('admin')
-    setOpenAdminAccessPopup(isAdminPath && !hasAdminAccess)
-    setAdmin(isAdminPath && !!hasAdminAccess)
-  }, [path, openAdminAccessPopup])
-
-  useEffect(() => {
-    // removal of administrator access
-    const dataClear = localStorage.getItem('dataClear')
-    const now = new Date()
-    // localStorage.clear()
-    if (dataClear && now.getTime() >= dataClear) {
-      localStorage.clear()
-    }
-
     const pathArray = window.location.pathname.split('/').slice(1)
     setRender(true)
     setContent(pathArray[0] !== '' ? pathArray[0] : defaultContent)

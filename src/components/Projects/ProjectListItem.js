@@ -49,6 +49,14 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
             />
             : null
           }
+          {admin ?
+            <RegistrationButton
+              className={'ProjectListItem__ButtonAddTask'}
+              text={`ADD TASK`}
+              ariaLabel={'ADD TASK'}
+            />
+            : null
+          }
         </div>
       </div>
     </m.li>
