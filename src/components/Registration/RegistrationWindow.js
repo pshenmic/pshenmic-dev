@@ -25,7 +25,7 @@ export default function RegistrationWindow() {
     useEffect(() => {
         // return
         if (!admin || !client) return;
-        const contractDocuments =
+        const dataContractSchema =
         {
             "Project": {
                 "type": "object",
@@ -153,8 +153,9 @@ export default function RegistrationWindow() {
                 console.log('client', client)
                 console.log('identity', identity)
 
-                const contract = await client.platform.contracts.create(contractDocuments, {identity});
-                console.log('contract', contract)
+                const contract = await client.platform.contracts.create(dataContractSchema, identity);
+                console.log('contract', contract.getId().toString())
+
                 //   console.log({ contract: contract.toJSON() });
                 //   const validationResult = await platform.dpp.dataContract.validate(contract);
                 //   if (validationResult.isValid) {
