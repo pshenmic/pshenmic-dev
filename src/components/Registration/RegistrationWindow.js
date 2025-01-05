@@ -22,153 +22,162 @@ export default function RegistrationWindow() {
         disconnect()
     }, [disconnect]);
 
-    useEffect(() => {
-        // return
-        if (!admin || !client) return;
-        const dataContractSchema =
-        {
-            "Project": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "position": 0,
-                        "type": "string",
-                        "description": "Project name",
-                        "maxLength": 63
-                    },
-                    "description": {
-                        "position": 1,
-                        "type": "string",
-                        "description": "Project description",
-                        "maxLength": 1000
-                    },
-                    "url": {
-                        "position": 2,
-                        "type": "string",
-                        "description": "Project URL",
-                        "maxLength": 255
-                    }
-                },
-                "required": ["name", "description", "url", "$createdAt", "$updatedAt"],
-                "additionalProperties": false
-            },
-            "Tasks": {
-                "type": "object",
-                "properties": {
-                    "title": {
-                        "position": 0,
-                        "type": "string",
-                        "description": "Task title",
-                        "maxLength": 63
-                    },
-                    "description": {
-                        "position": 1,
-                        "type": "string",
-                        "description": "Task description",
-                        "maxLength": 1000
-                    },
-                    "url": {
-                        "position": 2,
-                        "type": "string",
-                        "description": "Task URL",
-                        "maxLength": 255
-                    },
-                    "assignee": {
-                        "position": 3,
-                        "type": "array",
-                        "description": "Task assignee executor",
-                        "byteArray": true,
-                        "minItems": 32,
-                        "maxItems": 32
-                    },
-                    "projectId": {
-                        "position": 4,
-                        "type": "array",
-                        "byteArray": true,
-                        "minItems": 32,
-                        "maxItems": 32
-                    },
-                    "status": {
-                        "position": 5,
-                        "type": "string",
-                        "description": "Task status",
-                        "enum": [
-                            "pending",
-                            "in_progress",
-                            "completed",
-                            "will_not_implement",
-                            "paid"
-                        ]
-                    }
-                },
-                "comment": {
-                    "position": 6,
-                    "type": "string",
-                    "description": "Change status comment",
-                    "maxLength": 1000
-                },
-                "required": ["title", "projectId", "$createdAt", "$updatedAt"],
-                "additionalProperties": false
-            },
-            "Claim": {
-                "type": "object",
-                "transferable": 1,
-                "tradeMode": 1,
-                "properties": {
-                    "taskId": {
-                        "position": 0,
-                        "type": "array",
-                        "byteArray": true,
-                        "minItems": 32,
-                        "maxItems": 32
-                    },
-                    "amountCredits": {
-                        "position": 1,
-                        "type": "number"
-                    },
-                    "amountUSD": {
-                        "position": 2,
-                        "type": "number"
-                    },
-                    "deliverable": {
-                        "position": 3,
-                        "type": "string",
-                        "description": "Claim deliverable",
-                        "maxLength": 255
-                    }
-                },
-                "required": [
-                    "$createdAt",
-                    "$updatedAt",
-                    "taskId",
-                    "amountCredits",
-                    "amountUSD",
-                    "deliverable"
-                ],
-                "additionalProperties": false
-            }
-        }
-        async function registerContract(client, identity) {
-            try {
-                console.log('client', client)
-                console.log('identity', identity)
+    // useEffect(() => {
+    //     // return
+    //     if (!admin || !client) return;
+    //     const dataContractSchema =
+    //     {
+    //         "Project": {
+    //             "type": "object",
+    //             "properties": {
+    //                 "name": {
+    //                     "position": 0,
+    //                     "type": "string",
+    //                     "description": "Project name",
+    //                     "maxLength": 63
+    //                 },
+    //                 "description": {
+    //                     "position": 1,
+    //                     "type": "string",
+    //                     "description": "Project description",
+    //                     "maxLength": 1000
+    //                 },
+    //                 "url": {
+    //                     "position": 2,
+    //                     "type": "string",
+    //                     "description": "Project URL",
+    //                     "maxLength": 255
+    //                 },
+    //                 "image": {
+    //                     "position": 3,
+    //                     "type": "string",
+    //                     "description": "Project image",
+    //                     "maxLength": 1000
+    //                 }
+    //             },
+    //             "required": ["name", "description", "url", "image", "$createdAt", "$updatedAt"],
+    //             "additionalProperties": false
+    //         },
+    //         "Tasks": {
+    //             "type": "object",
+    //             "properties": {
+    //                 "title": {
+    //                     "position": 0,
+    //                     "type": "string",
+    //                     "description": "Task title",
+    //                     "maxLength": 63
+    //                 },
+    //                 "description": {
+    //                     "position": 1,
+    //                     "type": "string",
+    //                     "description": "Task description",
+    //                     "maxLength": 1000
+    //                 },
+    //                 "url": {
+    //                     "position": 2,
+    //                     "type": "string",
+    //                     "description": "Task URL",
+    //                     "maxLength": 255
+    //                 },
+    //                 "assignee": {
+    //                     "position": 3,
+    //                     "type": "array",
+    //                     "description": "Task assignee executor",
+    //                     "byteArray": true,
+    //                     "minItems": 32,
+    //                     "maxItems": 32
+    //                 },
+    //                 "projectId": {
+    //                     "position": 4,
+    //                     "type": "array",
+    //                     "byteArray": true,
+    //                     "minItems": 32,
+    //                     "maxItems": 32
+    //                 },
+    //                 "status": {
+    //                     "position": 5,
+    //                     "type": "string",
+    //                     "description": "Task status",
+    //                     "enum": [
+    //                         "pending",
+    //                         "in_progress",
+    //                         "completed",
+    //                         "will_not_implement",
+    //                         "paid"
+    //                     ]
+    //                 }
+    //             },
+    //             "comment": {
+    //                 "position": 6,
+    //                 "type": "string",
+    //                 "description": "Change status comment",
+    //                 "maxLength": 1000
+    //             },
+    //             "required": ["title", "projectId", "$createdAt", "$updatedAt"],
+    //             "additionalProperties": false
+    //         },
+    //         "Claim": {
+    //             "type": "object",
+    //             "transferable": 1,
+    //             "tradeMode": 1,
+    //             "properties": {
+    //                 "taskId": {
+    //                     "position": 0,
+    //                     "type": "array",
+    //                     "byteArray": true,
+    //                     "minItems": 32,
+    //                     "maxItems": 32
+    //                 },
+    //                 "amountCredits": {
+    //                     "position": 1,
+    //                     "type": "number"
+    //                 },
+    //                 "amountUSD": {
+    //                     "position": 2,
+    //                     "type": "number"
+    //                 },
+    //                 "deliverable": {
+    //                     "position": 3,
+    //                     "type": "string",
+    //                     "description": "Claim deliverable",
+    //                     "maxLength": 255
+    //                 }
+    //             },
+    //             "required": [
+    //                 "$createdAt",
+    //                 "$updatedAt",
+    //                 "taskId",
+    //                 "amountCredits",
+    //                 "amountUSD",
+    //                 "deliverable"
+    //             ],
+    //             "additionalProperties": false
+    //         }
+    //     }
+    //     async function registerContract(client, identity) {
+    //         try {
+    //             console.log('client', client)
+    //             console.log('identity', identity)
 
-                const contract = await client.platform.contracts.create(dataContractSchema, identity);
-                console.log('contract', contract.getId().toString())
+    //             const contract = await client.platform.contracts.create(dataContractSchema, identity);
+    //             const contractId = new Uint8Array(contract.getId())
+    //             const contractIdHex = Buffer.from(contractId).toString('hex');
+    //             console.log('contractIdHex', contractIdHex)
+    //             // console.log('contract', new Uint8Array(contract.getId()).toString()))
 
-                //   console.log({ contract: contract.toJSON() });
-                //   const validationResult = await platform.dpp.dataContract.validate(contract);
-                //   if (validationResult.isValid) {
-                //   return client.platform.contracts.publish(contract, identity);
-                //   }
-                //   console.log('Contract registered successfully');
-                //   console.error(validationResult);
-            } catch (error) {
-                console.error('Error registering contract:', error);
-            }
-        }
-        registerContract(client, admin);
-    }, [admin, client])
+    //             //   console.log({ contract: contract.toJSON() });
+    //             // const validationResult = await platform.dpp.dataContract.validate(contract);
+    //             // if (validationResult.isValid) {
+    //                 const publishContract = await client.platform.contracts.publish(contract, identity);
+    //                 console.log('publishContract', publishContract)
+    //                 return publishContract;
+    //             // }
+    //         } catch (error) {
+    //             console.error('Error registering contract:', error);
+    //         }
+    //     }
+    //     registerContract(client, admin);
+    // }, [admin, client])
 
     useEffect(() => {
         if (!userDash) {
@@ -186,7 +195,6 @@ export default function RegistrationWindow() {
 
                 statusTextRef.current.innerText = 'ADMIN';
                 statusStyleRef.current = { backgroundColor: '#8bcc49' };
-                console.log('userDash?.[indexWallet]?.identifierGet', userDash?.[indexWallet]?.identity)
                 setAdmin(userDash?.[indexWallet]?.identity)
             } else if (userDash?.[indexWallet]?.identifier) {
                 setData(<UserWindow
