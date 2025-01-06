@@ -67,6 +67,11 @@ export function useDashClient() {
                             skipSynchronizationBeforeHeight: innerProps.wallet?.unsafeOptions?.skipSynchronizationBeforeHeight || 0,
                         },
                     },
+                    apps: {
+                      "pshenmic-dev-dfo": {
+                        contractId: 'GxWe9P43UAfWiMHpZzCXJaSwZkcqzvZR6wtgofyBG5cu',
+                      },
+                    }
                 });
 
                 if (!client) {
