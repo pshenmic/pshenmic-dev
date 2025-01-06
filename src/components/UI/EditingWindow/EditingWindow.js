@@ -42,8 +42,32 @@ function EditingWindow() {
         console.error('Error fetching identity:', error);
       }
     }
+    async function registerDocument(client, identity) {
+      try {
+        console.log('client', client)
+        console.log('identity', identity)
+
+        const data = {
+          name : "Sample project",
+          description: "Test description",
+          url: "http://localhost:8080",
+          image: "sample_binary_data_or_url"
+        }
+
+        const document = await client.platform.documents.create('pshenmic-dev-dfo.Project', identity, data);
+
+        const documentsBatchTransition = await client.platform.documents.broadcast({
+          create: [document],
+        }, identity);
+
+        console.log('raw tx hex', documentsBatchTransition.toBuffer().toString('hex'))
+      } catch (error) {
+        console.error('Error submitting document:', error);
+      }
+    }
+    registerDocument(client, admin);
     checkIdentity(client, admin)
-  }, [client, admin])
+  })
   const onSubmit = async (data) => {
     console.log(data)
 
