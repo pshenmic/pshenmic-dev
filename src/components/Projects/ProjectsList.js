@@ -6,6 +6,7 @@ import useGlobalStore from '@/store/store'
 import Pagination from '../UI/Pagination/Pagination'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import './ProjectsList.scss'
+import getDocuments from '@/lib/getDocuments'
 
 const defaultProjectsList = [
   {
@@ -112,13 +113,27 @@ const defaultProjectsList = [
   }
 ]
 
-export default function ProjectsList({ projects = defaultProjectsList }) {
+export default function ProjectsList() {
   const [openedItem, setOpenedItem] = useState(null)
   const admin = useGlobalStore(state => state.admin)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+  const client = useGlobalStore(state => state.client)
   const [currentPage, setCurrentPage] = useState(1);
+  const [projects, setProjects] = useState([])
   const itemsPerPage = 5;
- 
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const { documents, hasMore, nextPage } = await getDocuments(client, process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS, 1, itemsPerPage)
+      console.log('documents', documents)
+      if(documents) {
+        setProjects(documents)
+      }
+    }
+    if (client) {
+      fetchProjects()
+    }
+  }, [client])
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   }

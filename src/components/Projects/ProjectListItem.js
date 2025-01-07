@@ -5,6 +5,7 @@ import EditButton from '../UI/Button/EditButton/EditButton'
 import './ProjectListItem.scss'
 import { truncateText } from '@/lib/truncateText'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
+import Grade from '../UI/Grade/Grade'
 
 function ProjectListItem({ project, openHandler, id, openEditor }) {
   const admin = useGlobalStore(state => state.admin)
@@ -28,11 +29,10 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
         </div>
         : null}
       <div className={'ProjectListItem__ImageContainer'}>
-        <Image alt={project.title || ''} src={project.imgSrc} width={300} height={300} />
+        <Image alt={project.title || ''} src={project.image} width={220} height={220} />
       </div>
       <div className={'ProjectListItem__ContentContainer'}>
-        <p className={'ProjectListItem__Title'}>{project.title}</p>
-        <p className={'ProjectListItem__Dashmate'}> {project.dashmate}</p>
+        <p className={'ProjectListItem__Title'}>{project.name}</p>
         <p className={'ProjectListItem__Description'}>{truncateText(project.description, 75)}</p>
         <div className={'ProjectListItem__WrapperButtons'}>
           <RegistrationButton
@@ -49,6 +49,9 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
             />
             : null
           }
+        </div>
+        <div className={'ProjectListItem__Footer'}>
+          <Grade />
           {admin ?
             <RegistrationButton
               className={'ProjectListItem__ButtonAddTask'}

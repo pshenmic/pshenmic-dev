@@ -22,7 +22,7 @@ function EditingWindow() {
         image: data.projectEditingWindow__ImageCard__Image,
       }
 
-      const document = await client.platform.documents.create('pshenmic-dev-dfo.Project', admin, dataProject);
+      const document = await client.platform.documents.create(`${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`, admin, dataProject);
 
       await client.platform.documents.broadcast({
         create: [document],

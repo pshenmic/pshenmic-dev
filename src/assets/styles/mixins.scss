@@ -5,11 +5,11 @@ $width-tablet: 940px;
     background: #1a212a;
     margin-bottom: 12px;
     position: relative;
-    gap: 30px;
+    gap: 20px;
     min-height: 270px;
     transition: .5s box-shadow;
     box-shadow: none;
-    padding: 30px;
+    padding: 20px;
 
     &:hover {
         cursor: pointer;
@@ -33,6 +33,14 @@ $width-tablet: 940px;
             height: 100%;
             object-fit: cover;
         }
+    }
+
+    &__Footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 10px;
+        margin-top: 43px;
     }
 
     &__ContentWrapper {

@@ -1,14 +1,17 @@
-async function getDocuments(client, contractId, documentType, page = 1, pageSize = 5) {
+async function getDocuments(client, contractId, page = 1, pageSize = 5) {
+    console.log('contractId', contractId)
+    console.log('client', client)
+
     try {
         let startAfter = null;
 
         const response = await client.platform.documents.get(
-            `${contractId}.${documentType}`,
+            `pshenmic-dev-dfo.Project`,
             {
-                where: [],
+                // where: [],
                 limit: pageSize,
                 ...(startAfter && { startAfter }),
-                orderBy: [['$createdAt', 'asc']],
+                // orderBy: [['$createdAt', 'asc']],
             }
         );
 

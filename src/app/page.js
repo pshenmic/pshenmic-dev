@@ -19,7 +19,7 @@ export default function App() {
   const [content, setContent] = useState(defaultContent)
   const [render, setRender] = useState(false)
   const path = usePathname()
-  
+
   // adding a zero client
   useEffect(() => {
     const addClient = async () => {
@@ -29,6 +29,11 @@ export default function App() {
           apps: {
             tutorialContract: {
               contractId: process.env.NEXT_PUBLIC_INITIAL_CLIENT,
+            },
+          },
+          apps: {
+            "pshenmic-dev-dfo": {
+              contractId: process.env.NEXT_PUBLIC_CONTRACT_ID,
             },
           },
           wallet: {
