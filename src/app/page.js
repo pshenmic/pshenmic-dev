@@ -1,43 +1,53 @@
 'use client'
 
 import './App.scss'
-import { useState, useEffect } from 'react'
 import Menu from '../components/Menu'
 import CommandLine from '../components/CommandLine/CommandLine'
-import { motion as m } from 'framer-motion'
-import { BrowserRouter as Router } from 'react-router-dom'
 import ContentBlock from '@/components/ContentBlock/ContentBlock'
-import { usePathname } from 'next/navigation'
 import useGlobalStore from '@/store/store'
 import Dash from "dash";
+import { showToast } from '@/lib/showToast'
+import { usePathname } from 'next/navigation'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { motion as m } from 'framer-motion'
+import { useState, useEffect } from 'react'
+
 const defaultContent = 'updates'
 
 export default function App() {
-
-  useEffect(() => {
-    const addClient = async () => {
-      const clientOpts = {
-        network: 'testnet',
-        apps: {
-          tutorialContract: {
-            contractId: '2MfmHqYmAk1jAQNv7SsGJPT22MrfKFcHKZDc7cTu2biX',
-          },
-        },
-      };
-      const client = new Dash.Client(clientOpts);
-      console.log('client', client)
-      // const documents = await client.platform.documents.get('dpns.domain', {
-      //   limit: 100,
-      //   offset: 0,
-      // });
-      // console.log('documents', documents)
-    }
-    addClient()
-  }, [])
-
+  const { setClient } = useGlobalStore();
   const [content, setContent] = useState(defaultContent)
   const [render, setRender] = useState(false)
   const path = usePathname()
+  
+  // adding a zero client
+  useEffect(() => {
+    const addClient = async () => {
+      try {
+        const clientOpts = {
+          network: 'testnet',
+          apps: {
+            tutorialContract: {
+              contractId: process.env.NEXT_PUBLIC_INITIAL_CLIENT,
+            },
+          },
+          wallet: {
+            skipSynchronizationBeforeHeight: 1,
+            offlineMode: true,
+          },
+        };
+        const client = new Dash.Client(clientOpts);
+        
+        if (client) {
+          setClient(client)
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showToast('error', 'Error logging in, try again later');
+      }
+    }
+    addClient()
+  }, [])
 
   useEffect(() => {
     const pathArray = window.location.pathname.split('/').slice(1)

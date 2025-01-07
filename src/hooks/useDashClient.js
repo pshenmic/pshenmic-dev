@@ -43,7 +43,6 @@ export function useDashClient() {
         }
 
         initializeAccount();
-
     }, [client]);
 
     const methods = useRef({
@@ -69,7 +68,7 @@ export function useDashClient() {
                     },
                     apps: {
                       "pshenmic-dev-dfo": {
-                        contractId: 'GxWe9P43UAfWiMHpZzCXJaSwZkcqzvZR6wtgofyBG5cu',
+                        contractId: process.env.NEXT_PUBLIC_CONTRACT_ID,
                       },
                     }
                 });

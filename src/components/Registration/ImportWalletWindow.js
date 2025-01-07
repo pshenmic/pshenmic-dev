@@ -7,7 +7,6 @@ import { showToast } from '@/lib/showToast';
 import { validateMnemonic } from 'bip39';
 import { useDash } from '@/hooks/useDashClient';
 import useGlobalStore from "@/store/store";
-import Image from "next/image";
 import RegistrationForm from "./RegistrationForm";
 import Loading from '../UI/Loading/Loading';
 import localforage from 'localforage';
