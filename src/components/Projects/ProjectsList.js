@@ -6,6 +6,8 @@ import Project from './Project'
 import useGlobalStore from '@/store/store'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import './ProjectsList.scss'
+import LoadingDots from '../UI/Loading/LoadingDots'
+import ProjectListItemSkeleton from './ProjectListItemSkeleton'
 
 export default function ProjectsList() {
   const [openedItem, setOpenedItem] = useState(null)
@@ -20,7 +22,7 @@ export default function ProjectsList() {
 
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: '20px',
+    rootMargin: '100px',
     triggerOnce: false
   });
 
@@ -32,7 +34,7 @@ export default function ProjectsList() {
 
     try {
       const queryOpts = {
-        limit: 3,
+        limit: 5,
         where: [],
         orderBy: [['$id', 'asc']]
       };
@@ -142,7 +144,15 @@ export default function ProjectsList() {
                   width: '100%',
                 }}
               >
-                {isLoading ? 'Loading...' : ''}
+                {isLoading ?
+                  <>
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                  </>
+                  : null}
               </div>
             )}
           </ul>

@@ -14,8 +14,6 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
     <m.li
       className={'ProjectListItem'}
       onClick={openHandler}
-      initial={{ y: 30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
       whileHover={{
         transition: { duration: 0.5 }
       }}
