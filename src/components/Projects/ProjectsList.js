@@ -6,7 +6,6 @@ import Project from './Project'
 import useGlobalStore from '@/store/store'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import './ProjectsList.scss'
-import LoadingDots from '../UI/Loading/LoadingDots'
 import ProjectListItemSkeleton from './ProjectListItemSkeleton'
 
 export default function ProjectsList() {
@@ -26,10 +25,8 @@ export default function ProjectsList() {
     triggerOnce: false
   });
 
-  console.log('documents', documents)
-
   const loadMoreDocuments = useCallback(async () => {
-    if (isLoading || !hasMore) { return }
+    if (isLoading || !hasMore || !client || !client.platform) { return }
     setIsLoading(true)
 
     try {
@@ -79,11 +76,8 @@ export default function ProjectsList() {
     }
   }, [isLoading, hasMore, lastDocument, uniqueIds]);
 
-
   useEffect(() => {
-    if (client?.platform?.documents) {
-      loadMoreDocuments()
-    }
+    loadMoreDocuments()
   }, []);
 
   useEffect(() => {

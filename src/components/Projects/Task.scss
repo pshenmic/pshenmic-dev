@@ -1,0 +1,97 @@
+@import '../../assets/styles/mixins.scss';
+
+.Task {
+    width: 100%;
+    position: relative;
+    background: #1a212a;
+    padding: 40px 40px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    > h3 {
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+        font-family: 'Press Start 2P';
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    &__FooterCard {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &__OpenTaskButton {
+        color: #caf6fd !important;
+        background: #2e3845 !important;
+    }
+
+    &__Description {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        font-family: var(--font-mono);
+        margin-bottom: 20px;
+    }
+
+    &__Content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 18px;
+        margin-bottom: 20px;
+
+        &__Button {
+            color: #ffbd07 !important;
+            background: #794c00 !important;
+        }
+
+        &__Creator {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            &__Image {
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+            }
+
+            &__Name {
+                font-size: 18px;
+                font-weight: 700;
+                color: #62cff6;
+                font-family: var(--font-mono);
+            }
+        }
+    }
+
+    &__PendingClaim {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        color: #fff7cd;
+        letter-spacing: 0.06em;
+        font-weight: 400;
+        font-size: 8px;
+        line-height: 200%;
+        font-family: 'Press Start 2P';
+        padding: 0px 4px;
+        background: #ffbd07;
+    }
+
+    &__Domain {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        font-weight: 400;
+        font-size: 10px;
+        text-align: right;
+        color: #62cff6;
+    }
+}

@@ -30,8 +30,6 @@ export default function App() {
             tutorialContract: {
               contractId: process.env.NEXT_PUBLIC_INITIAL_CLIENT,
             },
-          },
-          apps: {
             "pshenmic-dev-dfo": {
               contractId: process.env.NEXT_PUBLIC_CONTRACT_ID,
             },

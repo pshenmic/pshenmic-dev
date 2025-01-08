@@ -72,7 +72,6 @@ export default function ImportWalletWindow() {
                     },
                 }
             }).then(async (resolveClient) => {
-                console.log('resolveClient', resolveClient)
                 if (resolveClient?.identities) {
                     setUserDash(resolveClient.identities);
                     successCallback()

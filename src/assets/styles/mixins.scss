@@ -14,8 +14,8 @@ $width-tablet: 940px;
 
     &:hover {
         cursor: pointer;
-        box-shadow: 10px 8px teal, 
-                    20px 16px rebeccapurple;
+        box-shadow: 10px 8px teal,
+            20px 16px rebeccapurple;
     }
 
     &:last-child {
@@ -141,7 +141,7 @@ $width-tablet: 940px;
         white-space: pre-wrap;
     }
 
-    @media screen and ( max-width: 1500px) {
+    @media screen and (max-width: 1500px) {
         &__ContentContainer {
             width: 100%;
             padding-top: 20px;
@@ -150,7 +150,7 @@ $width-tablet: 940px;
 
         &__Description {
             font-size: 12px;
-            line-height: 20px; 
+            line-height: 20px;
         }
 
         &__ButtonAddTask {
@@ -158,7 +158,7 @@ $width-tablet: 940px;
         }
     }
 
-    @media screen and ( max-width: 580px) {
+    @media screen and (max-width: 580px) {
         flex-direction: column;
         height: auto;
         width: 100%;
@@ -177,7 +177,7 @@ $width-tablet: 940px;
         }
     }
 
-    @media screen and ( max-width: 420px) {
+    @media screen and (max-width: 420px) {
         &__Title {
             margin-bottom: 16px;
         }
@@ -206,16 +206,93 @@ $width-tablet: 940px;
         display: none;
     }
 
+    &__Navigation {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        margin-bottom: 10px;
+        width: 100%;
+
+        &__NavButton {
+            color: #fff;
+            font-family: 'Press Start 2P';
+            font-weight: 400;
+            font-size: 16px;
+            transition: .3s color;
+            background: transparent;
+            cursor: pointer;
+
+            &.active {
+                color: #4c9dff;
+            }
+
+            &:hover {
+                color: #4c9dff;
+            }
+        }
+    }
+
+    &__Header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 25px;
+        width: 100%;
+
+        &__Button {
+            background-color: #ffbd07 !important;
+            color: #fff7cd;
+        }
+
+        &__ButtonWrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        &__CloseButton {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: transparent;
+            cursor: pointer;
+
+            > span {
+                font-family: 'Press Start 2P';
+                font-weight: 400;
+                font-size: 16px;
+                color: #caf6fd;
+            }
+
+            > p {
+                font-family: 'Press Start 2P';
+                font-weight: 400;
+                font-size: 16px;
+                color: #fff;
+            }
+        }
+    }
+
+    &__ImageContainerWrapper {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
     &__ContentContainer {
-        padding: 44px;
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 60px;
     }
 
     &__ImageContainer {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 220px;
         background: rgba(109, 124, 255, 0.07);
         flex-shrink: 0;
-        margin-left: 44px;
 
         img {
             width: 100%;
@@ -224,94 +301,14 @@ $width-tablet: 940px;
         }
     }
 
-    &__Title {
-        color: #FFF;
-        font-family: 'Press Start 2P';
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        margin-bottom: 22px;
-    }
-
     &__Description {
-        color: #A7A7A7;
-        font-family: 'Press Start 2P';
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px; 
-    }
-
-    &__CloseButton {
-        width: 42px;
+        color: #fff;
+        font-family: var(--font-mono);
         font-size: 18px;
-        line-height: 32px;
-        padding: 2px 8px;
-        position: relative;
-        width: 100%;
-        transition: .15s padding-left;
-        text-align: right;
-        margin-bottom: 4px;
-        overflow: hidden;
-
-        span {
-            opacity: 1;
-            transition: .3s;
-        }
-
-        &::before {
-            content: '';
-            display: block;
-            position: absolute;
-            width: 0;
-            height: 100%;
-            transition: .5s;
-            top: 0;
-            right: 0;
-            background: linear-gradient(to left, rgba(109, 124, 255, 0.07), transparent);
-            opacity: 0;
-        }
-
-        &::after {
-            content: '<-';
-            letter-spacing: -5px;
-            position: absolute;
-            right: -42px;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            transition: .65s;
-            opacity: 0;
-        }
-
-        &:hover {
-            cursor: pointer;
-            padding-left: 42px;
-
-            span {
-                opacity: 0;
-            }
-
-            &::before {
-                opacity: 1;
-                width: 100%;
-                background: linear-gradient(to left, rgba(109, 124, 255, 0.07), rgba(109, 124, 255, 0.07));
-            }
-
-            &::after {
-                right: 50%;
-                opacity: 1;
-            }
-
-        }
+        font-weight: 700;
     }
 
-    &__Link {
-        @include contextLink;
-        margin-right: 10px;
-    }
-
-    @media screen and ( max-width: $width-tablet) {
+    @media screen and (max-width: $width-tablet) {
         position: relative;
         top: -30px;
         left: -30px;
@@ -324,7 +321,7 @@ $width-tablet: 940px;
 @mixin contextLink {
     display: inline-block;
     margin-top: 10px;
-    
+
     span {
         position: relative;
         display: inline-block;
