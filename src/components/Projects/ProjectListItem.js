@@ -17,19 +17,28 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       whileHover={{
-        x: -5,
-        y: -5,
         transition: { duration: 0.5 }
       }}
       transition={{ duration: 0.5, delay: id / 10 }}
     >
+      <p className={'ProjectListItem__PendingClaim'}>PENDING CLAIM</p>
+      <p className={'ProjectListItem__Domain'}>PSHENMIC.DEV</p>
       {admin
         ? <div className={'ProjectListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
           <EditButton handleClick={openEditor} type={'buttom'} />
         </div>
         : null}
       <div className={'ProjectListItem__ImageContainer'}>
-        <Image alt={project.title || ''} src={project.image} width={220} height={220} />
+        <Image
+          alt={project.title || ''}
+          src={project.image
+            ? project.image.startsWith('data:image')
+              ? project.image
+              : `data:image/png;base64,${project.image}`
+            : '/images/projects/default.png'}
+          width={220}
+          height={220}
+        />
       </div>
       <div className={'ProjectListItem__ContentContainer'}>
         <p className={'ProjectListItem__Title'}>{project.name}</p>

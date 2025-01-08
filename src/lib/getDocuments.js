@@ -8,10 +8,8 @@ async function getDocuments(client, contractId, page = 1, pageSize = 5) {
         const response = await client.platform.documents.get(
             `pshenmic-dev-dfo.Project`,
             {
-                // where: [],
                 limit: pageSize,
                 ...(startAfter && { startAfter }),
-                // orderBy: [['$createdAt', 'asc']],
             }
         );
 

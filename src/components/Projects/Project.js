@@ -15,9 +15,9 @@ function Project ({ project, closeHandler }) {
         <span>X</span>
       </div>
 
-      {(project.imgSrc &&
+      {(project.image &&
         <div className={'Project__ImageContainer'}>
-          <Image alt={project.title || ''} src={project.imgSrc} width={300} height={300}/>
+          <Image alt={project.title || ''} src={project.image} width={220} height={220}/>
         </div>
       )}
 

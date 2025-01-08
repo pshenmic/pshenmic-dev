@@ -1,156 +1,102 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { motion as m, AnimatePresence } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 import ProjectListItem from './ProjectListItem'
 import Project from './Project'
 import useGlobalStore from '@/store/store'
-import Pagination from '../UI/Pagination/Pagination'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import './ProjectsList.scss'
-import getDocuments from '@/lib/getDocuments'
-
-const defaultProjectsList = [
-  {
-    title: 'Electrum Dash',
-    description: 'A lightweight wallet for a Desktops & Android allow you to receive and spend Dash anywhere without downloading the blockchain with a PrivateSend support.',
-    imgSrc: '/assets/img/dash-electrum-icon.png',
-    githubLink: '',
-    projectLink: 'http://dash-electrum.org/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Platform Explorer',
-    description: 'Block explorer for a brand new Dash Platform chain. Explore latest Dash Evolution data such as Identities, Data Contracts, and Documents.',
-    imgSrc: '/assets/img/platform-explorer-preview-300x300.jpg',
-    githubLink: 'https://github.com/pshenmic/platform-explorer',
-    projectLink: 'https://platform-explorer.com/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Dashmate Contribution',
-    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
-    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
-    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
-    projectLink: 'https://www.dashmate.org/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Dashboards',
-    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
-    imgSrc: '/assets/img/dashboards-preview-400x400.png',
-    githubLink: '',
-    projectLink: 'https://dashboards.pshenmic.dev/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  //
-
-  {
-    title: 'Dashmate Contribution',
-    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
-    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
-    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
-    projectLink: 'https://www.dashmate.org/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Dashboards',
-    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
-    imgSrc: '/assets/img/dashboards-preview-400x400.png',
-    githubLink: '',
-    projectLink: 'https://dashboards.pshenmic.dev/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Dashmate Contribution',
-    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
-    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
-    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
-    projectLink: 'https://www.dashmate.org/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Dashboards',
-    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
-    imgSrc: '/assets/img/dashboards-preview-400x400.png',
-    githubLink: '',
-    projectLink: 'https://dashboards.pshenmic.dev/',
-    dashmate: 'dash-electrum.com',
-    tasts: [],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Dashmate Contribution',
-    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
-    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
-    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
-    projectLink: 'https://www.dashmate.org/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  },
-  {
-    title: 'Dashboards',
-    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
-    imgSrc: '/assets/img/dashboards-preview-400x400.png',
-    githubLink: '',
-    projectLink: 'https://dashboards.pshenmic.dev/',
-    dashmate: 'dash-electrum.com',
-    tasts: ['test', 'test2', 'test3'],
-    pendingClaims: ['test', 'test2', 'test3'],
-  }
-]
 
 export default function ProjectsList() {
   const [openedItem, setOpenedItem] = useState(null)
   const admin = useGlobalStore(state => state.admin)
   const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const client = useGlobalStore(state => state.client)
-  const [currentPage, setCurrentPage] = useState(1);
-  const [projects, setProjects] = useState([])
-  const itemsPerPage = 5;
+  const [documents, setDocuments] = useState([])
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uniqueIds] = useState(new Set());
+  const [lastDocument, setLastDocument] = useState(null);
+
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: '20px',
+    triggerOnce: false
+  });
+
+  console.log('documents', documents)
+
+  const loadMoreDocuments = useCallback(async () => {
+    if (isLoading || !hasMore) { return }
+    setIsLoading(true)
+
+    try {
+      const queryOpts = {
+        limit: 3,
+        where: [],
+        orderBy: [['$id', 'asc']]
+      };
+
+      if (lastDocument) {
+        queryOpts.startAfter = lastDocument.getId().toBuffer()
+      }
+
+      const response = await client.platform.documents.get(
+        'pshenmic-dev-dfo.Project',
+        queryOpts
+      )
+
+      if (response && response.length > 0) {
+        setLastDocument(response[response.length - 1])
+
+        const uniqueDocuments = response.filter(doc => {
+          const id = doc.getId().toString()
+          if (uniqueIds.has(id)) return false
+          uniqueIds.add(id)
+          return true
+        })
+
+        if (uniqueDocuments.length > 0) {
+          const newDocuments = uniqueDocuments.map(doc => ({
+            ...doc.getData(),
+            id: doc.getId().toString()
+          }))
+
+          setDocuments(prev => [...prev, ...newDocuments])
+          setHasMore(response.length >= queryOpts.limit)
+        }
+      } else {
+        setHasMore(false);
+      }
+
+    } catch (error) {
+      console.error('Error loading documents:', error)
+      setHasMore(false)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [isLoading, hasMore, lastDocument, uniqueIds]);
+
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      const { documents, hasMore, nextPage } = await getDocuments(client, process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS, 1, itemsPerPage)
-      console.log('documents', documents)
-      if(documents) {
-        setProjects(documents)
-      }
+    if (client?.platform?.documents) {
+      loadMoreDocuments()
     }
-    if (client) {
-      fetchProjects()
-    }
-  }, [client])
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  }
+  }, []);
 
-  const currentProjects = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return projects.slice(startIndex, endIndex);
-  }, [projects, currentPage, itemsPerPage]);
+  useEffect(() => {
+    if (inView && !isLoading && hasMore) {
+      loadMoreDocuments()
+    }
+  }, [inView, isLoading, hasMore, loadMoreDocuments])
 
   const openEditingWindow = useCallback(() => {
     setOpenEditingWindow(true)
   }, [setOpenEditingWindow])
 
-  const ListItems = currentProjects.map((project, id) =>
+  const ListItems = documents.map((project, id) =>
     <ProjectListItem
-      key={'project' + id}
+      key={project.id}
       id={id}
       project={project}
       hidden={openedItem !== null && openedItem !== id}
@@ -164,7 +110,7 @@ export default function ProjectsList() {
       {openedItem !== null && (
         <m.div key={'project'}>
           <Project
-            project={projects[openedItem]}
+            project={documents[openedItem]}
             closeHandler={() => setOpenedItem(null)}
           />
         </m.div>
@@ -174,27 +120,32 @@ export default function ProjectsList() {
         <m.div key={'projectsList'} className={'ProjectsList'}>
           <div className={'ProjectsList__Header'}>
             <h2>Projects</h2>
-            {admin && openedItem === null
-              ? <RegistrationButton
+            {admin && openedItem === null && (
+              <RegistrationButton
                 text={'New Project'}
-                ariaLabel={'add Project '}
+                ariaLabel={'add Project'}
                 handleClick={openEditingWindow}
                 style={{
                   background: '#0275ff',
                   textTransform: 'capitalize',
                 }}
               />
-              : null}
+            )}
           </div>
           <ul>
             {ListItems}
+            {hasMore && (
+              <div
+                ref={ref}
+                style={{
+                  height: '1px',
+                  width: '100%',
+                }}
+              >
+                {isLoading ? 'Loading...' : ''}
+              </div>
+            )}
           </ul>
-          <Pagination
-            totalItems={projects.length}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
         </m.div>
       )}
     </AnimatePresence>
