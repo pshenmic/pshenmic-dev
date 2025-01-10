@@ -62,7 +62,7 @@ export default function ImportWalletWindow() {
                 return;
             }
             setOpenImportWalletWindow(false);
-            connect({
+            await connect({
                 network: 'testnet',
                 wallet: {
                     mnemonic: mnemonicTrim,

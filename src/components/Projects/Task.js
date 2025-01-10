@@ -12,8 +12,8 @@ export default function Task() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.55 }}
         >
-            <p className={'ProjectListItem__PendingClaim'}>PENDING CLAIM</p>
-            <p className={'ProjectListItem__Domain'}>PSHENMIC.DEV</p>
+            <p className={'Task__PendingClaim'}>PENDING CLAIM</p>
+            <p className={'Task__Domain'}>PSHENMIC.DEV</p>
             <h3>TASK PAGE</h3>
             <div className={'Task__Content'}>
                 <RegistrationButton text={'ASSIGNED'} disabled={true} className={'Task__Content__Button'} />
