@@ -252,6 +252,14 @@ $width-tablet: 940px;
             gap: 20px;
         }
 
+        &__Name {
+            font-family: 'Press Start 2P';
+            font-weight: 400;
+            font-size: 16px;
+            color: #fff;
+            transition: .3s color;
+        }
+
         &__CloseButton {
             display: flex;
             align-items: center;
@@ -266,16 +274,8 @@ $width-tablet: 940px;
                 color: #caf6fd;
             }
 
-            > p {
-                font-family: 'Press Start 2P';
-                font-weight: 400;
-                font-size: 16px;
-                color: #fff;
-                transition: .3s color;
-            }
-
             &:hover {
-                > p {
+                > span {
                     color: #4c9dff;
                 }
             }
@@ -316,7 +316,7 @@ $width-tablet: 940px;
         font-weight: 700;
     }
 
-    @media screen and ( max-width: 1500px ) {
+    @media screen and (max-width: 1500px) {
         &__Navigation {
             gap: 10px;
 

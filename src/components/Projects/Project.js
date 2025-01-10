@@ -46,8 +46,8 @@ function Project({ project, closeHandler }) {
         <div className={'Project__Header__ButtonWrapper'}>
           <button className={'Project__Header__CloseButton'} onClick={closeHandler}>
             <span>{'<'}</span>
-            <p>Electrum</p>
           </button>
+          <p className={'Project__Header__Name'}>{project.name}</p>
           <RegistrationButton text={'2 PENDING CLAIM'} disabled={true} className={'Project__Header__Button'} />
         </div>
         <RegistrationButton text={'ADD TASK'} disabled={true} />
