@@ -29,15 +29,15 @@
             height: 100%;
             left: 0;
             top: 0;
-            scale: 1;
-            transition: scale ease 0.5s;
+            // scale: 1;
+            // transition: scale ease 0.5s;
         }
     
-        &:hover {
-            & img {
-                scale: 1.1;
-            }
-        }
+        // &:hover {
+        //     & img {
+        //         scale: 1.1;
+        //     }
+        // }
     }
 
     &__Info {

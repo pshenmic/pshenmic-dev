@@ -11,18 +11,15 @@ function ProjectEditingWindow() {
   const inputValueName = control ? useWatch({ control, name: 'name_ProjectEditingWindow' }) : '';
   const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
   const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
-  const image = control ? useWatch({ control, name: 'projectEditingWindow__ImageCard__Image' }) : '';
 
   return (
     <div className={'ProjectEditingWindow'}>
       <h2>CREATE A NEW PROJECT</h2>
       <FileInput
-        name={'projectEditingWindow__ImageCard__Image'}
-        required={false}
-        richText={true}
+        name={'url_ProjectEditingWindow'}
         textName={inputValueName}
         textDescription={inputValueDescription}
-        textLink={inputValueUrl}
+        mountedPicture={inputValueUrl}
       />
 
       <TextField
@@ -53,7 +50,7 @@ function ProjectEditingWindow() {
         text={'CREATE PROJECT'}
         ariaLabel={'Create project'}
         type={'submit'}
-        disabled={!inputValueDescription || !inputValueUrl || !image}
+        disabled={!inputValueDescription || !inputValueUrl}
       />
     </div>
   )
