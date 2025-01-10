@@ -56,10 +56,39 @@ export default function ProjectsList() {
         })
 
         if (uniqueDocuments.length > 0) {
-          const newDocuments = uniqueDocuments.map(doc => ({
-            ...doc.getData(),
-            id: doc.getId().toString()
-          }))
+          const newDocuments = await Promise.all(uniqueDocuments.map(async doc => {
+            const ownerId = doc.getOwnerId().toString();
+            console.log('ownerId', ownerId);
+
+            try {
+              const nameDoc = await client.platform.documents.get(
+                'dpns.domain',
+                {
+                  where: [
+                    ['records.identity', '==', ownerId], // Попробуйте этот индекс
+                  ],
+                }
+              );
+
+              const ownerName = nameDoc.length > 0 ? nameDoc[0].getData().label : null;
+              console.log('ownerName:', ownerName);
+
+              return {
+                ...doc.getData(),
+                id: doc.getId().toString(),
+                ownerId,
+                ownerName
+              };
+            } catch (nameError) {
+              console.error('Error fetching name:', nameError);
+              return {
+                ...doc.getData(),
+                id: doc.getId().toString(),
+                ownerId,
+                ownerName: null
+              };
+            }
+          }));
 
           setDocuments(prev => [...prev, ...newDocuments])
           setHasMore(response.length >= queryOpts.limit)
@@ -75,6 +104,8 @@ export default function ProjectsList() {
       setIsLoading(false)
     }
   }, [isLoading, hasMore, lastDocument, uniqueIds]);
+
+  console.log(documents)
 
   useEffect(() => {
     loadMoreDocuments()
