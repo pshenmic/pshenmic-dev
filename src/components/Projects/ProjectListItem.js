@@ -6,10 +6,11 @@ import './ProjectListItem.scss'
 import { truncateText } from '@/lib/truncateText'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import Grade from '../UI/Grade/Grade'
+import { isValidImageUrl } from '@/lib/isValidImageUrl'
 
 function ProjectListItem({ project, openHandler, id, openEditor }) {
   const admin = useGlobalStore(state => state.admin)
-
+  
   return (
     <m.li
       className={'ProjectListItem'}
@@ -29,11 +30,7 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
       <div className={'ProjectListItem__ImageContainer'}>
         <Image
           alt={project.title || ''}
-          src={project.image
-            ? project.image.startsWith('data:image')
-              ? project.image
-              : `data:image/png;base64,${project.image}`
-            : '/images/projects/default.png'}
+          src={isValidImageUrl(project?.image) ? project.image : '/assets/img/dash-electrum-icon.png'}
           width={220}
           height={220}
         />

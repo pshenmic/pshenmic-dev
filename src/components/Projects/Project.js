@@ -7,6 +7,7 @@ import Grade from '../UI/Grade/Grade'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import { useState } from 'react'
 import Task from './Task'
+import { isValidImageUrl } from '@/lib/isValidImageUrl'
 
 function Project({ project, closeHandler }) {
   const [activeTab, setActiveTab] = useState('ALL')
@@ -56,7 +57,8 @@ function Project({ project, closeHandler }) {
         <div className={'Project__ImageContainerWrapper'}>
           {(project.image &&
             <div className={'Project__ImageContainer'}>
-              <Image alt={project.title || ''} src={project.image} width={220} height={220} />
+              <Image alt={project.title || ''} src={isValidImageUrl(project?.image) ? project.image : '/assets/img/dash-electrum-icon.png'}
+                width={220} height={220} />
             </div>
           )}
           <Grade />

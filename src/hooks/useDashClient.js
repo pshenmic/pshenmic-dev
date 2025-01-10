@@ -69,13 +69,13 @@ export function useDashClient() {
             }
         },
         connect: async (innerProps) => {
-            // await methods.current.disconnect();
+            await methods.current.disconnect();
             try {
                 const client = new Dash.Client({
                     network: innerProps.network || 'testnet',
                     wallet: {
                         mnemonic: innerProps.wallet.mnemonic,
-                        adapter: innerProps.wallet.adapter,
+                        // adapter: innerProps.wallet.adapter,
                         unsafeOptions: {
                             skipSynchronizationBeforeHeight: innerProps.wallet?.unsafeOptions?.skipSynchronizationBeforeHeight || 0,
                         },

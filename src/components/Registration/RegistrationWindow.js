@@ -19,7 +19,7 @@ export default function RegistrationWindow() {
 
     const handleLogout = useCallback(async () => {
         setUserDash(null);
-        // disconnect()
+        disconnect()
     }, [disconnect]);
 
     useEffect(() => {
