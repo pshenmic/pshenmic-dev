@@ -10,8 +10,20 @@ import { showToast } from '@/lib/showToast'
 
 function EditingWindow() {
   const { openEditingWindow, client, setOpenEditingWindow, admin } = useGlobalStore();
+  const projectDataEditing = useGlobalStore(state => state.projectDataEditing)
+
   const methods = useForm()
-  const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control } = methods
+  const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control, reset } = methods
+
+  console.log(projectDataEditing)
+
+//   useEffect(() => {
+//     methods.reset({
+//         name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
+//         description_ProjectEditingWindow: projectDataEditing?.description_ProjectEditingWindow || '',
+//         url_ProjectEditingWindow: projectDataEditing?.url_ProjectEditingWindow || '',
+//     });
+// }, [projectDataEditing]);
 
   const onSubmit = async (data) => {
     try {
@@ -19,7 +31,6 @@ function EditingWindow() {
         name: data.name_ProjectEditingWindow,
         description: data.description_ProjectEditingWindow,
         url: data.url_ProjectEditingWindow,
-        image: data.projectEditingWindow__ImageCard__Image,
       }
 
       if (!client || !client.platform) {

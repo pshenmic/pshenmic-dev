@@ -1,3 +1,4 @@
+import Project from '@/components/Projects/Project'
 import { createWithEqualityFn } from 'zustand/traditional'
 
 const useGlobalStore = createWithEqualityFn(
@@ -21,7 +22,10 @@ const useGlobalStore = createWithEqualityFn(
     setAdmin: (admin) => set({ admin }),
 
     openEditingWindow: false,
-    setOpenEditingWindow: (openEditingWindow) => set({ openEditingWindow })
+    setOpenEditingWindow: (openEditingWindow) => set({ openEditingWindow }),
+
+    projectDataEditing: {},
+    setProjectDataEditing: (projectDataEditing) => set({ projectDataEditing }),
   })
 )
 

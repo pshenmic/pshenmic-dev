@@ -1,12 +1,15 @@
-import { motion as m } from 'framer-motion'
+'use client'
+
 import Image from 'next/image'
 import useGlobalStore from '@/store/store'
 import EditButton from '../UI/Button/EditButton/EditButton'
-import './ProjectListItem.scss'
-import { truncateText } from '@/lib/truncateText'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import Grade from '../UI/Grade/Grade'
+import { motion as m } from 'framer-motion'
 import { isValidImageUrl } from '@/lib/isValidImageUrl'
+import { memo } from 'react'
+import { formatOwnerId, truncateText } from '@/lib/truncateText'
+import './ProjectListItem.scss'
 
 function ProjectListItem({ project, openHandler, id, openEditor }) {
   const admin = useGlobalStore(state => state.admin)
@@ -20,11 +23,13 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
       }}
       transition={{ duration: 0.5, delay: id / 10 }}
     >
-      <p className={'ProjectListItem__PendingClaim'}>PENDING CLAIM</p>
-      <p className={'ProjectListItem__Domain'}>PSHENMIC.DEV</p>
+      {/* <p className={'ProjectListItem__PendingClaim'}>PENDING CLAIM</p> */}
+      <p className={`ProjectListItem__Domain ${admin ? 'ProjectListItem__Domain--Admin' : ''}`}>
+        {project?.ownerName ? formatOwnerId(project.ownerName) : formatOwnerId(project.ownerId) || ''}
+      </p>
       {admin
         ? <div className={'ProjectListItem__WrapperEditButton'} onClick={(e) => e.stopPropagation()}>
-          <EditButton handleClick={openEditor} type={'buttom'} />
+          <EditButton handleClick={() => openEditor(project)} type={'buttom'} />
         </div>
         : null}
       <div className={'ProjectListItem__ImageContainer'}>
@@ -70,4 +75,4 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
   )
 }
 
-export default ProjectListItem
+export default memo(ProjectListItem)

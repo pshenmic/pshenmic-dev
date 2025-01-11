@@ -1,18 +1,23 @@
+'use client'
+
 import { useCallback, useEffect, useState } from 'react'
 import { motion as m, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import ProjectListItem from './ProjectListItem'
-import Project from './Project'
 import useGlobalStore from '@/store/store'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
-import './ProjectsList.scss'
 import ProjectListItemSkeleton from './ProjectListItemSkeleton'
+import dynamic from 'next/dynamic'
+import './ProjectsList.scss'
+
+const Project = dynamic( () => import('./Project').then(mod => mod.default),{ ssr: false });
 
 export default function ProjectsList() {
   const [openedItem, setOpenedItem] = useState(null)
   const admin = useGlobalStore(state => state.admin)
-  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
   const client = useGlobalStore(state => state.client)
+  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+  const setProjectDataEditing = useGlobalStore(state => state.setProjectDataEditing)
   const [documents, setDocuments] = useState([])
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +26,7 @@ export default function ProjectsList() {
 
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: '100px',
+    rootMargin: '50px',
     triggerOnce: false
   });
 
@@ -58,20 +63,17 @@ export default function ProjectsList() {
         if (uniqueDocuments.length > 0) {
           const newDocuments = await Promise.all(uniqueDocuments.map(async doc => {
             const ownerId = doc.getOwnerId().toString();
-            console.log('ownerId', ownerId);
-
             try {
               const nameDoc = await client.platform.documents.get(
                 'dpns.domain',
                 {
                   where: [
-                    ['records.identity', '==', ownerId], // Попробуйте этот индекс
+                    ['records.identity', '==', ownerId],
                   ],
                 }
               );
 
               const ownerName = nameDoc.length > 0 ? nameDoc[0].getData().label : null;
-              console.log('ownerName:', ownerName);
 
               return {
                 ...doc.getData(),
@@ -105,8 +107,6 @@ export default function ProjectsList() {
     }
   }, [isLoading, hasMore, lastDocument, uniqueIds]);
 
-  console.log(documents)
-
   useEffect(() => {
     loadMoreDocuments()
   }, []);
@@ -117,9 +117,15 @@ export default function ProjectsList() {
     }
   }, [inView, isLoading, hasMore, loadMoreDocuments])
 
-  const openEditingWindow = useCallback(() => {
+  const openEditor = useCallback((project) => {
     setOpenEditingWindow(true)
-  }, [setOpenEditingWindow])
+    let projectData = {
+      name_ProjectEditingWindow: project?.name || '',
+      description_ProjectEditingWindow: project?.description || '',
+      url_ProjectEditingWindow: project?.url || '',
+    }
+    setProjectDataEditing(projectData)
+  }, [setOpenEditingWindow, setProjectDataEditing])
 
   const ListItems = documents.map((project, id) =>
     <ProjectListItem
@@ -128,7 +134,7 @@ export default function ProjectsList() {
       project={project}
       hidden={openedItem !== null && openedItem !== id}
       openHandler={() => setOpenedItem(id)}
-      openEditor={openEditingWindow}
+      openEditor={openEditor}
     />
   )
 
@@ -151,7 +157,7 @@ export default function ProjectsList() {
               <RegistrationButton
                 text={'New Project'}
                 ariaLabel={'add Project'}
-                handleClick={openEditingWindow}
+                handleClick={() => setOpenEditingWindow(true)}
                 style={{
                   background: '#0275ff',
                   textTransform: 'capitalize',

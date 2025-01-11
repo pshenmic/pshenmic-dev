@@ -32,6 +32,10 @@ $width-tablet: 940px;
         color: #62cff6;
     }
 
+    &__Domain--Admin {
+        right: 60px;
+    }
+
     &__PendingClaim {
         position: absolute;
         top: 2px;
