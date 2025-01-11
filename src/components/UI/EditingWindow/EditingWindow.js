@@ -9,21 +9,20 @@ import './EditingWindow.scss'
 import { showToast } from '@/lib/showToast'
 
 function EditingWindow() {
-  const { openEditingWindow, client, setOpenEditingWindow, admin } = useGlobalStore();
-  const projectDataEditing = useGlobalStore(state => state.projectDataEditing)
+  const { openEditingWindow, client, setOpenEditingWindow, admin, projectDataEditing, setProjectDataEditing } = useGlobalStore();
 
   const methods = useForm()
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control, reset } = methods
 
   console.log(projectDataEditing)
 
-//   useEffect(() => {
-//     methods.reset({
-//         name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
-//         description_ProjectEditingWindow: projectDataEditing?.description_ProjectEditingWindow || '',
-//         url_ProjectEditingWindow: projectDataEditing?.url_ProjectEditingWindow || '',
-//     });
-// }, [projectDataEditing]);
+  useEffect(() => {
+    methods.reset({
+        name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
+        description_ProjectEditingWindow: projectDataEditing?.description_ProjectEditingWindow || '',
+        url_ProjectEditingWindow: projectDataEditing?.url_ProjectEditingWindow || '',
+    });
+}, [projectDataEditing]);
 
   const onSubmit = async (data) => {
     try {
@@ -38,15 +37,41 @@ function EditingWindow() {
         return;
       }
 
-      const document = await client.platform.documents.create(`${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`, admin, dataProject);
+      if (projectDataEditing?.id) {
+        // Получаем существующий документ
+        const [existingDocument] = await client.platform.documents.get(
+          `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
+          { where: [['$id', '==', projectDataEditing.id]] }
+        );
 
-      await client.platform.documents.broadcast({
-        create: [document],
-      }, admin).then(res => {
-        showToast('success', 'Document created successfully');
-        setOpenEditingWindow(false);
-      })
+        console.log('existingDocument', existingDocument)
 
+        if (existingDocument) {
+          // Обновляем данные документа
+          existingDocument.set('name', dataProject.name);
+          existingDocument.set('description', dataProject.description);
+          existingDocument.set('url', dataProject.url);
+          // existingDocument.set('updatedAt', new Date().toUTCString());
+
+          // Отправляем обновленный документ
+          await client.platform.documents.broadcast({
+            replace: [existingDocument],
+          }, admin);
+
+          showToast('success', 'Document updated successfully');
+        } else {
+          showToast('error', 'Document not found');
+        }
+      } else {
+        const document = await client.platform.documents.create(`${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`, admin, dataProject);
+
+        await client.platform.documents.broadcast({
+          create: [document],
+        }, admin).then(res => {
+          showToast('success', 'Document created successfully');
+          setOpenEditingWindow(false);
+        })
+      }
     } catch (error) {
       console.error('Error submitting document:', error);
       showToast('error', 'Error submitting document');
@@ -62,6 +87,7 @@ function EditingWindow() {
   useEffect(() => {
     if (!openEditingWindow) {
       clearErrors()
+      setProjectDataEditing({})
     }
   }, [openEditingWindow])
 

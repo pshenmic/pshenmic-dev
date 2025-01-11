@@ -117,12 +117,15 @@ export default function ProjectsList() {
     }
   }, [inView, isLoading, hasMore, loadMoreDocuments])
 
+  console.log(documents)
+
   const openEditor = useCallback((project) => {
     setOpenEditingWindow(true)
     let projectData = {
       name_ProjectEditingWindow: project?.name || '',
       description_ProjectEditingWindow: project?.description || '',
       url_ProjectEditingWindow: project?.url || '',
+      id: project?.id || '',
     }
     setProjectDataEditing(projectData)
   }, [setOpenEditingWindow, setProjectDataEditing])
