@@ -70,9 +70,13 @@ export function useDashClient() {
         },
         connect: async (innerProps) => {
             await methods.current.disconnect();
+
             try {
                 const client = new Dash.Client({
                     network: innerProps.network || 'testnet',
+                    dapiAddresses: [
+                        "158.160.14.115:1443"
+                    ],
                     wallet: {
                         mnemonic: innerProps.wallet.mnemonic,
                         // adapter: innerProps.wallet.adapter,
