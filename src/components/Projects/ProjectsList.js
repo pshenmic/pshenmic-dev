@@ -36,7 +36,7 @@ export default function ProjectsList() {
 
     try {
       const queryOpts = {
-        limit: 5,
+        limit: 10,
         where: [],
         orderBy: [['$id', 'asc']]
       };
@@ -49,10 +49,8 @@ export default function ProjectsList() {
         'pshenmic-dev-dfo.Project',
         queryOpts
       )
-
       if (response && response.length > 0) {
         setLastDocument(response[response.length - 1])
-
         const uniqueDocuments = response.filter(doc => {
           const id = doc.getId().toString()
           if (uniqueIds.has(id)) return false
@@ -63,6 +61,15 @@ export default function ProjectsList() {
         if (uniqueDocuments.length > 0) {
           const newDocuments = await Promise.all(uniqueDocuments.map(async doc => {
             const ownerId = doc.getOwnerId().toString();
+            // console.log('doc', doc.getDocument().getRevision())
+            console.log('doc', doc)
+            // console.log('docget', doc.get())
+            // console.log('getDocument', doc.getDocument().get())
+            console.log('getType', doc.toJSON())
+
+            // const metadata = doc.getMetadata();
+            // console.log('Document metadata:', metadata);
+            // console.log('Is deleted:', metadata.isDeleted());
             try {
               const nameDoc = await client.platform.documents.get(
                 'dpns.domain',
@@ -74,6 +81,8 @@ export default function ProjectsList() {
               );
 
               const ownerName = nameDoc.length > 0 ? nameDoc[0].getData().label : null;
+
+              console.log('ownerName', ownerName)
 
               return {
                 ...doc.getData(),

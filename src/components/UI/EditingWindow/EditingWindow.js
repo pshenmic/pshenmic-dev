@@ -14,8 +14,6 @@ function EditingWindow() {
   const methods = useForm()
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control, reset } = methods
 
-  console.log(projectDataEditing)
-
   useEffect(() => {
     methods.reset({
         name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
@@ -38,7 +36,6 @@ function EditingWindow() {
       }
 
       if (projectDataEditing?.id) {
-        // Получаем существующий документ
         const [existingDocument] = await client.platform.documents.get(
           `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
           { where: [['$id', '==', projectDataEditing.id]] }
@@ -47,13 +44,10 @@ function EditingWindow() {
         console.log('existingDocument', existingDocument)
 
         if (existingDocument) {
-          // Обновляем данные документа
           existingDocument.set('name', dataProject.name);
           existingDocument.set('description', dataProject.description);
           existingDocument.set('url', dataProject.url);
-          // existingDocument.set('updatedAt', new Date().toUTCString());
 
-          // Отправляем обновленный документ
           await client.platform.documents.broadcast({
             replace: [existingDocument],
           }, admin);

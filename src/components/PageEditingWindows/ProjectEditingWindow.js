@@ -3,14 +3,46 @@
 import './PageEditingWindows.scss'
 import FileInput from '../UI/FileInput/FileInput'
 import TextField from '../UI/TextField/TextField'
-import { useFormContext, useWatch } from 'react-hook-form';
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton';
+import useGlobalStore from '@/store/store';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { showToast } from '@/lib/showToast';
 
 function ProjectEditingWindow() {
+  const { projectDataEditing, client, admin } = useGlobalStore();
   const { control } = useFormContext();
   const inputValueName = control ? useWatch({ control, name: 'name_ProjectEditingWindow' }) : '';
   const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
   const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
+
+  const handleDelete = async (projectId) => {
+    try {
+        if (!client || !client.platform) {
+            showToast('error', 'Client not found');
+            return;
+        }
+
+        const [document] = await client.platform.documents.get(
+            `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
+            { where: [['$id', '==', projectId]] }
+        );
+
+        if (!document) {
+            showToast('error', 'Document not found');
+            return;
+        }
+
+        await client.platform.documents.broadcast({
+            delete: [document],
+        }, admin);
+
+        showToast('success', 'Document deleted successfully');
+
+    } catch (error) {
+        console.error('Error deleting document:', error);
+        showToast('error', 'Error deleting document');
+    }
+};
 
   return (
     <div className={'ProjectEditingWindow'}>
@@ -52,6 +84,13 @@ function ProjectEditingWindow() {
         type={'submit'}
         disabled={!inputValueDescription || !inputValueUrl}
       />
+
+      {projectDataEditing?.id && <RegistrationButton
+        className={'ProjectEditingWindow__ButtonDelete'}
+        text={'DELETE PROJECT'}
+        ariaLabel={'Delete project'}
+        onClick={() => handleDelete(projectDataEditing?.id)}
+      />}
     </div>
   )
 }
