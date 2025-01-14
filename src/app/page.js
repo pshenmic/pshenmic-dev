@@ -21,36 +21,36 @@ export default function App() {
   const path = usePathname()
 
   // adding a zero client
-  // useEffect(() => {
-  //   const addClient = async () => {
-  //     try {
-  //       const clientOpts = {
-  //         network: 'testnet',
-  //         apps: {
-  //           tutorialContract: {
-  //             contractId: process.env.NEXT_PUBLIC_INITIAL_CLIENT,
-  //           },
-  //           "pshenmic-dev-dfo": {
-  //             contractId: process.env.NEXT_PUBLIC_CONTRACT_ID,
-  //           },
-  //         },
-  //         wallet: {
-  //           skipSynchronizationBeforeHeight: 1,
-  //           offlineMode: true,
-  //         },
-  //       };
-  //       const client = new Dash.Client(clientOpts);
+  useEffect(() => {
+    const addClient = async () => {
+      try {
+        const clientOpts = {
+          network: 'testnet',
+          apps: {
+            tutorialContract: {
+              contractId: process.env.NEXT_PUBLIC_INITIAL_CLIENT,
+            },
+            "pshenmic-dev-dfo": {
+              contractId: process.env.NEXT_PUBLIC_CONTRACT_ID,
+            },
+          },
+          wallet: {
+            skipSynchronizationBeforeHeight: 1,
+            offlineMode: true,
+          },
+        };
+        const client = new Dash.Client(clientOpts);
         
-  //       if (client) {
-  //         setClient(client)
-  //       }
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //       showToast('error', 'Error logging in, try again later');
-  //     }
-  //   }
-  //   addClient()
-  // }, [])
+        if (client) {
+          setClient(client)
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showToast('error', 'Error logging in, try again later');
+      }
+    }
+    addClient()
+  }, [])
 
   useEffect(() => {
     const pathArray = window.location.pathname.split('/').slice(1)

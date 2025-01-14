@@ -16,25 +16,33 @@ function ProjectEditingWindow() {
   const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
 
   const handleDelete = async (projectId) => {
+    console.log('projectId', projectId)
+    console.log('client', client)
+    console.log('admin', admin)
     try {
-        if (!client || !client.platform) {
+        if (!client || !client.platform || !admin || !projectId) {
             showToast('error', 'Client not found');
             return;
         }
+
+        console.log('process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS', process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS)
 
         const [document] = await client.platform.documents.get(
             `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
             { where: [['$id', '==', projectId]] }
         );
+        console.log('document', document)
 
         if (!document) {
             showToast('error', 'Document not found');
+            console.error('Document structure:', document);
             return;
         }
 
+
         await client.platform.documents.broadcast({
             delete: [document],
-        }, admin);
+        }, admin)
 
         showToast('success', 'Document deleted successfully');
 

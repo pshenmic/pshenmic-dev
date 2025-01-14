@@ -50,6 +50,7 @@ export default function ProjectsList() {
         queryOpts
       )
       if (response && response.length > 0) {
+        console.log('response', response)
         setLastDocument(response[response.length - 1])
         const uniqueDocuments = response.filter(doc => {
           const id = doc.getId().toString()
@@ -62,10 +63,28 @@ export default function ProjectsList() {
           const newDocuments = await Promise.all(uniqueDocuments.map(async doc => {
             const ownerId = doc.getOwnerId().toString();
             // console.log('doc', doc.getDocument().getRevision())
-            console.log('doc', doc)
+            // console.log('doc', doc)
+            // console.log('getUpdatedAt', doc.getUpdatedAt())
+
+            // console.log('getDocumentgetData', doc.getDocument().getData())
+            // console.log('toJSON', doc.toJSON())
+
+
+            // console.log('docgetData$deleted', doc.getData().$deleted)
+
+
+            // console.log('docget', doc.get())
+
+            // console.log('gettoObject', doc.toObject())
+            // console.log('toJSON', doc.toJSON())
+
+            // console.log('getDataContractgetMetadata', doc.getDataContract().getMetadata())
+            // console.log('getDataContractggetConfig', doc.getDataContract().getConfig())
+            // console.log('getDataContracgetBinaryProperties', doc.getDataContract().getBinaryProperties())
+
             // console.log('docget', doc.get())
             // console.log('getDocument', doc.getDocument().get())
-            console.log('getType', doc.toJSON())
+            // console.log('getType', doc.toJSON())
 
             // const metadata = doc.getMetadata();
             // console.log('Document metadata:', metadata);
