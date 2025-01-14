@@ -74,9 +74,6 @@ export function useDashClient() {
             try {
                 const client = new Dash.Client({
                     network: innerProps.network || 'testnet',
-                    dapiAddresses: [
-                        "158.160.14.115:1443"
-                    ],
                     wallet: {
                         mnemonic: innerProps.wallet.mnemonic,
                         // adapter: innerProps.wallet.adapter,
@@ -110,7 +107,7 @@ export function useDashClient() {
                 if (account) {
                     identityIds = account.identities.getIdentityIds();
                 }
-                
+
                 if (account && identityIds?.length > 0) {
                     setAccount(account);
                 } else {
