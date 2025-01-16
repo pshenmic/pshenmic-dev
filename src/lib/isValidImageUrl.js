@@ -5,28 +5,32 @@ export const isValidImageUrl = (url) => {
     }
     
     try {
-        // Проверка для Data URL (base64)
-        if (url.startsWith('data:image/')) {
+        const cleanUrl = url.split('?')[0];
+        
+        if (cleanUrl.startsWith('data:image/')) {
             return true;
         }
 
-        // Проверка для локальных путей
-        if (url.startsWith('/')) {
+        if (cleanUrl.startsWith('/')) {
             const validExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
-            return validExtensions.some(ext => url.toLowerCase().endsWith(ext));
+            return validExtensions.some(ext => cleanUrl.toLowerCase().endsWith(ext));
         }
 
-        // Проверка для обычных URL
+        if (cleanUrl.includes('github.com')) {
+            const validExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+            return validExtensions.some(ext => cleanUrl.toLowerCase().endsWith(ext));
+        }
+
         const validExtensions = /\.(jpg|jpeg|png|gif|webp|svg)$/i;
-        const hasValidProtocol = url.startsWith('http://') || url.startsWith('https://');
+        const hasValidProtocol = cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://');
         
         console.log('URL validation:', {
-            url,
+            url: cleanUrl,
             hasValidProtocol,
-            hasValidExtension: validExtensions.test(url)
+            hasValidExtension: validExtensions.test(cleanUrl)
         });
 
-        return hasValidProtocol && validExtensions.test(url);
+        return hasValidProtocol && validExtensions.test(cleanUrl);
     } catch (error) {
         console.error('Validation error:', error);
         return false;

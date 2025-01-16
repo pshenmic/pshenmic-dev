@@ -33,7 +33,7 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
         </div>
         : null}
       <div className={'ProjectListItem__ImageContainer'}>
-        <Image
+        <img
           alt={project.title || ''}
           src={isValidImageUrl(project?.image) ? project.image : '/assets/img/dash-electrum-icon.png'}
           width={220}

@@ -57,7 +57,7 @@ function Project({ project, closeHandler }) {
         <div className={'Project__ImageContainerWrapper'}>
           {(project.image &&
             <div className={'Project__ImageContainer'}>
-              <Image alt={project.title || ''} src={isValidImageUrl(project?.image) ? project.image : '/assets/img/dash-electrum-icon.png'}
+              <img alt={project.title || ''} src={isValidImageUrl(project?.image) ? project.image : '/assets/img/dash-electrum-icon.png'}
                 width={220} height={220} />
             </div>
           )}

@@ -12,8 +12,8 @@ function FileInput({ textName, textDescription, mountedPicture, name, }) {
   return (
     <div className={'FileInput'}>
       <div className={`FileInput__Avatar ${hasOwnProperty.call(errors || {}, name) ? 'FileInput__Error' : ''}`}  >
-        <Image
-          src={isValidImageUrl(mountedPicture) ? 'mountedPicture' : '/assets/img/pictureOfaBlindfold.png'}
+        <img
+          src={isValidImageUrl(mountedPicture) ? mountedPicture : '/assets/img/pictureOfaBlindfold.png'}
           width={100}
           height={100}
           alt={'Preview Image'}

@@ -44,16 +44,16 @@
   dependencies:
     binascii "0.0.2"
 
-"@dashevo/dapi-client@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/dapi-client/-/dapi-client-1.7.0.tgz#dabab4617e31d54ff949e5d9eb7b5d06dc4a0550"
-  integrity sha512-1A/M4DAtUA/usxn3PAqyFKmPsPrVmPzp/coEFdOAiT2osZUexBIXgVOdzantLO+iq2TEHh+DMZY3Gcvd5fiDGw==
+"@dashevo/dapi-client@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/dapi-client/-/dapi-client-1.8.0.tgz#f996459bc511f3a3e1e37916c50fb4d9833e0afc"
+  integrity sha512-s8Xqo7Dz0aGQonO1mbqEPpZLuMkkp2TvB+Xp8zEjgn8OqQzdApmpOzyUJJkGtr2V1VN4js6ApxS9isgKJe8Jfg==
   dependencies:
-    "@dashevo/dapi-grpc" "1.7.0"
-    "@dashevo/dash-spv" "2.7.0"
+    "@dashevo/dapi-grpc" "1.8.0"
+    "@dashevo/dash-spv" "2.8.0"
     "@dashevo/dashcore-lib" "~0.22.0"
-    "@dashevo/grpc-common" "1.7.0"
-    "@dashevo/wasm-dpp" "1.7.0"
+    "@dashevo/grpc-common" "1.8.0"
+    "@dashevo/wasm-dpp" "1.8.0"
     bs58 "^4.0.1"
     cbor "^8.0.0"
     google-protobuf "^3.12.2"
@@ -63,12 +63,12 @@
     wasm-x11-hash "~0.0.2"
     winston "^3.2.1"
 
-"@dashevo/dapi-grpc@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/dapi-grpc/-/dapi-grpc-1.7.0.tgz#f82e63bacdfdb986a44f12cf53a6030099e7de5d"
-  integrity sha512-vaLH4nMDi1EmVAJUKM4MwPrpBq2oFsv8/ylP5akgpi52/xcPYbkwt089D51XACQ+Gv1tMTMsvLblMk5DjOko3w==
+"@dashevo/dapi-grpc@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/dapi-grpc/-/dapi-grpc-1.8.0.tgz#ab0f0bb61372e612125c4bccb4f75a8d5aa0c0cb"
+  integrity sha512-hP5Py7m+IZLKvAk21nsK0tyUpfUjZRFu2boiSByjYQwrMoyZHoJi63dTFUe6sikXvG7fr1JsJMiHsO4HAmgsZQ==
   dependencies:
-    "@dashevo/grpc-common" "1.7.0"
+    "@dashevo/grpc-common" "1.8.0"
     "@dashevo/protobufjs" "6.10.5"
     "@grpc/grpc-js" "1.4.4"
     "@improbable-eng/grpc-web" "^0.15.0"
@@ -80,10 +80,10 @@
   resolved "https://registry.yarnpkg.com/@dashevo/dark-gravity-wave/-/dark-gravity-wave-1.1.1.tgz#595e058244dbb76efa99b2d94d6a49d8f2aeb3eb"
   integrity sha512-rt0PzGzqplqERWVIMLlBxm4mJqjFTYNUFRhIccbfaF/MDyd0/585krGOWIhe0Sis9XQNA/FJlxxRjtPXIcyyCg==
 
-"@dashevo/dash-spv@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/dash-spv/-/dash-spv-2.7.0.tgz#276adddd492455b44f23505bc37b3cf9b2840368"
-  integrity sha512-HzLG6JmizV2abR7L4DU3AoIQkUjWgzQBifhFwa4pIHJqJ1djWQXYXY36uC4UKQ8fqfpJjg4rW6vynR7ih5eRfQ==
+"@dashevo/dash-spv@2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/dash-spv/-/dash-spv-2.8.0.tgz#8869a17263bd1904ef811bb996fe899321920df4"
+  integrity sha512-9Eu6TQruEZJnGA8V6vAEu6ajfNkLSaEjbyr1TUQ0MazPDq6Vz+Q/zAYScwy3cAjhN8j6Ma2eN/LmPQE/VOglWw==
   dependencies:
     "@dashevo/dark-gravity-wave" "^1.1.1"
     "@dashevo/dash-util" "^2.0.3"
@@ -118,20 +118,20 @@
     tsd "^0.28.1"
     unorm "^1.6.0"
 
-"@dashevo/dashpay-contract@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/dashpay-contract/-/dashpay-contract-1.7.0.tgz#581acac97142a3a5730c000083c17d2867772609"
-  integrity sha512-n17pZt8ouje1aStIqPrO2TtAOycS12u/zB4Sjlqtu0uiekLIGxf8yxQ6vuAX3eUzDvYM88Vr0t+ciNJz1jObwg==
+"@dashevo/dashpay-contract@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/dashpay-contract/-/dashpay-contract-1.8.0.tgz#ec928e6bde59c00fb64bce408facd78d140a5494"
+  integrity sha512-+rzJHiFT8WnGhKGQW5teee97antCGd1s/+Jcsqq3xpsariZBtPBiGClPu30HB7mgvke87ovXequ4zwv2VKOiOQ==
 
-"@dashevo/dpns-contract@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/dpns-contract/-/dpns-contract-1.7.0.tgz#9ed1cdccbcd1e06e2b06d2e9c6180beea4f22ec4"
-  integrity sha512-3x/K6PY5mqP9azGlwqtz5NWkNvuekYkuHovHJ1LKaoZwf0+6VRMRW7Kwm/GFAyCbrVeoNRFZJRVn6NZHDHKSeA==
+"@dashevo/dpns-contract@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/dpns-contract/-/dpns-contract-1.8.0.tgz#d93719240d409737eae7c707f4023a30800fa654"
+  integrity sha512-oSRH+k/iu8UTng/bk4zXRTQRRBM2vPqbARgGlDLxBopGjQ8Ei/nPTPuh7xQ7mPcvTbEt/9bJb+QKE32b+A1zJA==
 
-"@dashevo/grpc-common@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/grpc-common/-/grpc-common-1.7.0.tgz#3c1743d084588ff97464507188218682a1a6884c"
-  integrity sha512-2kaY7i8ra8wYMEvOIBJOBVMZuRxKKId+fSDIcNDLH0yxPw6ctSrWkklUeKyTsvKZ46o4KAoLj+yd56wNZ9N6Sg==
+"@dashevo/grpc-common@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/grpc-common/-/grpc-common-1.8.0.tgz#0941aca83e5e0bab8fa62e6e78da00d0c10ae1b0"
+  integrity sha512-AAooX+SPaOE0XMNkaGw/rBft7c/RfPlpQcKaHnZhSyCtqO4wUWj7zoPn8JtIMaBMwsYkHw4bn8xooXGsVGLS4Q==
   dependencies:
     "@dashevo/protobufjs" "6.10.5"
     "@grpc/grpc-js" "1.4.4"
@@ -141,10 +141,10 @@
     long "^5.2.0"
     semver "^7.5.3"
 
-"@dashevo/masternode-reward-shares-contract@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/masternode-reward-shares-contract/-/masternode-reward-shares-contract-1.7.0.tgz#81e95d0dfe66051f589fbb37474ec1ea67477b2d"
-  integrity sha512-JpYSoRGk9U5NymzEpPRYt4nJbKQbX2j5xD2ElTLu1KGeHuck1D4ibH4CRct7VDt1eKIGj2J3efd1ZfRuFE2R5g==
+"@dashevo/masternode-reward-shares-contract@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/masternode-reward-shares-contract/-/masternode-reward-shares-contract-1.8.0.tgz#cdd9f23adbf1c6b2d83a76f543f75b4b570f355b"
+  integrity sha512-0beDsCl5ryf6PJuGnUvPb43X2RhC8/6nvp37M+Spoekzr1ixF6/nj7S3Pf4AR3j+i8MVbztz0knxMATyI8g8gQ==
 
 "@dashevo/protobufjs@6.10.5":
   version "6.10.5"
@@ -165,15 +165,15 @@
     "@types/node" "^13.7.0"
     long "^4.0.0"
 
-"@dashevo/wallet-lib@8.7.0":
-  version "8.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/wallet-lib/-/wallet-lib-8.7.0.tgz#fd0ec818df73b428471c56bd24355ca22ba9faa7"
-  integrity sha512-9GYlPHgryPQI4+Pbcoltm1cjWlVL4dBuN+pv02m/V+GnPaXVFKWA4U7tDqPbGrRBSIvVLFS1mIl44hvH4CvQzg==
+"@dashevo/wallet-lib@8.8.0":
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/wallet-lib/-/wallet-lib-8.8.0.tgz#69c730cb74c694466437bd88696ad128b48e64cb"
+  integrity sha512-odHxNWbdLd4vm8qgHBseafaRRFB8jGkM9A+W7c2qbT9nVCAhHNlQ/sqYnOL5/LamOpzmwllmpHZIQ8psAhtE6w==
   dependencies:
-    "@dashevo/dapi-client" "1.7.0"
+    "@dashevo/dapi-client" "1.8.0"
     "@dashevo/dashcore-lib" "~0.22.0"
-    "@dashevo/grpc-common" "1.7.0"
-    "@dashevo/wasm-dpp" "1.7.0"
+    "@dashevo/grpc-common" "1.8.0"
+    "@dashevo/wasm-dpp" "1.8.0"
     "@yarnpkg/pnpify" "^4.0.0-rc.42"
     cbor "^8.0.0"
     crypto-js "^4.2.0"
@@ -182,20 +182,20 @@
     setimmediate "^1.0.5"
     winston "^3.2.1"
 
-"@dashevo/wasm-dpp@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/wasm-dpp/-/wasm-dpp-1.7.0.tgz#c18876865ae5d23e9e485c82eca60e971bb58e89"
-  integrity sha512-+JTUHR4KMGQuQSoaKHD9DbNybLJ3UNxd7E5SCV4oWsgv/L8qMEr0jkK+uMhsmhHJ1LtjkrTy32zh6vRz+Ti5Mw==
+"@dashevo/wasm-dpp@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/wasm-dpp/-/wasm-dpp-1.8.0.tgz#ffdb1b9e7dfecf9674c5ad94e846b966dac8c477"
+  integrity sha512-qEIneunt5Tohxk6x/yXsKoqND4QWSYgq8XcwiCXd4QUm79/r0rW06MeEWqWrdXcMfPZ/ixVBoGPfmu8ner0Zlg==
   dependencies:
     "@dashevo/bls" "~1.2.9"
     bs58 "^4.0.1"
     lodash "^4.17.21"
     varint "^6.0.0"
 
-"@dashevo/withdrawals-contract@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@dashevo/withdrawals-contract/-/withdrawals-contract-1.7.0.tgz#e359ad28f86bc7a26bd0a7761854f40030bdf2d1"
-  integrity sha512-1KExA19rmwyvN4u0ZYzNS+EzYnscFLWXbtcw7l6/vKMbjxCApyojLFeAlq14IKaqP6i4MlHAloqzvRs4TN/oBg==
+"@dashevo/withdrawals-contract@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@dashevo/withdrawals-contract/-/withdrawals-contract-1.8.0.tgz#b052ab721d7a7ef93f54a07ef300abe89772f6f3"
+  integrity sha512-FEsl5FXnZDtOs5IZDGyIvDXdPtGr6+4W5BkQsb8jZOuZZ0WJkWjUAZF03YyEi6X1kagHQ8g2DOCv2PfY3FKBwg==
 
 "@dashevo/x11-hash-js@^1.0.2":
   version "1.0.2"
@@ -235,10 +235,10 @@
     debug "^4.3.1"
     minimatch "^3.1.2"
 
-"@eslint/core@^0.9.0":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@eslint/core/-/core-0.9.1.tgz#31763847308ef6b7084a4505573ac9402c51f9d1"
-  integrity sha512-GuUdqkyyzQI5RMIWkHhvTWLCyLo1jNK3vzkSyaExH5kHPDHcuL2VOpHjmMY+y3+NC69qAKToBqldTBgYeLSr9Q==
+"@eslint/core@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@eslint/core/-/core-0.10.0.tgz#23727063c21b335f752dbb3a16450f6f9cbc9091"
+  integrity sha512-gFHJ+xBOo4G3WRlR1e/3G8A6/KZAH6zcE/hkLRCZTi/B9avAG365QhFA8uOGzTMqgTghpn7/fSnscW++dpMSAw==
   dependencies:
     "@types/json-schema" "^7.0.15"
 
@@ -257,21 +257,22 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@9.17.0", "@eslint/js@^9.17.0":
-  version "9.17.0"
-  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.17.0.tgz#1523e586791f80376a6f8398a3964455ecc651ec"
-  integrity sha512-Sxc4hqcs1kTu0iID3kcZDW3JHq2a77HO9P8CP6YEA/FpH3Ll8UXE2r/86Rz9YJLKme39S9vU5OWNjC6Xl0Cr3w==
+"@eslint/js@9.18.0", "@eslint/js@^9.17.0":
+  version "9.18.0"
+  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.18.0.tgz#3356f85d18ed3627ab107790b53caf7e1e3d1e84"
+  integrity sha512-fK6L7rxcq6/z+AaQMtiFTkvbHkBLNlwyRxHpKawP0x3u9+NC6MQTnFW+AdpwC6gfHTW0051cokQgtTN2FqlxQA==
 
 "@eslint/object-schema@^2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@eslint/object-schema/-/object-schema-2.1.5.tgz#8670a8f6258a2be5b2c620ff314a1d984c23eb2e"
   integrity sha512-o0bhxnL89h5Bae5T318nFoFzGy+YE5i/gGkoPAgkmTVdRKTiv3p8JHevPiPaMwoloKfEiiaHlawCqaZMqRm+XQ==
 
-"@eslint/plugin-kit@^0.2.3":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@eslint/plugin-kit/-/plugin-kit-0.2.4.tgz#2b78e7bb3755784bb13faa8932a1d994d6537792"
-  integrity sha512-zSkKow6H5Kdm0ZUQUB2kV5JIXqoG0+uH5YADhaEHswm664N9Db8dXSi0nMJpacpMf+MyyglF1vnZohpEg5yUtg==
+"@eslint/plugin-kit@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@eslint/plugin-kit/-/plugin-kit-0.2.5.tgz#ee07372035539e7847ef834e3f5e7b79f09e3a81"
+  integrity sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==
   dependencies:
+    "@eslint/core" "^0.10.0"
     levn "^0.4.1"
 
 "@grpc/grpc-js@1.4.4":
@@ -702,9 +703,9 @@
   integrity sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "22.10.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.10.5.tgz#95af89a3fb74a2bb41ef9927f206e6472026e48b"
-  integrity sha512-F8Q+SeGimwOo86fiovQh8qiXfFEh2/ocYv7tU5pJ3EXMSSxk1Joj5wefpFK2fHTf/N6HKGSxIDBT9f3gCxXPkQ==
+  version "22.10.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.10.7.tgz#14a1ca33fd0ebdd9d63593ed8d3fbc882a6d28d7"
+  integrity sha512-V09KvXxFiutGp6B7XkpaDXlNadZxrzajcY50EuoLIpQ6WWYCSvf19lVIazzfIzQvhUN2HjX12spLojTnhuKlGg==
   dependencies:
     undici-types "~6.20.0"
 
@@ -719,9 +720,9 @@
   integrity sha512-s3nugnZumCC//n4moGGe6tkNMyYEdaDBitVjwPxXmR5lnMG5dHePinH2EdxkG3Rh1ghFHHixAG4NJhpJW1rthQ==
 
 "@types/node@^18.17.15":
-  version "18.19.70"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.70.tgz#5a77508f5568d16fcd3b711c8102d7a430a04df7"
-  integrity sha512-RE+K0+KZoEpDUbGGctnGdkrLFwi1eYKTlIHNl2Um98mUkGsm1u2Ff6Ltd0e8DktTtC98uy7rSj+hO8t/QuLoVQ==
+  version "18.19.71"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.71.tgz#96d4f0a0be735ead6c8998c62a4b2c0012a5d09a"
+  integrity sha512-evXpcgtZm8FY4jqBSN8+DmOTcVkkvTmAayeo4Wf3m1xAruyVGzGuDh/Fb/WWX2yLItUiho42ozyJjB0dw//Tkw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1350,22 +1351,22 @@ crypto-js@^4.2.0:
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
   integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
 
-dash@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/dash/-/dash-4.7.0.tgz#b451eb3f462d7e814afb1e3175d3f6c85c2c9190"
-  integrity sha512-zhfp9y4crvkyUcMArZHEqLD6BNbdxO132XwJwWFz/LtQ/Ys6PbmtbUB8HbSVbUBRbCwGv237oWsQC10xZSO5Fg==
+dash@4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/dash/-/dash-4.8.0.tgz#f31b405aab601fc5442defb63b4748f34a087ca3"
+  integrity sha512-q3outJA4Ji4KNE4VZiZ+TYAIhurZ1s3yZVLOJE+MOMeEzhJukhODS82EpVdHozYdVt2WwJZsbWoJgVbrGClb0Q==
   dependencies:
     "@dashevo/bls" "~1.2.9"
-    "@dashevo/dapi-client" "1.7.0"
-    "@dashevo/dapi-grpc" "1.7.0"
+    "@dashevo/dapi-client" "1.8.0"
+    "@dashevo/dapi-grpc" "1.8.0"
     "@dashevo/dashcore-lib" "~0.22.0"
-    "@dashevo/dashpay-contract" "1.7.0"
-    "@dashevo/dpns-contract" "1.7.0"
-    "@dashevo/grpc-common" "1.7.0"
-    "@dashevo/masternode-reward-shares-contract" "1.7.0"
-    "@dashevo/wallet-lib" "8.7.0"
-    "@dashevo/wasm-dpp" "1.7.0"
-    "@dashevo/withdrawals-contract" "1.7.0"
+    "@dashevo/dashpay-contract" "1.8.0"
+    "@dashevo/dpns-contract" "1.8.0"
+    "@dashevo/grpc-common" "1.8.0"
+    "@dashevo/masternode-reward-shares-contract" "1.8.0"
+    "@dashevo/wallet-lib" "8.8.0"
+    "@dashevo/wasm-dpp" "1.8.0"
+    "@dashevo/withdrawals-contract" "1.8.0"
     bs58 "^4.0.1"
     node-inspect-extracted "^1.0.8"
     winston "^3.2.1"
@@ -1637,9 +1638,9 @@ es-iterator-helpers@^1.2.1:
     safe-array-concat "^1.1.3"
 
 es-object-atoms@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/es-object-atoms/-/es-object-atoms-1.0.0.tgz#ddb55cd47ac2e240701260bc2a8e31ecb643d941"
-  integrity sha512-MZ4iQ6JwHOBQjahnjwaC1ZtIBH+2ohjamzAO3oaHcXYup7qxjF2fixyH+Q71voWHeOkI2q/TnJao/KfXYIZWbw==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/es-object-atoms/-/es-object-atoms-1.1.1.tgz#1c4f2c4837327597ce69d2ca190a7fdd172338c1"
+  integrity sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==
   dependencies:
     es-errors "^1.3.0"
 
@@ -1694,9 +1695,9 @@ eslint-formatter-pretty@^4.1.0:
     supports-hyperlinks "^2.0.0"
 
 eslint-plugin-react@^7.37.2:
-  version "7.37.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.37.3.tgz#567549e9251533975c4ea9706f986c3a64832031"
-  integrity sha512-DomWuTQPFYZwF/7c9W2fkKkStqZmBd3uugfqBYLdkZ3Hii23WzZuOLUskGxB8qkSKqftxEeGL1TB2kMhrce0jA==
+  version "7.37.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.37.4.tgz#1b6c80b6175b6ae4b26055ae4d55d04c414c7181"
+  integrity sha512-BGP0jRmfYyvOyvMoRX/uoUeW+GqNj9y16bPQzqAHf3AYII/tDs+jMN0dBVkl88/OZwNGwrVFxE7riHsXVfy/LQ==
   dependencies:
     array-includes "^3.1.8"
     array.prototype.findlast "^1.2.5"
@@ -1741,17 +1742,17 @@ eslint-visitor-keys@^4.2.0:
   integrity sha512-UyLnSehNt62FFhSwjZlHmeokpRK59rcz29j+F1/aDgbkbRTk7wIc9XzdoasMUbRNKDM0qQt/+BJ4BrpFeABemw==
 
 eslint@^9.17.0:
-  version "9.17.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-9.17.0.tgz#faa1facb5dd042172fdc520106984b5c2421bb0c"
-  integrity sha512-evtlNcpJg+cZLcnVKwsai8fExnqjGPicK7gnUtlNuzu+Fv9bI0aLpND5T44VLQtoMEnI57LoXO9XAkIXwohKrA==
+  version "9.18.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-9.18.0.tgz#c95b24de1183e865de19f607fda6518b54827850"
+  integrity sha512-+waTfRWQlSbpt3KWE+CjrPPYnbq9kfZIYUqapc0uBXyjTp8aYXZDsUH16m39Ryq3NjAVP4tjuF7KaukeqoCoaA==
   dependencies:
     "@eslint-community/eslint-utils" "^4.2.0"
     "@eslint-community/regexpp" "^4.12.1"
     "@eslint/config-array" "^0.19.0"
-    "@eslint/core" "^0.9.0"
+    "@eslint/core" "^0.10.0"
     "@eslint/eslintrc" "^3.2.0"
-    "@eslint/js" "9.17.0"
-    "@eslint/plugin-kit" "^0.2.3"
+    "@eslint/js" "9.18.0"
+    "@eslint/plugin-kit" "^0.2.5"
     "@humanfs/node" "^0.16.6"
     "@humanwhocodes/module-importer" "^1.0.1"
     "@humanwhocodes/retry" "^0.4.1"
@@ -3241,9 +3242,9 @@ react-hook-form@^7.52.2:
   integrity sha512-eHpAUgUjWbZocoQYUHposymRb4ZP6d0uwUnooL2uOybA9/3tPUvoAKqEWK1WaSiTxxOfTpffNZP7QwlnM3/gEg==
 
 react-intersection-observer@^9.14.1:
-  version "9.14.1"
-  resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-9.14.1.tgz#c9d42576d64dfde18336acdcdf097761fb79ad19"
-  integrity sha512-k1xIUn3sCQi3ugNeF64FJb3zwve5mcetvAUR9JazXeOmtap4IP2evN8rs+yf6SQ7F1QydsOGiqTmt+lySKZ9uA==
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-9.15.0.tgz#7540ca74c5588edb142b42f8c0dd9f7e69e68176"
+  integrity sha512-qul9TzGgZtHIHAsLOXnRfMWNYCrqjU87HMKhRjwC8l6XSxz2Bo0xmpq5pklaXGj+brx2gSMe8lp1K17mMP2Q8w==
 
 react-is@^16.13.1:
   version "16.13.1"
@@ -3313,9 +3314,9 @@ readable-stream@^3.4.0, readable-stream@^3.6.0, readable-stream@^3.6.2:
     util-deprecate "^1.0.1"
 
 readdirp@^4.0.1:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-4.0.2.tgz#388fccb8b75665da3abffe2d8f8ed59fe74c230a"
-  integrity sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-4.1.1.tgz#bd115327129672dc47f87408f05df9bd9ca3ef55"
+  integrity sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw==
 
 redent@^3.0.0:
   version "3.0.0"
@@ -3450,9 +3451,9 @@ safe-stable-stringify@^2.3.1:
   integrity sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==
 
 sass@^1.69.5:
-  version "1.83.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.83.1.tgz#dee1ab94b47a6f9993d3195d36f556bcbda64846"
-  integrity sha512-EVJbDaEs4Rr3F0glJzFSOvtg2/oy2V/YrGFPqPY24UqcLDWcI9ZY5sN+qyO3c/QCZwzgfirvhXvINiJCE/OLcA==
+  version "1.83.4"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.83.4.tgz#5ccf60f43eb61eeec300b780b8dcb85f16eec6d1"
+  integrity sha512-B1bozCeNQiOgDcLd33e2Cs2U60wZwjUUXzh900ZyQF5qUasvMdDZYbQ566LJu7cqR+sAHlAfO6RMkaID5s6qpA==
   dependencies:
     chokidar "^4.0.0"
     immutable "^5.0.2"
@@ -3617,9 +3618,9 @@ spdx-expression-parse@^3.0.0:
     spdx-license-ids "^3.0.0"
 
 spdx-license-ids@^3.0.0:
-  version "3.0.20"
-  resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.20.tgz#e44ed19ed318dd1e5888f93325cee800f0f51b89"
-  integrity sha512-jg25NiDV/1fLtSgEgyvVyDunvaNHbuwF9lfNV17gSmPFAlYzdfNBlLtLzXTevwkPj7DhGbmN9VnmJIgLnhvaBw==
+  version "3.0.21"
+  resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.21.tgz#6d6e980c9df2b6fc905343a3b2d702a6239536c3"
+  integrity sha512-Bvg/8F5XephndSK3JffaRqdT+gyhfqIPwDHpX80tJrF8QQRYMo8sNMeaZ2Dp5+jhwKnUmIOyFFQfHRkjJm5nXg==
 
 sprintf-js@~1.0.2:
   version "1.0.3"
