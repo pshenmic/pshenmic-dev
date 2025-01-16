@@ -1,13 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { motion as m } from 'framer-motion'
-import './Project.scss'
 import Grade from '../UI/Grade/Grade'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
-import { useState } from 'react'
 import Task from './Task'
 import { isValidImageUrl } from '@/lib/isValidImageUrl'
+import { motion as m } from 'framer-motion'
+import { useState } from 'react'
+import './Project.scss'
 
 function Project({ project, closeHandler }) {
   const [activeTab, setActiveTab] = useState('ALL')

@@ -2,25 +2,25 @@
 
 import { FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
+import { showToast } from '@/lib/showToast'
 import useGlobalStore from '@/store/store'
 import PageEditingWindows from '@/components/PageEditingWindows/PageEditingWindows'
 import WrapperUserInputModal from '../WrapperUserInputModal/WrapperUserInputModal'
 import './EditingWindow.scss'
-import { showToast } from '@/lib/showToast'
 
 function EditingWindow() {
-  const { openEditingWindow, client, setOpenEditingWindow, admin, projectDataEditing, setProjectDataEditing } = useGlobalStore();
+  const { openEditingWindow, client, setOpenEditingWindow, admin, projectDataEditing, setProjectDataEditing, setDocuments, documents } = useGlobalStore();
 
   const methods = useForm()
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control, reset } = methods
 
   useEffect(() => {
     methods.reset({
-        name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
-        description_ProjectEditingWindow: projectDataEditing?.description_ProjectEditingWindow || '',
-        url_ProjectEditingWindow: projectDataEditing?.url_ProjectEditingWindow || '',
+      name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
+      description_ProjectEditingWindow: projectDataEditing?.description_ProjectEditingWindow || '',
+      url_ProjectEditingWindow: projectDataEditing?.url_ProjectEditingWindow || '',
     });
-}, [projectDataEditing]);
+  }, [projectDataEditing]);
 
   const onSubmit = async (data) => {
     try {
@@ -35,13 +35,13 @@ function EditingWindow() {
         return;
       }
 
+      console.log('admin', admin)
+
       if (projectDataEditing?.id) {
         const [existingDocument] = await client.platform.documents.get(
           `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
           { where: [['$id', '==', projectDataEditing.id]] }
         );
-
-        console.log('existingDocument', existingDocument)
 
         if (existingDocument) {
           existingDocument.set('name', dataProject.name);
@@ -51,6 +51,17 @@ function EditingWindow() {
           await client.platform.documents.broadcast({
             replace: [existingDocument],
           }, admin);
+
+          const updatedDocuments = documents.map(doc =>
+            doc.id === projectDataEditing.id
+              ? {
+                ...doc,
+                ...dataProject
+              }
+              : doc
+          );
+
+          setDocuments(updatedDocuments);
 
           showToast('success', 'Document updated successfully');
         } else {

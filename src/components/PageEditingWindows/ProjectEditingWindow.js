@@ -9,29 +9,23 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { showToast } from '@/lib/showToast';
 
 function ProjectEditingWindow() {
-  const { projectDataEditing, client, admin } = useGlobalStore();
+  const { projectDataEditing, client, admin, setDocuments, documents } = useGlobalStore();
   const { control } = useFormContext();
   const inputValueName = control ? useWatch({ control, name: 'name_ProjectEditingWindow' }) : '';
   const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
   const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
 
   const handleDelete = async (projectId) => {
-    console.log('projectId', projectId)
-    console.log('client', client)
-    console.log('admin', admin)
     try {
         if (!client || !client.platform || !admin || !projectId) {
             showToast('error', 'Client not found');
             return;
         }
 
-        console.log('process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS', process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS)
-
         const [document] = await client.platform.documents.get(
             `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
             { where: [['$id', '==', projectId]] }
         );
-        console.log('document', document)
 
         if (!document) {
             showToast('error', 'Document not found');
@@ -43,6 +37,9 @@ function ProjectEditingWindow() {
         await client.platform.documents.broadcast({
             delete: [document],
         }, admin)
+
+        const newDocuments = documents.filter(doc => doc.id !== projectId);
+        setDocuments(newDocuments);
 
         showToast('success', 'Document deleted successfully');
 

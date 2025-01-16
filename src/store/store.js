@@ -26,6 +26,12 @@ const useGlobalStore = createWithEqualityFn(
 
     projectDataEditing: {},
     setProjectDataEditing: (projectDataEditing) => set({ projectDataEditing }),
+
+    documents: [],
+    setDocuments: (documents) => set({ documents }),
+
+    hasMore: true,
+    setHasMore: (hasMore) => set({ hasMore }),
   })
 )
 

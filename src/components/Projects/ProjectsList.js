@@ -10,19 +10,14 @@ import ProjectListItemSkeleton from './ProjectListItemSkeleton'
 import dynamic from 'next/dynamic'
 import './ProjectsList.scss'
 
-const Project = dynamic( () => import('./Project').then(mod => mod.default),{ ssr: false });
+const Project = dynamic(() => import('./Project').then(mod => mod.default), { ssr: false });
 
 export default function ProjectsList() {
   const [openedItem, setOpenedItem] = useState(null)
-  const admin = useGlobalStore(state => state.admin)
-  const client = useGlobalStore(state => state.client)
-  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
-  const setProjectDataEditing = useGlobalStore(state => state.setProjectDataEditing)
-  const [documents, setDocuments] = useState([])
-  const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [uniqueIds] = useState(new Set());
   const [lastDocument, setLastDocument] = useState(null);
+  const { admin, client, setOpenEditingWindow, setProjectDataEditing, documents, setDocuments, setHasMore, hasMore } = useGlobalStore();
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -50,7 +45,6 @@ export default function ProjectsList() {
         queryOpts
       )
       if (response && response.length > 0) {
-        console.log('response', response)
         setLastDocument(response[response.length - 1])
         const uniqueDocuments = response.filter(doc => {
           const id = doc.getId().toString()
@@ -62,33 +56,6 @@ export default function ProjectsList() {
         if (uniqueDocuments.length > 0) {
           const newDocuments = await Promise.all(uniqueDocuments.map(async doc => {
             const ownerId = doc.getOwnerId().toString();
-            // console.log('doc', doc.getDocument().getRevision())
-            // console.log('doc', doc)
-            // console.log('getUpdatedAt', doc.getUpdatedAt())
-
-            // console.log('getDocumentgetData', doc.getDocument().getData())
-            // console.log('toJSON', doc.toJSON())
-
-
-            // console.log('docgetData$deleted', doc.getData().$deleted)
-
-
-            // console.log('docget', doc.get())
-
-            // console.log('gettoObject', doc.toObject())
-            // console.log('toJSON', doc.toJSON())
-
-            // console.log('getDataContractgetMetadata', doc.getDataContract().getMetadata())
-            // console.log('getDataContractggetConfig', doc.getDataContract().getConfig())
-            // console.log('getDataContracgetBinaryProperties', doc.getDataContract().getBinaryProperties())
-
-            // console.log('docget', doc.get())
-            // console.log('getDocument', doc.getDocument().get())
-            // console.log('getType', doc.toJSON())
-
-            // const metadata = doc.getMetadata();
-            // console.log('Document metadata:', metadata);
-            // console.log('Is deleted:', metadata.isDeleted());
             try {
               const nameDoc = await client.platform.documents.get(
                 'dpns.domain',
@@ -101,14 +68,12 @@ export default function ProjectsList() {
 
               const ownerName = nameDoc.length > 0 ? nameDoc[0].getData().label : null;
 
-              console.log('ownerName', ownerName)
-
               return {
                 ...doc.getData(),
                 id: doc.getId().toString(),
                 ownerId,
                 ownerName
-              };
+              }
             } catch (nameError) {
               console.error('Error fetching name:', nameError);
               return {
@@ -120,7 +85,9 @@ export default function ProjectsList() {
             }
           }));
 
-          setDocuments(prev => [...prev, ...newDocuments])
+          if (newDocuments) {
+            setDocuments([...documents, ...newDocuments])
+          }
           setHasMore(response.length >= queryOpts.limit)
         }
       } else {
@@ -136,7 +103,10 @@ export default function ProjectsList() {
   }, [isLoading, hasMore, lastDocument, uniqueIds]);
 
   useEffect(() => {
-    loadMoreDocuments()
+    if (!documents?.length) {
+      console.log('loadMoreDocumentsdsaf kasjdf kjasdf kljaslf kjasd')
+      loadMoreDocuments();
+    }
   }, []);
 
   useEffect(() => {
@@ -144,8 +114,6 @@ export default function ProjectsList() {
       loadMoreDocuments()
     }
   }, [inView, isLoading, hasMore, loadMoreDocuments])
-
-  console.log(documents)
 
   const openEditor = useCallback((project) => {
     setOpenEditingWindow(true)
@@ -158,7 +126,7 @@ export default function ProjectsList() {
     setProjectDataEditing(projectData)
   }, [setOpenEditingWindow, setProjectDataEditing])
 
-  const ListItems = documents.map((project, id) =>
+  const ListItems = documents?.map((project, id) =>
     <ProjectListItem
       key={project.id}
       id={id}

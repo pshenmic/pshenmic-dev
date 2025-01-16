@@ -61,7 +61,7 @@ export function useDashClient() {
                     }
                 }
             } catch (error) {
-                console.log('Error removing listeners:', error);
+                console.error('Error removing listeners:', error);
             } finally {
                 setTotalProgress(0);
                 setClient(null);
@@ -76,7 +76,7 @@ export function useDashClient() {
                     network: innerProps.network || 'testnet',
                     wallet: {
                         mnemonic: innerProps.wallet.mnemonic,
-                        // adapter: innerProps.wallet.adapter,
+                        adapter: innerProps.wallet.adapter,
                         unsafeOptions: {
                             skipSynchronizationBeforeHeight: innerProps.wallet?.unsafeOptions?.skipSynchronizationBeforeHeight || 0,
                         },
@@ -94,13 +94,12 @@ export function useDashClient() {
 
                 setClient(client);
                 const account = await client.getWalletAccount().then(account => {
-                    console.log(account)
                     if (!account) {
                         throw new Error('Failed to get wallet account');
                     }
                     return account;
                 }).catch(error => {
-                    console.log(error)
+                    console.error(error)
                 });
 
                 let identityIds = null;
