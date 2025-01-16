@@ -51,7 +51,7 @@ function ProjectEditingWindow() {
 
   return (
     <div className={'ProjectEditingWindow'}>
-      <h2>CREATE A NEW PROJECT</h2>
+      <h2>{ projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE A NEW PROJECT' }</h2>
       <FileInput
         name={'url_ProjectEditingWindow'}
         textName={inputValueName}
@@ -84,7 +84,7 @@ function ProjectEditingWindow() {
 
       <RegistrationButton
         className={'ProjectEditingWindow__Button'}
-        text={'CREATE PROJECT'}
+        text={ projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE PROJECT' }
         ariaLabel={'Create project'}
         type={'submit'}
         disabled={!inputValueDescription || !inputValueUrl}
