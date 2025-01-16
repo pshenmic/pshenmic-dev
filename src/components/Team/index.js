@@ -17,19 +17,19 @@ const data = [
     discord: 'https://discordapp.com/users/784071440864378911'
   },
   {
-    name: 'Alex',
-    username: 'alexeyandreevsky',
+    name: 'Alexey',
+    username: 'AlexeyTripleA',
     role: 'Frontend dev',
     gpg: null,
     photoSrc: 'https://avatars.githubusercontent.com/u/143793672?v=4',
-    github: 'https://github.com/alexeyandreevsky',
-    twitter: '',
+    github: 'https://github.com/AlexeyTripleA',
+    twitter: 'https://x.com/AlexeyTripleA',
     discord: 'https://discordapp.com/users/390865069195657216'
   },
   {
     name: 'Owl352',
     username: 'owl352',
-    role: 'Designer / Frontend dev',
+    role: 'Backend dev',
     gpg: null,
     photoSrc: 'https://avatars.githubusercontent.com/u/64574305?v=4',
     github: 'https://github.com/owl352',
