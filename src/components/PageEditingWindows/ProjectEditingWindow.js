@@ -17,41 +17,41 @@ function ProjectEditingWindow() {
 
   const handleDelete = async (projectId) => {
     try {
-        if (!client || !client.platform || !admin || !projectId) {
-            showToast('error', 'Client not found');
-            return;
-        }
+      if (!client || !client.platform || !admin || !projectId) {
+        showToast('error', 'Client not found');
+        return;
+      }
 
-        const [document] = await client.platform.documents.get(
-            `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
-            { where: [['$id', '==', projectId]] }
-        );
+      const [document] = await client.platform.documents.get(
+        `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
+        { where: [['$id', '==', projectId]] }
+      );
 
-        if (!document) {
-            showToast('error', 'Document not found');
-            console.error('Document structure:', document);
-            return;
-        }
+      if (!document) {
+        showToast('error', 'Document not found');
+        console.error('Document structure:', document);
+        return;
+      }
 
 
-        await client.platform.documents.broadcast({
-            delete: [document],
-        }, admin)
+      await client.platform.documents.broadcast({
+        delete: [document],
+      }, admin)
 
-        const newDocuments = documents.filter(doc => doc.id !== projectId);
-        setDocuments(newDocuments);
+      const newDocuments = documents.filter(doc => doc.id !== projectId);
+      setDocuments(newDocuments);
 
-        showToast('success', 'Document deleted successfully');
+      showToast('success', 'Document deleted successfully');
 
     } catch (error) {
-        console.error('Error deleting document:', error);
-        showToast('error', 'Error deleting document');
+      console.error('Error deleting document:', error);
+      showToast('error', 'Error deleting document');
     }
-};
+  };
 
   return (
     <div className={'ProjectEditingWindow'}>
-      <h2>{ projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE A NEW PROJECT' }</h2>
+      <h2>{projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE A NEW PROJECT'}</h2>
       <FileInput
         name={'url_ProjectEditingWindow'}
         textName={inputValueName}
@@ -75,6 +75,14 @@ function ProjectEditingWindow() {
       />
 
       <TextField
+        text={'Image'}
+        name={'image_ProjectEditingWindow'}
+        placeholder={'ex. https://pshenmic.dev/img/1.png'}
+        required={true}
+        valid={/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/}
+      />
+
+      <TextField
         text={'Url'}
         name={'url_ProjectEditingWindow'}
         placeholder={'ex. https://pshenmic.dev/img/1.png'}
@@ -84,7 +92,7 @@ function ProjectEditingWindow() {
 
       <RegistrationButton
         className={'ProjectEditingWindow__Button'}
-        text={ projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE PROJECT' }
+        text={projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE PROJECT'}
         ariaLabel={'Create project'}
         type={'submit'}
         disabled={!inputValueDescription || !inputValueUrl}

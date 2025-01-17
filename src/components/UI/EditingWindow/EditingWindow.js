@@ -19,6 +19,7 @@ function EditingWindow() {
       name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
       description_ProjectEditingWindow: projectDataEditing?.description_ProjectEditingWindow || '',
       url_ProjectEditingWindow: projectDataEditing?.url_ProjectEditingWindow || '',
+      image_ProjectEditingWindow: projectDataEditing?.image_ProjectEditingWindow || '',
     });
   }, [projectDataEditing]);
 
@@ -28,6 +29,7 @@ function EditingWindow() {
         name: data.name_ProjectEditingWindow,
         description: data.description_ProjectEditingWindow,
         url: data.url_ProjectEditingWindow,
+        image: data.image_ProjectEditingWindow,
       }
 
       if (!client || !client.platform) {
@@ -46,6 +48,7 @@ function EditingWindow() {
         if (existingDocument) {
           existingDocument.set('name', dataProject.name);
           existingDocument.set('description', dataProject.description);
+          existingDocument.set('image', dataProject.image);
           existingDocument.set('url', dataProject.url);
 
           await client.platform.documents.broadcast({
