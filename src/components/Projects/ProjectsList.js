@@ -104,7 +104,6 @@ export default function ProjectsList() {
 
   useEffect(() => {
     if (!documents?.length) {
-      console.log('loadMoreDocumentsdsaf kasjdf kjasdf kljaslf kjasd')
       loadMoreDocuments();
     }
   }, []);
@@ -122,10 +121,11 @@ export default function ProjectsList() {
       description_ProjectEditingWindow: project?.description || '',
       url_ProjectEditingWindow: project?.url || '',
       id: project?.id || '',
+      image_ProjectEditingWindow: project?.image || '',
     }
     setProjectDataEditing(projectData)
   }, [setOpenEditingWindow, setProjectDataEditing])
-
+  console.log('documents', documents)
   const ListItems = documents?.map((project, id) =>
     <ProjectListItem
       key={project.id}

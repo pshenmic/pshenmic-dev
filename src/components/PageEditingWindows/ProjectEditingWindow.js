@@ -35,7 +35,6 @@ function ProjectEditingWindow() {
         return;
       }
 
-
       await client.platform.documents.broadcast({
         delete: [document],
       }, admin)
@@ -55,11 +54,10 @@ function ProjectEditingWindow() {
     <div className={'ProjectEditingWindow'}>
       <h2>{projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE A NEW PROJECT'}</h2>
       <FileInput
-        name={'image_ProjectEditingWindow'}
         textName={inputValueName}
         image={inputValueImage}
         textDescription={inputValueDescription}
-        mountedPicture={inputValueUrl}
+        url={inputValueUrl}
       />
 
       <TextField
@@ -98,7 +96,7 @@ function ProjectEditingWindow() {
         text={projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE PROJECT'}
         ariaLabel={'Create project'}
         type={'submit'}
-        disabled={!inputValueDescription || !inputValueUrl}
+        disabled={!inputValueDescription || !inputValueUrl || !inputValueImage}
       />
 
       {projectDataEditing?.id && <RegistrationButton

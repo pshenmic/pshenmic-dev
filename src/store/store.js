@@ -21,6 +21,9 @@ const useGlobalStore = createWithEqualityFn(
     admin: '',
     setAdmin: (admin) => set({ admin }),
 
+    nameAdmin: '',
+    setNameAdmin: (nameAdmin) => set({ nameAdmin }),
+
     openEditingWindow: false,
     setOpenEditingWindow: (openEditingWindow) => set({ openEditingWindow }),
 

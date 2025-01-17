@@ -113,6 +113,8 @@ function LogInWindow({ setOpenImportWalletWindow }) {
 }
 
 function UserWindow({ data, identities, handleLogout }) {
+    const { setNameAdmin } = useGlobalStore();
+    
     const name = useMemo(() => {
         if (data?.name === data?.identifier) {
             const firstPart = data?.name.slice(0, 5);
@@ -122,6 +124,12 @@ function UserWindow({ data, identities, handleLogout }) {
             return data?.name;
         }
     }, [data?.identifier, data?.name]);
+
+    useEffect(() => {
+        if (name) {
+            setNameAdmin(name)
+        }
+    }, [name])
 
     return (
         <div className={'RegistrationWindow__ContainerUser'}>

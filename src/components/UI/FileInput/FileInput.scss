@@ -6,10 +6,6 @@
     display: flex;
     align-items: center;
 
-    &__Error {
-        border: 2px solid #fe5858 !important;
-    }
-
     &__Avatar {
         position: relative;
         width: 100px;
@@ -29,15 +25,7 @@
             height: 100%;
             left: 0;
             top: 0;
-            // scale: 1;
-            // transition: scale ease 0.5s;
         }
-    
-        // &:hover {
-        //     & img {
-        //         scale: 1.1;
-        //     }
-        // }
     }
 
     &__Info {
@@ -54,13 +42,6 @@
             font-family: 'Press Start 2P';
         }
 
-        &__Link {
-            font-weight: 400;
-            font-size: 10px;
-            color: #008de4;
-            font-family: 'Press Start 2P';
-        }
-
         &__Description {
             font-weight: 400;
             font-size: 12px;
@@ -68,11 +49,13 @@
             font-family: 'Press Start 2P';
         }
 
-        &__MountedPicture {
+        &__Url {
             font-weight: 400;
             font-size: 10px;
             color: #008de4;
             font-family: 'Press Start 2P';
+            word-break: break-all;
+            max-width: 100%;
         }
     }
 }

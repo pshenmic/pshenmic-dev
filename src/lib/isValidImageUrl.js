@@ -1,6 +1,5 @@
 export const isValidImageUrl = (url) => {
     if (!url || typeof url !== 'string') {
-        console.log('Invalid input:', url);
         return false;
     }
     
@@ -23,12 +22,6 @@ export const isValidImageUrl = (url) => {
 
         const validExtensions = /\.(jpg|jpeg|png|gif|webp|svg)$/i;
         const hasValidProtocol = cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://');
-        
-        console.log('URL validation:', {
-            url: cleanUrl,
-            hasValidProtocol,
-            hasValidExtension: validExtensions.test(cleanUrl)
-        });
 
         return hasValidProtocol && validExtensions.test(cleanUrl);
     } catch (error) {

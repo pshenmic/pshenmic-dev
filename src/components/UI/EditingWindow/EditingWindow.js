@@ -9,7 +9,7 @@ import WrapperUserInputModal from '../WrapperUserInputModal/WrapperUserInputModa
 import './EditingWindow.scss'
 
 function EditingWindow() {
-  const { openEditingWindow, client, setOpenEditingWindow, admin, projectDataEditing, setProjectDataEditing, setDocuments, documents } = useGlobalStore();
+  const { openEditingWindow, client, setOpenEditingWindow, nameAdmin, admin, projectDataEditing, setProjectDataEditing, setDocuments, documents } = useGlobalStore();
 
   const methods = useForm()
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control, reset } = methods
@@ -37,10 +37,6 @@ function EditingWindow() {
         return;
       }
 
-      console.log('admin', admin)
-      const identity = await client.platform.identities.get(admin.getId());
-      console.log('identity', identity)
-      
       if (projectDataEditing?.id) {
         const [existingDocument] = await client.platform.documents.get(
           `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
@@ -78,6 +74,19 @@ function EditingWindow() {
         await client.platform.documents.broadcast({
           create: [document],
         }, admin).then(res => {
+          const newDoc = {
+            id: document.getId().toString(),
+            name: dataProject.name,
+            description: dataProject.description,
+            url: dataProject.url,
+            image: dataProject.image,
+            $ownerId: document.getOwnerId().toString(),
+            ownerName: nameAdmin
+          };
+          console.log('newDoc', newDoc)
+          console.log('documents', documents)
+          const newDocuments = [...documents, newDoc];
+          setDocuments(newDocuments);
           showToast('success', 'Document created successfully');
           setOpenEditingWindow(false);
         })
