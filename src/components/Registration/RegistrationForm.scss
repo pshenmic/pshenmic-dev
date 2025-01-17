@@ -50,9 +50,10 @@
             font-size: 18px;
             color: #0275ff;
             font-family: var(--font-mono);
-            resize: none;
+            resize: vertical;
             max-height: 300px;
             height: 50px;
+            min-height: 50px;
 
             &::placeholder {
                 color: #000;

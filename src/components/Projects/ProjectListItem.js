@@ -10,10 +10,12 @@ import { isValidImageUrl } from '@/lib/isValidImageUrl'
 import { memo } from 'react'
 import { formatOwnerId, truncateText } from '@/lib/truncateText'
 import './ProjectListItem.scss'
+import remarkGfm from 'remark-gfm'
+import ReactMarkdown from 'react-markdown'
 
 function ProjectListItem({ project, openHandler, id, openEditor }) {
   const admin = useGlobalStore(state => state.admin)
-  
+
   return (
     <m.li
       className={'ProjectListItem'}
@@ -42,7 +44,7 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
       </div>
       <div className={'ProjectListItem__ContentContainer'}>
         <p className={'ProjectListItem__Title'}>{project.name}</p>
-        <p className={'ProjectListItem__Description'}>{truncateText(project.description, 75)}</p>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} className={'ProjectListItem__Description'}>{truncateText(project.description, 75)}</ReactMarkdown>
         <div className={'ProjectListItem__WrapperButtons'}>
           <RegistrationButton
             className={'ProjectListItem__ButtonTasks'}

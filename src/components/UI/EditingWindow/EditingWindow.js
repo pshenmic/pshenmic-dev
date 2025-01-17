@@ -116,7 +116,7 @@ function EditingWindow() {
         ?
         <FormProvider {...methods}>
           <WrapperUserInputModal open={openEditingWindow} setOpen={setOpenEditingWindow}>
-            <form onKeyDown={handleKeyDown} onSubmit={handleSubmit(onSubmit)}>
+            <form onKeyDown={handleKeyDown} onSubmit={handleSubmit(onSubmit)} style={{ height: '100vh' }}>
               <PageEditingWindows />
             </form>
           </WrapperUserInputModal>

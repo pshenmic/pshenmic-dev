@@ -7,7 +7,6 @@ import './TextField.scss'
 
 function TextField({ placeholder, name, required = true, valid, text, arrow = false }) {
   const { hasOwnProperty } = Object.prototype
-  const textareaRef = useRef(null)
   const { control, register, formState: { errors } } = useFormContext();
   const inputValue = control ? useWatch({ control, name }) : '';
 
@@ -20,13 +19,6 @@ function TextField({ placeholder, name, required = true, valid, text, arrow = fa
     }
   });
 
-  useEffect(() => {
-    if (textareaRef?.current) {
-      textareaRef.current.style.minHeight = `auto`
-      textareaRef.current.style.minHeight = `${textareaRef.current.scrollHeight}px`
-    }
-  }, [inputValue]);
-
   return (
     <div className={`TextField ${hasOwnProperty.call( errors || {}, name) ? 'TextFieldError' : ''}`}>
       {arrow && <animated.p style={animation} className={'TextField__Arrow'}>{'>'}</animated.p>}
@@ -37,7 +29,6 @@ function TextField({ placeholder, name, required = true, valid, text, arrow = fa
         </div>
       }
       <textarea
-        ref={textareaRef}
         {...register(name, {
           required, pattern: {
             value: valid || ''

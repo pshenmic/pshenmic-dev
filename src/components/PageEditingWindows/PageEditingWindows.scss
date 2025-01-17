@@ -7,6 +7,8 @@
     flex-direction: column;
     gap: 50px;
     padding: 60px 100px;
+    overflow: auto;
+    height: 100%;
 
     > h2 {
         font-weight: 400;

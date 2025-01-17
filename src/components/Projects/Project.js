@@ -7,6 +7,8 @@ import Task from './Task'
 import { isValidImageUrl } from '@/lib/isValidImageUrl'
 import { motion as m } from 'framer-motion'
 import { useState } from 'react'
+import remarkGfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown'
 import './Project.scss'
 
 function Project({ project, closeHandler }) {
@@ -63,7 +65,7 @@ function Project({ project, closeHandler }) {
           )}
           <Grade />
         </div>
-        <div className={'Project__Description'}>{project.description}</div>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} className={'Project__Description'}>{project.description}</ReactMarkdown>
       </div>
 
       <div className={'Project__Navigation'}>
