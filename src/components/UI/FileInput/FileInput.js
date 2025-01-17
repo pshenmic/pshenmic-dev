@@ -5,7 +5,7 @@ import Image from 'next/image'
 import './FileInput.scss'
 import { isValidImageUrl } from '@/lib/isValidImageUrl'
 
-function FileInput({ textName, textDescription, mountedPicture, name, }) {
+function FileInput({ textName, textDescription, mountedPicture, name, image }) {
   const { control, clearErrors, setValue, formState: { errors }, register } = useFormContext();
   const { hasOwnProperty } = Object.prototype
 
@@ -13,7 +13,7 @@ function FileInput({ textName, textDescription, mountedPicture, name, }) {
     <div className={'FileInput'}>
       <div className={`FileInput__Avatar ${hasOwnProperty.call(errors || {}, name) ? 'FileInput__Error' : ''}`}  >
         <img
-          src={isValidImageUrl(mountedPicture) ? mountedPicture : '/assets/img/pictureOfaBlindfold.png'}
+          src={isValidImageUrl(image) ? image : '/assets/img/pictureOfaBlindfold.png'}
           width={100}
           height={100}
           alt={'Preview Image'}
@@ -21,6 +21,7 @@ function FileInput({ textName, textDescription, mountedPicture, name, }) {
       </div>
       <div className={'FileInput__Info'}>
         <p className={'FileInput__Info__Name'} style={{ opacity: textName ? 1 : 0.3 }}>{textName || 'Project name...'}</p>
+        { mountedPicture && <p className={'FileInput__Info__MountedPicture'}>{mountedPicture}</p>}
         {textDescription && <p className={'FileInput__Info__Description'}>{textDescription}</p>}
       </div>
     </div>

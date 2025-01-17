@@ -38,7 +38,9 @@ function EditingWindow() {
       }
 
       console.log('admin', admin)
-
+      const identity = await client.platform.identities.get(admin.getId());
+      console.log('identity', identity)
+      
       if (projectDataEditing?.id) {
         const [existingDocument] = await client.platform.documents.get(
           `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,

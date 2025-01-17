@@ -14,6 +14,8 @@ function ProjectEditingWindow() {
   const inputValueName = control ? useWatch({ control, name: 'name_ProjectEditingWindow' }) : '';
   const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
   const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
+  const inputValueImage = control ? useWatch({ control, name: 'image_ProjectEditingWindow' }) : '';
+
 
   const handleDelete = async (projectId) => {
     try {
@@ -53,8 +55,9 @@ function ProjectEditingWindow() {
     <div className={'ProjectEditingWindow'}>
       <h2>{projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE A NEW PROJECT'}</h2>
       <FileInput
-        name={'url_ProjectEditingWindow'}
+        name={'image_ProjectEditingWindow'}
         textName={inputValueName}
+        image={inputValueImage}
         textDescription={inputValueDescription}
         mountedPicture={inputValueUrl}
       />
