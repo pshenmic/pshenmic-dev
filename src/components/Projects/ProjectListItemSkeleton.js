@@ -1,3 +1,4 @@
+import './ProjectListItem.scss'
 
 function ProjectListItemSkeleton() {
     return (

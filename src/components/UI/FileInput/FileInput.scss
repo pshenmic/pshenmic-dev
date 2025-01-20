@@ -14,11 +14,6 @@
         cursor: pointer;
         flex-shrink: 0;
 
-        @media screen and ( max-width: 1024px ) {
-            width: 150px;
-            height: 150px;
-        }
-    
         & img {
             position: absolute;
             width: 100%;
@@ -56,6 +51,20 @@
             font-family: 'Press Start 2P';
             word-break: break-all;
             max-width: 100%;
+        }
+    }
+
+    @media screen and ( max-width: 960px ) {
+        flex-direction: column;
+        align-items: flex-start;
+
+        &__Avatar {
+            width: 150px;
+            height: 150px;
+        }
+
+        &__Info {
+            padding: 10px;
         }
     }
 }

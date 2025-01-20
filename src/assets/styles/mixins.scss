@@ -346,6 +346,12 @@ $width-tablet: 940px;
         }
     }
 
+    @media screen and ( max-width: 960px ) {
+        &__ContentContainer {
+            flex-direction: column;
+        }
+    }
+
     @media screen and (max-width: $width-tablet) {
         position: relative;
         top: -30px;

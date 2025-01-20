@@ -35,4 +35,13 @@
         width: 100% !important;
         background-color: #ff0000 !important;
     }
+
+    @media screen and ( max-width: 1100px) {
+        padding: 40px;
+        padding-top: 80px;
+    }
+
+    @media screen and ( max-width: 520px) {
+        gap: 30px;
+    }
 }

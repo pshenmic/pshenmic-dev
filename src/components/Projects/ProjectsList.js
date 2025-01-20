@@ -125,7 +125,7 @@ export default function ProjectsList() {
     }
     setProjectDataEditing(projectData)
   }, [setOpenEditingWindow, setProjectDataEditing])
-  console.log('documents', documents)
+  
   const ListItems = documents?.map((project, id) =>
     <ProjectListItem
       key={project.id}
@@ -167,13 +167,15 @@ export default function ProjectsList() {
           <ul>
             {ListItems}
             {hasMore && (
-              <div
-                ref={ref}
-                style={{
+              <>
+                <div
+                  ref={ref}
+                  style={{
                   height: '1px',
                   width: '100%',
                 }}
               >
+              </div>
                 {isLoading ?
                   <>
                     <ProjectListItemSkeleton />
@@ -183,7 +185,7 @@ export default function ProjectsList() {
                     <ProjectListItemSkeleton />
                   </>
                   : null}
-              </div>
+              </>
             )}
           </ul>
         </m.div>
