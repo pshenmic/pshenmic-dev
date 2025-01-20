@@ -65,7 +65,12 @@ function Project({ project, closeHandler }) {
           )}
           <Grade />
         </div>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} className={'Project__Description'}>{project.description}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          className={'Project__Description'}
+        >
+          {`${project.description}`}
+        </ReactMarkdown>
       </div>
 
       <div className={'Project__Navigation'}>

@@ -1,3 +1,5 @@
+@import '../../assets/styles/mixins.scss';
+
 .ImportWalletWindow {
     &__ContainerLoading {
         position: absolute;
@@ -91,17 +93,6 @@
 
     @media screen and ( max-width: 1100px) {
         width: 100vw;
-
-        &__CloseButton {
-            width: 100%;
-            height: 64px;
-            left: 100%;
-            padding-top: 0;
-            justify-content: flex-end;
-            align-items: center;
-            padding-right: 20px;
-            z-index: 2;
-        }
 
         &__Wrapper {
             padding: 40px;

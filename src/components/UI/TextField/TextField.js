@@ -7,7 +7,7 @@ import './TextField.scss'
 
 function TextField({ placeholder, name, required = true, valid, text, arrow = false }) {
   const { hasOwnProperty } = Object.prototype
-  const { control, register, formState: { errors } } = useFormContext();
+  const { control, register, formState: { errors }, setValue } = useFormContext();
   const inputValue = control ? useWatch({ control, name }) : '';
 
   const animation = useSpring({
@@ -18,6 +18,32 @@ function TextField({ placeholder, name, required = true, valid, text, arrow = fa
       friction: 30
     }
   });
+
+  const textareaStyles = {
+    whiteSpace: 'pre-wrap',
+    overflowWrap: 'break-word',
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const target = event.target;
+      const start = target.selectionStart;
+      const end = target.selectionEnd;
+      const value = target.value;
+      
+      const newValue = value.substring(0, start) + '\n' + value.substring(end);
+      
+      setValue(name, newValue, { 
+        shouldValidate: true,
+        shouldDirty: true 
+      });
+      
+      setTimeout(() => {
+        target.selectionStart = target.selectionEnd = start + 1;
+      }, 0);
+    }
+  };
 
   return (
     <div className={`TextField ${hasOwnProperty.call( errors || {}, name) ? 'TextFieldError' : ''}`}>
@@ -34,7 +60,9 @@ function TextField({ placeholder, name, required = true, valid, text, arrow = fa
             value: valid || ''
           }
         })}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder || ''}
+        style={textareaStyles}
       />
     </div>
 
