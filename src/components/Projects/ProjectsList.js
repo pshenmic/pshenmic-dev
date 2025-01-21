@@ -125,7 +125,7 @@ export default function ProjectsList() {
     }
     setProjectDataEditing(projectData)
   }, [setOpenEditingWindow, setProjectDataEditing])
-  
+
   const ListItems = documents?.map((project, id) =>
     <ProjectListItem
       key={project.id}
@@ -144,6 +144,7 @@ export default function ProjectsList() {
           <Project
             project={documents[openedItem]}
             closeHandler={() => setOpenedItem(null)}
+            openEditor={openEditor}
           />
         </m.div>
       )}

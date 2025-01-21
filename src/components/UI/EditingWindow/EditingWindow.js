@@ -83,8 +83,7 @@ function EditingWindow() {
             $ownerId: document.getOwnerId().toString(),
             ownerName: nameAdmin
           };
-          console.log('newDoc', newDoc)
-          console.log('documents', documents)
+
           const newDocuments = [...documents, newDoc];
           setDocuments(newDocuments);
           showToast('success', 'Document created successfully');

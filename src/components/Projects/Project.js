@@ -10,9 +10,12 @@ import { useState } from 'react'
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown'
 import './Project.scss'
+import EditButton from '../UI/Button/EditButton/EditButton'
+import useGlobalStore from '@/store/store'
 
-function Project({ project, closeHandler }) {
+function Project({ project, closeHandler, openEditor }) {
   const [activeTab, setActiveTab] = useState('ALL')
+  const admin = useGlobalStore(state => state.admin)
 
   const TabContent = ({ tab }) => {
     switch (tab) {
@@ -52,7 +55,12 @@ function Project({ project, closeHandler }) {
           <p className={'Project__Header__Name'}>{project.name}</p>
           <RegistrationButton text={'2 PENDING CLAIM'} disabled={true} className={'Project__Header__Button'} />
         </div>
-        <RegistrationButton text={'ADD TASK'} disabled={true} />
+        {admin
+          ? <div className={'Project__Header__ButtonWrapper'}>
+            <RegistrationButton text={'ADD TASK'} disabled={true} />
+            <RegistrationButton text={'EDIT'} handleClick={() => openEditor(project)}/>
+          </div>
+          : null}
       </div>
 
       <div className={'Project__ContentContainer'}>
@@ -73,7 +81,7 @@ function Project({ project, closeHandler }) {
         </ReactMarkdown>
       </div>
 
-      <div className={'Project__Navigation'}>
+      {/* <div className={'Project__Navigation'}>
         {['ALL', 'IN PROGRESS', 'COMPLETED', 'ABANDONED', 'PAID'].map(tab => (
           <button
             key={tab}
@@ -87,7 +95,7 @@ function Project({ project, closeHandler }) {
           </button>
         ))}
       </div>
-      <TabContent tab={activeTab} />
+      <TabContent tab={activeTab} /> */}
     </m.div>
   )
 }

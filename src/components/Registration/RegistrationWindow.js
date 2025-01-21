@@ -114,7 +114,7 @@ function LogInWindow({ setOpenImportWalletWindow }) {
 
 function UserWindow({ data, identities, handleLogout }) {
     const { setNameAdmin } = useGlobalStore();
-    
+
     const name = useMemo(() => {
         if (data?.name === data?.identifier) {
             const firstPart = data?.name.slice(0, 5);
@@ -145,6 +145,8 @@ function UserWindow({ data, identities, handleLogout }) {
 }
 
 function AdminWindow({ data, identities, handleLogout }) {
+    const { setOpenEditingWindow } = useGlobalStore();
+
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
@@ -158,7 +160,7 @@ function AdminWindow({ data, identities, handleLogout }) {
                     />
                     <RegistrationButton
                         text={'NEW PROJECT'}
-                        disabled={true}
+                        handleClick={() => setOpenEditingWindow(true)}
                     />
                     <RegistrationButton
                         text={'12 CLAIMS'}
