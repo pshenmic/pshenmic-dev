@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/mixins.scss';
+
 .RegistrationButton {
     position: relative;
     padding: 13px 22px;
@@ -33,6 +35,10 @@
         &:hover {
             padding: 13px 22px;
 
+            @media screen and ( max-width: 1024px ) {
+                padding: 10px 15px;
+            }
+
             span {
                 &::before {
                     animation-name: none;
@@ -56,6 +62,11 @@
         }
     }
 
+    @media screen and ( max-width: 1024px ) {
+        font-size: 8px;
+        padding: 10px 15px;
+    }
+
     &:before {
         content: '';
         position: absolute;
@@ -71,11 +82,7 @@
         padding:  13px 17px 13px 27px;
 
         @media screen and ( max-width: 1024px ) {
-            // padding: 15px 30px 15px 50px;
-        }
-
-        @media screen and ( max-width: 600px ) {
-            // padding:  15px 30px;
+            padding: 10px 13px 10px 17px;
         }
         
         span {

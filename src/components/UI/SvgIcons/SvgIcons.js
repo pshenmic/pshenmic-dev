@@ -17,7 +17,10 @@ export default function SvgIcons({ type }) {
                     <rect x="24" y="21" width="2" height="5" fill="currentColor" />
                     <rect x="12" y="24" width="14" height="2" fill="currentColor" />
                 </svg>
-
+            case 'comments':
+                return <svg width="10" height="9" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M0 1.32V7.27979H0.810235V9H3V7H8.49023V6H10V1.32H8.49023V0H1.32V1.32H0Z" fill="currentColor" />
+                </svg>
             default:
                 return null;
         }

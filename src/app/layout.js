@@ -1,7 +1,4 @@
-import HasAdminAccess from '@/components/HasAdminAccess/HasAdminAccess'
-import EditingWindow from '@/components/UI/EditingWindow/EditingWindow'
 import RegistrationWindow from '@/components/Registration/RegistrationWindow'
-import ImportWalletWindow from '@/components/Registration/ImportWalletWindow'
 import dynamic from "next/dynamic"
 import { DashProvider } from '@/hooks/useDashClient'
 import './globals.css'
@@ -9,6 +6,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ToastContainer = dynamic(() =>
   import('react-toastify').then((mod) => mod.ToastContainer),
+  { ssr: false }
+)
+
+const EditingWindow = dynamic(() =>
+  import('@/components/UI/EditingWindow/EditingWindow'),
+  { ssr: false }
+)
+
+const ImportWalletWindow = dynamic(() =>
+  import('@/components/Registration/ImportWalletWindow'),
   { ssr: false }
 )
 
@@ -23,7 +30,6 @@ export default function RootLayout({ children }) {
       <body>
         <DashProvider>
           <ToastContainer />
-          <HasAdminAccess />
           <EditingWindow />
           <RegistrationWindow />
           <ImportWalletWindow />

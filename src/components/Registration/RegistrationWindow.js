@@ -11,9 +11,8 @@ import { easings, useTransition, animated } from '@react-spring/web';
 import { useDash } from '@/hooks/useDashClient';
 
 export default function RegistrationWindow() {
-    const { userDash, setUserDash, setOpenImportWalletWindow, indexWallet } = useGlobalStore();
+    const { userDash, setAdmin, client, admin, setUserDash, setOpenImportWalletWindow, indexWallet } = useGlobalStore();
     const { disconnect } = useDash();
-
     const [data, setData] = useState(null)
     const statusTextRef = useRef(null)
     const statusStyleRef = useRef({})
@@ -36,8 +35,10 @@ export default function RegistrationWindow() {
                     identities={userDash}
                     handleLogout={() => handleLogout()}
                 />);
+
                 statusTextRef.current.innerText = 'ADMIN';
                 statusStyleRef.current = { backgroundColor: '#8bcc49' };
+                setAdmin(userDash?.[indexWallet]?.identity)
             } else if (userDash?.[indexWallet]?.identifier) {
                 setData(<UserWindow
                     data={userDash?.[indexWallet]}
@@ -46,6 +47,7 @@ export default function RegistrationWindow() {
                 />);
                 statusTextRef.current.innerText = 'USER';
                 statusStyleRef.current = { backgroundColor: '#0275ff' };
+                setAdmin('')
             }
         }
     }, [userDash, indexWallet, setUserDash, handleLogout]);
@@ -111,6 +113,8 @@ function LogInWindow({ setOpenImportWalletWindow }) {
 }
 
 function UserWindow({ data, identities, handleLogout }) {
+    const { setNameAdmin } = useGlobalStore();
+
     const name = useMemo(() => {
         if (data?.name === data?.identifier) {
             const firstPart = data?.name.slice(0, 5);
@@ -120,6 +124,12 @@ function UserWindow({ data, identities, handleLogout }) {
             return data?.name;
         }
     }, [data?.identifier, data?.name]);
+
+    useEffect(() => {
+        if (name) {
+            setNameAdmin(name)
+        }
+    }, [name])
 
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
@@ -135,6 +145,8 @@ function UserWindow({ data, identities, handleLogout }) {
 }
 
 function AdminWindow({ data, identities, handleLogout }) {
+    const { setOpenEditingWindow } = useGlobalStore();
+
     return (
         <div className={'RegistrationWindow__ContainerUser'}>
             <div className={'RegistrationWindow__InfoUser'}>
@@ -148,7 +160,7 @@ function AdminWindow({ data, identities, handleLogout }) {
                     />
                     <RegistrationButton
                         text={'NEW PROJECT'}
-                        disabled={true}
+                        handleClick={() => setOpenEditingWindow(true)}
                     />
                     <RegistrationButton
                         text={'12 CLAIMS'}

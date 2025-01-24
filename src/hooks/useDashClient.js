@@ -47,16 +47,30 @@ export function useDashClient() {
     }, [client]);
 
     const methods = useRef({
-        disconnect: () => {
-            if (client) {
-                client.disconnect()
+        disconnect: async () => {
+            try {
+                if (client) {
+                    await client.disconnect()
+                }
+                if (account) {
+                    if (account.listenerCount && account.listenerCount('HEADERS_SYNC_PROGRESS') > 0) {
+                        account.removeAllListeners('HEADERS_SYNC_PROGRESS');
+                    }
+                    if (account.listenerCount && account.listenerCount('TRANSACTIONS_SYNC_PROGRESS') > 0) {
+                        account.removeAllListeners('TRANSACTIONS_SYNC_PROGRESS');
+                    }
+                }
+            } catch (error) {
+                console.error('Error removing listeners:', error);
+            } finally {
+                setTotalProgress(0);
+                setClient(null);
+                setAccount(null);
             }
-            setTotalProgress(0);
-            setClient(null);
-            setAccount(null);
         },
         connect: async (innerProps) => {
-            methods.current.disconnect();
+            await methods.current.disconnect();
+
             try {
                 const client = new Dash.Client({
                     network: innerProps.network || 'testnet',
@@ -67,6 +81,11 @@ export function useDashClient() {
                             skipSynchronizationBeforeHeight: innerProps.wallet?.unsafeOptions?.skipSynchronizationBeforeHeight || 0,
                         },
                     },
+                    apps: {
+                      "pshenmic-dev-dfo": {
+                        contractId: 'GxWe9P43UAfWiMHpZzCXJaSwZkcqzvZR6wtgofyBG5cu',
+                      },
+                    }
                 });
 
                 if (!client) {
@@ -74,9 +93,20 @@ export function useDashClient() {
                 }
 
                 setClient(client);
+                const account = await client.getWalletAccount().then(account => {
+                    if (!account) {
+                        throw new Error('Failed to get wallet account');
+                    }
+                    return account;
+                }).catch(error => {
+                    console.error(error)
+                });
 
-                const account = await client.getWalletAccount();
-                const identityIds = account.identities.getIdentityIds();
+                let identityIds = null;
+                if (account) {
+                    identityIds = account.identities.getIdentityIds();
+                }
+
                 if (account && identityIds?.length > 0) {
                     setAccount(account);
                 } else {
@@ -90,6 +120,7 @@ export function useDashClient() {
                     }
 
                     const identifier = identity.getId().toString();
+
                     if (typeof identifier !== 'string') {
                         throw new Error(`Invalid identity identifier for ID: ${id}`);
                     }
@@ -109,7 +140,7 @@ export function useDashClient() {
                             }
                         });
                     }
-                    return { name, identifier };
+                    return { name, identifier, identity };
                 }));
 
                 return Promise.resolve({ client, account, identities });

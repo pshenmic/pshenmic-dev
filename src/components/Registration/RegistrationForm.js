@@ -3,14 +3,13 @@
 import './RegistrationForm.scss'
 import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import { useSpring, animated } from '@react-spring/web'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 // type:
 // data: { description: string, inputDescription: string, placeholder: string, buttonText: string }
 // type: 'seedPhrase' | 'privateKey'
 export default function RegistrationForm({ data, handleFunction, type }) {
     const [inputValue, setInputValue] = useState('')
-    const textareaRef = useRef(null)
 
     const validationSeedPhrase = (value) => {
         const words = value.trim().split(/\s+/)
@@ -46,13 +45,6 @@ export default function RegistrationForm({ data, handleFunction, type }) {
         setInputValue('')
     }
 
-    useEffect(() => {
-        if (textareaRef?.current) {
-            textareaRef.current.style.minHeight = `auto`
-            textareaRef.current.style.minHeight = `${textareaRef.current.scrollHeight}px`
-        }
-    }, [inputValue]);
-
     return (
         <form className={'RegistrationForm'} onSubmit={handleSubmit}>
             { data?.description && <div className={'RegistrationForm__Description'}>
@@ -62,7 +54,6 @@ export default function RegistrationForm({ data, handleFunction, type }) {
                 <animated.p style={animation} className={'RegistrationForm__InputWrapper__Arrow'}>{'>'}</animated.p>
                 {data?.inputDescription && <p className={'RegistrationForm__InputWrapper__InputDescription'}>{data.inputDescription}</p>}
                 <textarea
-                    ref={textareaRef}
                     value={inputValue}
                     onChange={(e) => handleInputChange(e.target.value)}
                     placeholder={data?.placeholder || ''}
