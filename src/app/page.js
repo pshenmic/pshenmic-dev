@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { motion as m } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { clearWalletStore } from '@/components/Registration/ImportWalletWindow'
 
 const defaultContent = 'updates'
 
@@ -47,6 +48,7 @@ export default function App() {
       } catch (error) {
         console.error('Error:', error);
         showToast('error', 'Error logging in, try again later');
+        clearWalletStore()
       }
     }
     addClient()

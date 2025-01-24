@@ -26,6 +26,22 @@ const dataPrivateKey = {
     buttonText: 'LOG IN'
 }
 
+const walletStore = localforage.createInstance({
+    name: 'dash-wallet',
+    storeName: 'wallet_store',
+    driver: [
+        localforage.INDEXEDDB,
+    ]
+});
+
+export const clearWalletStore = async () => {
+    try {
+        await walletStore.clear();
+    } catch (error) {
+        console.error('Error clearing wallet store:', error);
+    }
+};
+
 export default function ImportWalletWindow() {
     const { openImportWalletWindow, setOpenImportWalletWindow, setLoadingGetUser, loadingGetUser, setUserDash, setClient } = useGlobalStore();
     const [activeButton, setActiveButton] = useState('seedPhrase');
@@ -47,13 +63,6 @@ export default function ImportWalletWindow() {
         const mnemonicTrim = mnemonic.trim();
         setLoadingGetUser(true);
 
-        const walletStore = localforage.createInstance({
-            name: 'dash-wallet',
-            storeName: 'wallet_store',
-            driver: [
-                localforage.INDEXEDDB,
-            ]
-        });
         try {
             if (!validateMnemonic(mnemonicTrim)) {
                 showToast('error', 'Invalid mnemonic phrase.');
@@ -79,8 +88,10 @@ export default function ImportWalletWindow() {
                 if (resolveClient?.client) {
                     setClient(resolveClient.client)
                 }
+                clearWalletStore()
             }).catch((error) => {
                 errorCallback()
+                clearWalletStore()
             })
         } catch (error) {
             console.error('Error:', error);
@@ -89,7 +100,7 @@ export default function ImportWalletWindow() {
             setOpenImportWalletWindow(true);
         }
 
-    }, [setLoadingGetUser, setOpenImportWalletWindow, setUserDash, errorCallback, successCallback]);
+    }, [setLoadingGetUser, setOpenImportWalletWindow, setUserDash, errorCallback, successCallback, clearWalletStore]);
 
     const animationLoading = useSpring({
         opacity: loadingGetUser ? 1 : 0,

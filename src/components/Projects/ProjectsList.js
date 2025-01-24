@@ -103,9 +103,7 @@ export default function ProjectsList() {
   }, [isLoading, hasMore, lastDocument, uniqueIds]);
 
   useEffect(() => {
-    if (!documents?.length) {
       loadMoreDocuments();
-    }
   }, []);
 
   useEffect(() => {
