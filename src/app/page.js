@@ -3,56 +3,21 @@
 import './App.scss'
 import Menu from '../components/Menu'
 import CommandLine from '../components/CommandLine/CommandLine'
+import dynamic from 'next/dynamic'
 import ContentBlock from '@/components/ContentBlock/ContentBlock'
-import useGlobalStore from '@/store/store'
-import Dash from "dash";
-import { showToast } from '@/lib/showToast'
 import { usePathname } from 'next/navigation'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { motion as m } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { clearWalletStore } from '@/components/Registration/ImportWalletWindow'
+
+const GetZeroClient = dynamic(() => import('@/components/GetZeroClient/GetZeroClient'), { ssr: false });
 
 const defaultContent = 'updates'
 
 export default function App() {
-  const { setClient } = useGlobalStore();
   const [content, setContent] = useState(defaultContent)
   const [render, setRender] = useState(false)
   const path = usePathname()
-
-  // adding a zero client
-  useEffect(() => {
-    const addClient = async () => {
-      try {
-        const clientOpts = {
-          network: 'testnet',
-          apps: {
-            tutorialContract: {
-              contractId: process.env.NEXT_PUBLIC_INITIAL_CLIENT,
-            },
-            "pshenmic-dev-dfo": {
-              contractId: process.env.NEXT_PUBLIC_CONTRACT_ID,
-            },
-          },
-          wallet: {
-            skipSynchronizationBeforeHeight: 1,
-            offlineMode: true,
-          },
-        };
-        const client = new Dash.Client(clientOpts);
-        
-        if (client) {
-          setClient(client)
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        showToast('error', 'Error logging in, try again later');
-        clearWalletStore()
-      }
-    }
-    addClient()
-  }, [])
 
   useEffect(() => {
     const pathArray = window.location.pathname.split('/').slice(1)
@@ -62,6 +27,7 @@ export default function App() {
 
   return render
     ? <Router>
+      <GetZeroClient />
       <main className={'App'}>
         <m.div className={'App__CommonWrapper'}>
           <div className={'App__Sidebar'}>

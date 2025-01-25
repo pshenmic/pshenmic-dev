@@ -76,7 +76,7 @@ export default function RegistrationWindow() {
 }
 
 function LogInWindow({ setOpenImportWalletWindow }) {
-    const { loadingGetUser } = useGlobalStore();
+    const { loadingGetUser, client } = useGlobalStore();
     const { totalProgress } = useDash();
 
     return (
@@ -87,7 +87,7 @@ function LogInWindow({ setOpenImportWalletWindow }) {
                     text={'SEED PHRASE'}
                     onClick={() => setOpenImportWalletWindow(true)}
                     style={{ background: '#0275ff' }}
-                    disabled={loadingGetUser}
+                    disabled={loadingGetUser || !client?.platform?.documents}
                 />
                 <RegistrationButton
                     text={'PRIVATE KEY'}
