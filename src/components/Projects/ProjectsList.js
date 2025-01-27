@@ -26,7 +26,7 @@ export default function ProjectsList() {
   });
 
   const loadMoreDocuments = useCallback(async () => {
-    if (isLoading || !hasMore || !client || !client.platform) { return }
+    if (isLoading || !hasMore || !client || !client?.platform?.documents) { return }
     setIsLoading(true)
 
     try {
@@ -100,10 +100,10 @@ export default function ProjectsList() {
     } finally {
       setIsLoading(false)
     }
-  }, [isLoading, hasMore, lastDocument, uniqueIds]);
+  }, [isLoading, hasMore, lastDocument, uniqueIds, client]);
 
   useEffect(() => {
-      loadMoreDocuments();
+    loadMoreDocuments();
   }, []);
 
   useEffect(() => {
@@ -175,7 +175,7 @@ export default function ProjectsList() {
                 }}
               >
               </div>
-                {isLoading ?
+                {!documents.length ?
                   <>
                     <ProjectListItemSkeleton />
                     <ProjectListItemSkeleton />
