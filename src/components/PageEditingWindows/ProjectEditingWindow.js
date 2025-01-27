@@ -7,6 +7,7 @@ import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButt
 import useGlobalStore from '@/store/store';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { showToast } from '@/lib/showToast';
+import { useRef } from 'react';
 
 function ProjectEditingWindow() {
   const { projectDataEditing, client, admin, setDocuments, documents } = useGlobalStore();
@@ -15,10 +16,12 @@ function ProjectEditingWindow() {
   const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
   const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
   const inputValueImage = control ? useWatch({ control, name: 'image_ProjectEditingWindow' }) : '';
-
+  const isDeletingRef = useRef(false);
 
   const handleDelete = async (projectId) => {
+    if (isDeletingRef.current) return;
     try {
+      isDeletingRef.current = true;
       if (!client || !client.platform || !admin || !projectId) {
         showToast('error', 'Client not found');
         return;
@@ -47,6 +50,8 @@ function ProjectEditingWindow() {
     } catch (error) {
       console.error('Error deleting document:', error);
       showToast('error', 'Error deleting document');
+    } finally {
+      isDeletingRef.current = false;
     }
   };
 
@@ -65,7 +70,7 @@ function ProjectEditingWindow() {
         name={'name_ProjectEditingWindow'}
         placeholder={'ex. Pshenmic.dev'}
         arrow={true}
-        required={false}
+        required={true}
       />
 
       <TextField

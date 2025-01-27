@@ -1,7 +1,7 @@
 'use client'
 
 import { FormProvider, useForm } from 'react-hook-form'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { showToast } from '@/lib/showToast'
 import useGlobalStore from '@/store/store'
 import PageEditingWindows from '@/components/PageEditingWindows/PageEditingWindows'
@@ -10,6 +10,7 @@ import './EditingWindow.scss'
 
 function EditingWindow() {
   const { openEditingWindow, client, setOpenEditingWindow, nameAdmin, admin, projectDataEditing, setProjectDataEditing, setDocuments, documents } = useGlobalStore();
+  const isSubmittingRef = useRef(false);
 
   const methods = useForm()
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control, reset } = methods
@@ -24,7 +25,11 @@ function EditingWindow() {
   }, [projectDataEditing]);
 
   const onSubmit = async (data) => {
+    if (isSubmittingRef.current) return;
+
     try {
+      isSubmittingRef.current = true;
+
       const dataProject = {
         name: data.name_ProjectEditingWindow,
         description: data.description_ProjectEditingWindow,
@@ -93,6 +98,8 @@ function EditingWindow() {
     } catch (error) {
       console.error('Error submitting document:', error);
       showToast('error', 'Error submitting document');
+    } finally {
+      isSubmittingRef.current = false;
     }
   }
 
@@ -106,6 +113,7 @@ function EditingWindow() {
     if (!openEditingWindow) {
       clearErrors()
       setProjectDataEditing({})
+      isSubmittingRef.current = false;
     }
   }, [openEditingWindow])
 
