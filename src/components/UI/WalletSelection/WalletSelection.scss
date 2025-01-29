@@ -1,0 +1,68 @@
+@import '../../../assets/styles/mixins.scss';
+
+.WalletSelection {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    background-color: transparent;
+
+    &__Open {
+        cursor: pointer;
+
+        &:hover {
+            > p {
+                color: #5199fc;
+            }
+
+            > svg {
+                color: #5199fc;
+            }
+        }
+    }
+
+    &__Text {
+        font-weight: 400;
+        font-size: 10px;
+        color: #97e8fc;
+        font-family: "Press Start 2P";
+        transition: color 0.3s ease;
+        word-break: break-all;
+        line-height: 140%;
+        text-align: left;
+
+    }
+
+    > svg {
+        width: 24px;
+        height: 24px;
+        color: #fff;
+        transition: color 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    &__Dropdown {
+        position: absolute;
+        width: 102%;
+        bottom: calc(100% + 7px);
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 17px;
+        background: #131619;
+        border: 1px solid #565656;
+        max-height: 375px;
+        overflow-y: auto;
+
+        > p {
+            cursor: pointer;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #5199fc;
+            }
+        }
+    }
+}

@@ -1,53 +1,62 @@
 @import '../../../assets/styles/mixins.scss';
 
 .TextField {
-    position: relative;
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    position: relative;
 
-    > p {
-        font-size: 18px;
-        color: #8F8F8F;
-
-        @media screen and ( max-width: 1024px ) {
-            font-size: 14px;
-        }
-
-        @media screen and ( max-width: 600px ) {
-            font-size: 10px;
-        }
-
-        > span {
-            color: #7D0000;
-        }
+    &__Arrow {
+        position: absolute;
+        top: 0;
+        left: -17px;
+        font-weight: 400;
+        font-size: 16px;
+        color: #ff522b;
     }
 
-    > input, textarea {
-        position: relative;
+    &__InputDescription {
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 18px;
+        color: #01296d;
+    }
+
+    &__InputDescriptionWrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__Optional {
+        width: fit-content;
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 14px;
+        color: #216206;
+        padding: 4px 8px;
+        background: #ecfacf;
+    }
+
+    > textarea {
         width: 100%;
-        max-width: 100%;
-        padding: 19px 16px;
-        background-color: #181818;
-        font-size: 16px;
-        font-family: 'Press Start 2P';
+        padding: 14px 0px;
+        border-bottom: 1px solid #000;
+        background: transparent;
         font-weight: 400;
-        color: #fff;
-        line-height: 110%;
+        font-size: 18px;
+        color: #000;
+        font-family: var(--font-mono);
+        resize: vertical;
+        max-height: 300px;
+        height: 50px;
+        min-height: 50px;
 
-        @media screen and ( max-width: 1024px ) {
-            padding: 12px;
-        }
-
-        @media screen and ( max-width: 600px ) {
-            font-size: 16px;
+        &::placeholder {
+            opacity: 0.3;
         }
     }
 }
 
 .TextFieldError {
-    > input, textarea {
-        border: 1px solid #fe5858 !important;
-    }
+    border-bottom: 1px solid #ff522b;
 }

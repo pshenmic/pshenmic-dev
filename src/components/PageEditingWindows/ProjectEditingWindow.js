@@ -1,118 +1,111 @@
-import { useCallback, useState } from 'react'
-import EditFieldWrapper from '../UI/EditFieldWrapper/EditFieldWrapper'
+'use client'
+
+import './PageEditingWindows.scss'
 import FileInput from '../UI/FileInput/FileInput'
 import TextField from '../UI/TextField/TextField'
-import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
-import './PageEditingWindows.scss'
+import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton';
+import useGlobalStore from '@/store/store';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { showToast } from '@/lib/showToast';
 
-function ProjectEditingWindow ({ errors, register, setValue, clearErrors }) {
-  const [link, setLink] = useState([])
+function ProjectEditingWindow() {
+  const { projectDataEditing, client, admin, setDocuments, documents } = useGlobalStore();
+  const { control } = useFormContext();
+  const inputValueName = control ? useWatch({ control, name: 'name_ProjectEditingWindow' }) : '';
+  const inputValueDescription = control ? useWatch({ control, name: 'description_ProjectEditingWindow' }) : '';
+  const inputValueUrl = control ? useWatch({ control, name: 'url_ProjectEditingWindow' }) : '';
+  const inputValueImage = control ? useWatch({ control, name: 'image_ProjectEditingWindow' }) : '';
 
-  const addField = useCallback(() => {
-    setLink([...link, { id: Date.now() }])
-  }, [link])
 
-  const removeField = useCallback((id) => {
-    setLink(link.filter(field => field.id !== id))
-  }, [link])
+  const handleDelete = async (projectId) => {
+    try {
+      if (!client || !client.platform || !admin || !projectId) {
+        showToast('error', 'Client not found');
+        return;
+      }
+
+      const [document] = await client.platform.documents.get(
+        `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
+        { where: [['$id', '==', projectId]] }
+      );
+
+      if (!document) {
+        showToast('error', 'Document not found');
+        console.error('Document structure:', document);
+        return;
+      }
+
+      await client.platform.documents.broadcast({
+        delete: [document],
+      }, admin)
+
+      const newDocuments = documents.filter(doc => doc.id !== projectId);
+      setDocuments(newDocuments);
+
+      showToast('success', 'Document deleted successfully');
+
+    } catch (error) {
+      console.error('Error deleting document:', error);
+      showToast('error', 'Error deleting document');
+    }
+  };
 
   return (
-    <>
-      <EditFieldWrapper title={'preview card'}>
-        <FileInput
-          text={'imgPreview'}
-          error={errors}
-          name={'imgPreview_ProjectEditingWindow'}
-          register={register}
-          setValue={setValue}
-          clearErrors={clearErrors}
-        />
-        <TextField
-          text={'previewTitle'}
-          error={errors}
-          name={'previewTitle_ProjectEditingWindow'}
-          register={register}
-          required={false}
-        />
-        <TextField
-          text={'previewDescription'}
-          error={errors}
-          name={'previewDescription_ProjectEditingWindow'}
-          register={register}
-          required={false}
-          richText={true}
-        />
-      </EditFieldWrapper>
-      <EditFieldWrapper title={'Component'}>
-        <FileInput
-          text={'img'}
-          error={errors}
-          name={'img_ProjectEditingWindow'}
-          register={register}
-          setValue={setValue}
-          clearErrors={clearErrors}
-        />
-        <TextField
-          text={'title'}
-          error={errors}
-          name={'title_ProjectEditingWindow'}
-          register={register}
-          required={false}
-        />
-        <TextField
-          text={'description'}
-          error={errors}
-          name={'description_ProjectEditingWindow'}
-          register={register}
-          required={false}
-          richText={true}
-        />
-      </EditFieldWrapper>
-      {link.map((field, i) => (
-        <EditFieldWrapper key={field.id} title={`Link ${i + 1}`}>
-          <TextField
-            text={'href'}
-            error={errors}
-            name={`href_${field.id}_ProjectEditingWindow`}
-            register={register}
-          />
-          <TextField
-            text={'ariaLabel'}
-            error={errors}
-            name={`ariaLabel_${field.id}_ProjectEditingWindow`}
-            register={register}
-          />
-          <TextField
-            text={'name'}
-            error={errors}
-            name={`name_${field.id}_ProjectEditingWindow`}
-            register={register}
-          />
-          <FileInput
-            text={'icon'}
-            error={errors}
-            name={`icon_${field.id}_ProjectEditingWindow`}
-            register={register}
-            setValue={setValue}
-            clearErrors={clearErrors}
-          />
-          <ActionButtons
-            text={'Delete project'}
-            handleClick={() => removeField(field.id)}
-            ariaLabel={'Delete project'}
-            typeButton={'dangerous'}
-          />
-        </EditFieldWrapper>
-      ))}
-      <div className={'WrapperButton'}>
-        <ActionButtons
-          text={'add project'}
-          handleClick={addField}
-          ariaLabel={'add project'}
-          type={'button'}
-        />
-      </div>
-    </>
+    <div className={'ProjectEditingWindow'}>
+      <h2>{projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE A NEW PROJECT'}</h2>
+      <FileInput
+        textName={inputValueName}
+        image={inputValueImage}
+        textDescription={inputValueDescription}
+        url={inputValueUrl}
+      />
+
+      <TextField
+        text={'Name'}
+        name={'name_ProjectEditingWindow'}
+        placeholder={'ex. Pshenmic.dev'}
+        arrow={true}
+        required={false}
+      />
+
+      <TextField
+        text={'Description'}
+        name={'description_ProjectEditingWindow'}
+        placeholder={'Describe your new and beautiful project...'}
+        required={true}
+      />
+
+      <TextField
+        text={'Image'}
+        name={'image_ProjectEditingWindow'}
+        placeholder={'ex. https://pshenmic.dev/img/1.png'}
+        required={true}
+        valid={/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/}
+      />
+
+      <TextField
+        text={'Url'}
+        name={'url_ProjectEditingWindow'}
+        placeholder={'ex. https://pshenmic.dev/img/1.png'}
+        required={true}
+        valid={/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/}
+      />
+
+      <RegistrationButton
+        className={'ProjectEditingWindow__Button'}
+        text={projectDataEditing?.id ? 'UPDATE PROJECT' : 'CREATE PROJECT'}
+        ariaLabel={'Create project'}
+        type={'submit'}
+        disabled={!inputValueDescription || !inputValueUrl || !inputValueImage}
+      />
+
+      {projectDataEditing?.id && <RegistrationButton
+        className={'ProjectEditingWindow__ButtonDelete'}
+        text={'DELETE PROJECT'}
+        ariaLabel={'Delete project'}
+        onClick={() => handleDelete(projectDataEditing?.id)}
+      />}
+    </div>
   )
 }
 

@@ -1,59 +1,137 @@
-import { useCallback, useState } from 'react'
-import ProjectListItem from './ProjectListItem'
-import Project from './Project'
+'use client'
+
+import { useCallback, useEffect, useState } from 'react'
 import { motion as m, AnimatePresence } from 'framer-motion'
-import './ProjectsList.scss'
+import { useInView } from 'react-intersection-observer'
+import ProjectListItem from './ProjectListItem'
 import useGlobalStore from '@/store/store'
-import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
+import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
+import ProjectListItemSkeleton from './ProjectListItemSkeleton'
+import dynamic from 'next/dynamic'
+import './ProjectsList.scss'
 
-const defaultProjectsList = [
-  {
-    title: 'Electrum Dash',
-    description: 'A lightweight wallet for a Desktops & Android allow you to receive and spend Dash anywhere without downloading the blockchain with a PrivateSend support.',
-    imgSrc: '/assets/img/dash-electrum-icon.png',
-    githubLink: '',
-    projectLink: 'http://dash-electrum.org/'
-  },
-  {
-    title: 'Platform Explorer',
-    description: 'Block explorer for a brand new Dash Platform chain. Explore latest Dash Evolution data such as Identities, Data Contracts, and Documents.',
-    imgSrc: '/assets/img/platform-explorer-preview-300x300.jpg',
-    githubLink: 'https://github.com/pshenmic/platform-explorer',
-    projectLink: 'https://platform-explorer.com/'
-  },
-  {
-    title: 'Dashmate Contribution',
-    description: 'Masternode setup tool that drastically eases node configuration and setup with a nice & easy CLI interface. Built on top of Node.Js and Docker.',
-    imgSrc: '/assets/img/dashmate-preview-300x300.jpg',
-    githubLink: 'https://github.com/dashpay/platform/tree/master/packages/dashmate',
-    projectLink: 'https://www.dashmate.org/'
-  },
-  {
-    title: 'Dashboards',
-    description: 'Monitoring toolset that keeps track of the current state of the services deployed in the pshenmic cloud. Ensure yourself the SLA and stability of the provided services or be first to notice the fatal issues happening in cloud or blockchain network!',
-    imgSrc: '/assets/img/dashboards-preview-400x400.png',
-    githubLink: '',
-    projectLink: 'https://dashboards.pshenmic.dev/'
-  }
-]
+const Project = dynamic(() => import('./Project').then(mod => mod.default), { ssr: false });
 
-export default function ProjectsList ({ projects = defaultProjectsList }) {
+export default function ProjectsList() {
   const [openedItem, setOpenedItem] = useState(null)
-  const admin = useGlobalStore(state => state.admin)
-  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
+  const [isLoading, setIsLoading] = useState(false);
+  const [uniqueIds] = useState(new Set());
+  const [lastDocument, setLastDocument] = useState(null);
+  const { admin, client, setOpenEditingWindow, setProjectDataEditing, documents, setDocuments, setHasMore, hasMore } = useGlobalStore();
 
-  const openEditingWindow = useCallback(() => {
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: '50px',
+    triggerOnce: false
+  });
+
+  const loadMoreDocuments = useCallback(async () => {
+    if (isLoading || !hasMore || !client || !client?.platform?.documents) { return }
+    setIsLoading(true)
+
+    try {
+      const queryOpts = {
+        limit: 10,
+        where: [],
+        orderBy: [['$id', 'asc']]
+      };
+
+      if (lastDocument) {
+        queryOpts.startAfter = lastDocument.getId().toBuffer()
+      }
+
+      const response = await client.platform.documents.get(
+        'pshenmic-dev-dfo.Project',
+        queryOpts
+      )
+      if (response && response.length > 0) {
+        setLastDocument(response[response.length - 1])
+        const uniqueDocuments = response.filter(doc => {
+          const id = doc.getId().toString()
+          if (uniqueIds.has(id)) return false
+          uniqueIds.add(id)
+          return true
+        })
+
+        if (uniqueDocuments.length > 0) {
+          const newDocuments = await Promise.all(uniqueDocuments.map(async doc => {
+            const ownerId = doc.getOwnerId().toString();
+            try {
+              const nameDoc = await client.platform.documents.get(
+                'dpns.domain',
+                {
+                  where: [
+                    ['records.identity', '==', ownerId],
+                  ],
+                }
+              );
+
+              const ownerName = nameDoc.length > 0 ? nameDoc[0].getData().label : null;
+
+              return {
+                ...doc.getData(),
+                id: doc.getId().toString(),
+                ownerId,
+                ownerName
+              }
+            } catch (nameError) {
+              console.error('Error fetching name:', nameError);
+              return {
+                ...doc.getData(),
+                id: doc.getId().toString(),
+                ownerId,
+                ownerName: null
+              };
+            }
+          }));
+
+          if (newDocuments) {
+            setDocuments([...documents, ...newDocuments])
+          }
+          setHasMore(response.length >= queryOpts.limit)
+        }
+      } else {
+        setHasMore(false);
+      }
+
+    } catch (error) {
+      console.error('Error loading documents:', error)
+      setHasMore(false)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [isLoading, hasMore, lastDocument, uniqueIds, client]);
+
+  useEffect(() => {
+    loadMoreDocuments();
+  }, []);
+
+  useEffect(() => {
+    if (inView && !isLoading && hasMore) {
+      loadMoreDocuments()
+    }
+  }, [inView, isLoading, hasMore, loadMoreDocuments])
+
+  const openEditor = useCallback((project) => {
     setOpenEditingWindow(true)
-  }, [setOpenEditingWindow])
+    let projectData = {
+      name_ProjectEditingWindow: project?.name || '',
+      description_ProjectEditingWindow: project?.description || '',
+      url_ProjectEditingWindow: project?.url || '',
+      id: project?.id || '',
+      image_ProjectEditingWindow: project?.image || '',
+    }
+    setProjectDataEditing(projectData)
+  }, [setOpenEditingWindow, setProjectDataEditing])
 
-  const ListItems = projects.map((project, id) =>
+  const ListItems = documents?.map((project, id) =>
     <ProjectListItem
-      key={'project' + id}
+      key={project.id}
       id={id}
       project={project}
       hidden={openedItem !== null && openedItem !== id}
       openHandler={() => setOpenedItem(id)}
-      openEditor={openEditingWindow}
+      openEditor={openEditor}
     />
   )
 
@@ -62,22 +140,53 @@ export default function ProjectsList ({ projects = defaultProjectsList }) {
       {openedItem !== null && (
         <m.div key={'project'}>
           <Project
-            project={projects[openedItem]}
+            project={documents[openedItem]}
             closeHandler={() => setOpenedItem(null)}
+            openEditor={openEditor}
           />
         </m.div>
       )}
 
       {openedItem === null && (
         <m.div key={'projectsList'} className={'ProjectsList'}>
-          {ListItems}
-          {admin && openedItem === null
-            ? <ActionButtons
-              text={'add Project'}
-              ariaLabel={'add Project '}
-              handleClick={openEditingWindow}
-            />
-            : null}
+          <div className={'ProjectsList__Header'}>
+            <h2>Projects</h2>
+            {admin && openedItem === null && (
+              <RegistrationButton
+                text={'New Project'}
+                ariaLabel={'add Project'}
+                handleClick={() => setOpenEditingWindow(true)}
+                style={{
+                  background: '#0275ff',
+                  textTransform: 'capitalize',
+                }}
+              />
+            )}
+          </div>
+          <ul>
+            {ListItems}
+            {hasMore && (
+              <>
+                <div
+                  ref={ref}
+                  style={{
+                  height: '1px',
+                  width: '100%',
+                }}
+              >
+              </div>
+                {!documents.length ?
+                  <>
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                    <ProjectListItemSkeleton />
+                  </>
+                  : null}
+              </>
+            )}
+          </ul>
         </m.div>
       )}
     </AnimatePresence>

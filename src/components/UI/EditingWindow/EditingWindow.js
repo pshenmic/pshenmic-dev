@@ -1,22 +1,99 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
+import { showToast } from '@/lib/showToast'
 import useGlobalStore from '@/store/store'
-import DarkWrapper from '../DarkWrapper/DarkWrapper'
-import ActionButtons from '../Button/ActionButtons/ActionButtons'
-import Image from 'next/image'
 import PageEditingWindows from '@/components/PageEditingWindows/PageEditingWindows'
+import WrapperUserInputModal from '../WrapperUserInputModal/WrapperUserInputModal'
 import './EditingWindow.scss'
 
-function EditingWindow () {
-  const openEditingWindow = useGlobalStore(state => state.openEditingWindow)
-  const setOpenEditingWindow = useGlobalStore(state => state.setOpenEditingWindow)
-  const admin = useGlobalStore(state => state.admin)
-  const { register, handleSubmit, formState: { errors }, setValue, clearErrors } = useForm()
+function EditingWindow() {
+  const { openEditingWindow, client, setOpenEditingWindow, nameAdmin, admin, projectDataEditing, setProjectDataEditing, setDocuments, documents } = useGlobalStore();
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const methods = useForm()
+  const { register, handleSubmit, formState: { errors }, setValue, clearErrors, control, reset } = methods
+
+  useEffect(() => {
+    methods.reset({
+      name_ProjectEditingWindow: projectDataEditing?.name_ProjectEditingWindow || '',
+      description_ProjectEditingWindow: projectDataEditing?.description_ProjectEditingWindow || '',
+      url_ProjectEditingWindow: projectDataEditing?.url_ProjectEditingWindow || '',
+      image_ProjectEditingWindow: projectDataEditing?.image_ProjectEditingWindow || '',
+    });
+  }, [projectDataEditing]);
+
+  const onSubmit = async (data) => {
+    try {
+      const dataProject = {
+        name: data.name_ProjectEditingWindow,
+        description: data.description_ProjectEditingWindow,
+        url: data.url_ProjectEditingWindow,
+        image: data.image_ProjectEditingWindow,
+      }
+
+      if (!client || !client.platform) {
+        showToast('error', 'Client not found');
+        return;
+      }
+
+      if (projectDataEditing?.id) {
+        const [existingDocument] = await client.platform.documents.get(
+          `${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`,
+          { where: [['$id', '==', projectDataEditing.id]] }
+        );
+
+        if (existingDocument) {
+          existingDocument.set('name', dataProject.name);
+          existingDocument.set('description', dataProject.description);
+          existingDocument.set('image', dataProject.image);
+          existingDocument.set('url', dataProject.url);
+
+          await client.platform.documents.broadcast({
+            replace: [existingDocument],
+          }, admin);
+
+          const updatedDocuments = documents.map(doc =>
+            doc.id === projectDataEditing.id
+              ? {
+                ...doc,
+                ...dataProject
+              }
+              : doc
+          );
+
+          setDocuments(updatedDocuments);
+
+          showToast('success', 'Document updated successfully');
+        } else {
+          showToast('error', 'Document not found');
+        }
+      } else {
+        const document = await client.platform.documents.create(`${process.env.NEXT_PUBLIC_CONTRACT_ID_PROJECTS}.Project`, admin, dataProject);
+
+        await client.platform.documents.broadcast({
+          create: [document],
+        }, admin).then(res => {
+          const newDoc = {
+            id: document.getId().toString(),
+            name: dataProject.name,
+            description: dataProject.description,
+            url: dataProject.url,
+            image: dataProject.image,
+            $ownerId: document.getOwnerId().toString(),
+            ownerName: nameAdmin
+          };
+
+          const newDocuments = [...documents, newDoc];
+          setDocuments(newDocuments);
+          showToast('success', 'Document created successfully');
+          setOpenEditingWindow(false);
+        })
+      }
+    } catch (error) {
+      console.error('Error submitting document:', error);
+      showToast('error', 'Error submitting document');
+    }
   }
 
   const handleKeyDown = (event) => {
@@ -28,46 +105,21 @@ function EditingWindow () {
   useEffect(() => {
     if (!openEditingWindow) {
       clearErrors()
+      setProjectDataEditing({})
     }
   }, [openEditingWindow])
 
   return (
     <>
       {admin
-        ? <DarkWrapper open={openEditingWindow}>
-            <div className={'EditingWindow'}>
-              <form onKeyDown={handleKeyDown} className={'EditingWindow__Window'} onSubmit={handleSubmit(onSubmit)}>
-                <button
-                  className={'EditingWindow__Close'}
-                  aria-label={'Close The Window'}
-                  onClick={() => setOpenEditingWindow(false)}
-                  type={'button'}
-                >
-                  <Image src={'/assets/img/cross.svg'} width={24} height={24} alt={'close'}/>
-                </button>
-                <div className={'EditingWindow__WrapperEditableFields'}>
-                  <PageEditingWindows
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    clearErrors={clearErrors}
-                  />
-                </div>
-                <div className={'EditingWindow__WrapperButton'}>
-                  <ActionButtons
-                    text={'Save'}
-                    ariaLabel={'save'}
-                    type={'submit'}
-                  />
-                  <ActionButtons
-                    text={'Delete'}
-                    ariaLabel={'delete'}
-                    typeButton={'dangerous'}
-                  />
-                </div>
-              </form>
-            </div>
-          </DarkWrapper>
+        ?
+        <FormProvider {...methods}>
+          <WrapperUserInputModal open={openEditingWindow} setOpen={setOpenEditingWindow}>
+            <form onKeyDown={handleKeyDown} onSubmit={handleSubmit(onSubmit)} style={{ height: '100vh' }}>
+              <PageEditingWindows />
+            </form>
+          </WrapperUserInputModal>
+        </FormProvider>
         : null}
     </>
   )
