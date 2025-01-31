@@ -15,7 +15,7 @@ const Project = dynamic(() => import('./Project').then(mod => mod.default), { ss
 export default function ProjectsList() {
   const [openedItem, setOpenedItem] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
-  const [uniqueIds] = useState(new Set());
+  const [uniqueIds, setUniqueIds] = useState(new Set());
   const [lastDocument, setLastDocument] = useState(null);
   const { admin, client, setOpenEditingWindow, setProjectDataEditing, documents, setDocuments, setHasMore, hasMore } = useGlobalStore();
 
@@ -46,12 +46,15 @@ export default function ProjectsList() {
       )
       if (response && response.length > 0) {
         setLastDocument(response[response.length - 1])
+        const newUniqueIds = new Set(uniqueIds);
         const uniqueDocuments = response.filter(doc => {
           const id = doc.getId().toString()
-          if (uniqueIds.has(id)) return false
-          uniqueIds.add(id)
+          if (newUniqueIds.has(id)) return false
+          newUniqueIds.add(id)
           return true
         })
+
+        setUniqueIds(newUniqueIds);
 
         if (uniqueDocuments.length > 0) {
           const newDocuments = await Promise.all(uniqueDocuments.map(async doc => {
@@ -86,8 +89,10 @@ export default function ProjectsList() {
           }));
 
           if (newDocuments) {
-            setDocuments([...documents, ...newDocuments])
+            const newDocs = [...documents, ...newDocuments]
+            setDocuments(newDocs)
           }
+        
           setHasMore(response.length >= queryOpts.limit)
         }
       } else {
@@ -103,8 +108,23 @@ export default function ProjectsList() {
   }, [isLoading, hasMore, lastDocument, uniqueIds, client]);
 
   useEffect(() => {
-    loadMoreDocuments();
-  }, []);
+    const resetState = () => {
+      setHasMore(true);
+      setDocuments([]);
+      setLastDocument(null);
+      setUniqueIds(new Set());
+    };
+
+    resetState();
+
+    if (client?.platform) {
+      loadMoreDocuments();
+    }
+
+    return () => {
+      resetState();
+    };
+  }, [client]);
 
   useEffect(() => {
     if (inView && !isLoading && hasMore) {
@@ -170,11 +190,11 @@ export default function ProjectsList() {
                 <div
                   ref={ref}
                   style={{
-                  height: '1px',
-                  width: '100%',
-                }}
-              >
-              </div>
+                    height: '1px',
+                    width: '100%',
+                  }}
+                >
+                </div>
                 {!documents.length ?
                   <>
                     <ProjectListItemSkeleton />
