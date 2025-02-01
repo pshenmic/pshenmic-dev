@@ -44,7 +44,7 @@
   dependencies:
     binascii "0.0.2"
 
-"@dashevo/dapi-client@1.8.0":
+"@dashevo/dapi-client@1.8.0", "@dashevo/dapi-client@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/dapi-client/-/dapi-client-1.8.0.tgz#f996459bc511f3a3e1e37916c50fb4d9833e0afc"
   integrity sha512-s8Xqo7Dz0aGQonO1mbqEPpZLuMkkp2TvB+Xp8zEjgn8OqQzdApmpOzyUJJkGtr2V1VN4js6ApxS9isgKJe8Jfg==
@@ -63,7 +63,7 @@
     wasm-x11-hash "~0.0.2"
     winston "^3.2.1"
 
-"@dashevo/dapi-grpc@1.8.0":
+"@dashevo/dapi-grpc@1.8.0", "@dashevo/dapi-grpc@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/dapi-grpc/-/dapi-grpc-1.8.0.tgz#ab0f0bb61372e612125c4bccb4f75a8d5aa0c0cb"
   integrity sha512-hP5Py7m+IZLKvAk21nsK0tyUpfUjZRFu2boiSByjYQwrMoyZHoJi63dTFUe6sikXvG7fr1JsJMiHsO4HAmgsZQ==
@@ -118,17 +118,17 @@
     tsd "^0.28.1"
     unorm "^1.6.0"
 
-"@dashevo/dashpay-contract@1.8.0":
+"@dashevo/dashpay-contract@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/dashpay-contract/-/dashpay-contract-1.8.0.tgz#ec928e6bde59c00fb64bce408facd78d140a5494"
   integrity sha512-+rzJHiFT8WnGhKGQW5teee97antCGd1s/+Jcsqq3xpsariZBtPBiGClPu30HB7mgvke87ovXequ4zwv2VKOiOQ==
 
-"@dashevo/dpns-contract@1.8.0":
+"@dashevo/dpns-contract@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/dpns-contract/-/dpns-contract-1.8.0.tgz#d93719240d409737eae7c707f4023a30800fa654"
   integrity sha512-oSRH+k/iu8UTng/bk4zXRTQRRBM2vPqbARgGlDLxBopGjQ8Ei/nPTPuh7xQ7mPcvTbEt/9bJb+QKE32b+A1zJA==
 
-"@dashevo/grpc-common@1.8.0":
+"@dashevo/grpc-common@1.8.0", "@dashevo/grpc-common@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/grpc-common/-/grpc-common-1.8.0.tgz#0941aca83e5e0bab8fa62e6e78da00d0c10ae1b0"
   integrity sha512-AAooX+SPaOE0XMNkaGw/rBft7c/RfPlpQcKaHnZhSyCtqO4wUWj7zoPn8JtIMaBMwsYkHw4bn8xooXGsVGLS4Q==
@@ -141,7 +141,7 @@
     long "^5.2.0"
     semver "^7.5.3"
 
-"@dashevo/masternode-reward-shares-contract@1.8.0":
+"@dashevo/masternode-reward-shares-contract@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/masternode-reward-shares-contract/-/masternode-reward-shares-contract-1.8.0.tgz#cdd9f23adbf1c6b2d83a76f543f75b4b570f355b"
   integrity sha512-0beDsCl5ryf6PJuGnUvPb43X2RhC8/6nvp37M+Spoekzr1ixF6/nj7S3Pf4AR3j+i8MVbztz0knxMATyI8g8gQ==
@@ -165,7 +165,7 @@
     "@types/node" "^13.7.0"
     long "^4.0.0"
 
-"@dashevo/wallet-lib@8.8.0":
+"@dashevo/wallet-lib@workspace:*":
   version "8.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/wallet-lib/-/wallet-lib-8.8.0.tgz#69c730cb74c694466437bd88696ad128b48e64cb"
   integrity sha512-odHxNWbdLd4vm8qgHBseafaRRFB8jGkM9A+W7c2qbT9nVCAhHNlQ/sqYnOL5/LamOpzmwllmpHZIQ8psAhtE6w==
@@ -182,7 +182,7 @@
     setimmediate "^1.0.5"
     winston "^3.2.1"
 
-"@dashevo/wasm-dpp@1.8.0":
+"@dashevo/wasm-dpp@1.8.0", "@dashevo/wasm-dpp@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/wasm-dpp/-/wasm-dpp-1.8.0.tgz#ffdb1b9e7dfecf9674c5ad94e846b966dac8c477"
   integrity sha512-qEIneunt5Tohxk6x/yXsKoqND4QWSYgq8XcwiCXd4QUm79/r0rW06MeEWqWrdXcMfPZ/ixVBoGPfmu8ner0Zlg==
@@ -192,7 +192,7 @@
     lodash "^4.17.21"
     varint "^6.0.0"
 
-"@dashevo/withdrawals-contract@1.8.0":
+"@dashevo/withdrawals-contract@workspace:*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@dashevo/withdrawals-contract/-/withdrawals-contract-1.8.0.tgz#b052ab721d7a7ef93f54a07ef300abe89772f6f3"
   integrity sha512-FEsl5FXnZDtOs5IZDGyIvDXdPtGr6+4W5BkQsb8jZOuZZ0WJkWjUAZF03YyEi6X1kagHQ8g2DOCv2PfY3FKBwg==
@@ -1434,22 +1434,21 @@ crypto-js@^4.2.0:
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
   integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
 
-dash@4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/dash/-/dash-4.8.0.tgz#f31b405aab601fc5442defb63b4748f34a087ca3"
-  integrity sha512-q3outJA4Ji4KNE4VZiZ+TYAIhurZ1s3yZVLOJE+MOMeEzhJukhODS82EpVdHozYdVt2WwJZsbWoJgVbrGClb0Q==
+"dash@github:owl352/js-dash-sdk":
+  version "4.7.1"
+  resolved "https://codeload.github.com/owl352/js-dash-sdk/tar.gz/0d58fc8ed05210633296517ac94057d4a0eb6b9a"
   dependencies:
     "@dashevo/bls" "~1.2.9"
-    "@dashevo/dapi-client" "1.8.0"
-    "@dashevo/dapi-grpc" "1.8.0"
+    "@dashevo/dapi-client" "workspace:*"
+    "@dashevo/dapi-grpc" "workspace:*"
     "@dashevo/dashcore-lib" "~0.22.0"
-    "@dashevo/dashpay-contract" "1.8.0"
-    "@dashevo/dpns-contract" "1.8.0"
-    "@dashevo/grpc-common" "1.8.0"
-    "@dashevo/masternode-reward-shares-contract" "1.8.0"
-    "@dashevo/wallet-lib" "8.8.0"
-    "@dashevo/wasm-dpp" "1.8.0"
-    "@dashevo/withdrawals-contract" "1.8.0"
+    "@dashevo/dashpay-contract" "workspace:*"
+    "@dashevo/dpns-contract" "workspace:*"
+    "@dashevo/grpc-common" "workspace:*"
+    "@dashevo/masternode-reward-shares-contract" "workspace:*"
+    "@dashevo/wallet-lib" "workspace:*"
+    "@dashevo/wasm-dpp" "workspace:*"
+    "@dashevo/withdrawals-contract" "workspace:*"
     bs58 "^4.0.1"
     node-inspect-extracted "^1.0.8"
     winston "^3.2.1"
