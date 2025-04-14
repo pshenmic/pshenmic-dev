@@ -2,7 +2,8 @@
 
 .Teammate {
     @include listItem;
-
+    min-height: 200px;
+    height: auto;
     transition: 0.5s background-color, 0.5s box-shadow;
 
     &:hover {
@@ -22,6 +23,13 @@
         &:has(.Teammate__SocialLink--Twitter:hover){
             background-color: #000000;
         }
+    }
+
+    &__Title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 10px;
     }
 
     &__Name {
@@ -44,7 +52,6 @@
         display: inline-block;
         font-size: 14px;
         color: #A7A7A7;
-        margin-left: 14px;
     }
 
     &__ContentContainer {
