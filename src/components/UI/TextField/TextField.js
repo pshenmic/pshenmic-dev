@@ -51,7 +51,7 @@ function TextField({ placeholder, name, required = true, valid, text, arrow = fa
       {text &&
         <div className={'TextField__InputDescriptionWrapper'}>
           <p className={'TextField__InputDescription'}>{text}</p>
-          {required && <p className={'TextField__Optional'}>OPTIONAL</p>}
+          {required && <p className={'TextField__Optional'}>REQUIRED</p>}
         </div>
       }
       <textarea
