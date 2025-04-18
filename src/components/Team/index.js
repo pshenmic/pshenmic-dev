@@ -58,6 +58,16 @@ const data = [
     github: 'https://github.com/denkravchu',
     twitter: '',
     discord: 'https://discordapp.com/users/926201806487437352'
+  },
+  {
+    name: 'Alexey Yakushin',
+    username: 'LexxXell',
+    role: 'Fullstack developer',
+    gpg: null,
+    photoSrc: 'https://avatars.githubusercontent.com/u/49353940',
+    github: 'https://github.com/lexxxell',
+    twitter: '',
+    discord: 'https://discordapp.com/users/612308392307851280'
   }
 ]
 
