@@ -42,7 +42,7 @@ const data = [
   {
     name: 't1mee',
     username: 't1mee',
-    role: '',
+    role: 'Frontend dev',
     gpg: null,
     photoSrc: 'https://avatars.githubusercontent.com/u/21291546?v=4',
     github: 'https://github.com/t1mee',
