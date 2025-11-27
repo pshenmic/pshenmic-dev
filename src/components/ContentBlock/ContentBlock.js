@@ -12,13 +12,13 @@ function ContentBlock () {
       <div className={'Content__ContentBlock'} key={'updates'}>
         <AnimatePresence mode={'wait'}>
           <Routes location={window.location} key={window.location.href}>
-            <Route index key={'updatesRoute'} path={'/'}
-              element={
-                <m.div key={'updates'}>
-                  <Updates/>
-                </m.div>
-              }
-            />
+            {/*<Route index key={'updatesRoute'} path={'/'}*/}
+            {/*  element={*/}
+            {/*    <m.div key={'updates'}>*/}
+            {/*      <Updates/>*/}
+            {/*    </m.div>*/}
+            {/*  }*/}
+            {/*/>*/}
             <Route key={'servicesRoute'} path={'/services'}
               element={
                 <m.div key={'services'}
@@ -30,7 +30,7 @@ function ContentBlock () {
                 </m.div>
               }
             />
-            <Route key={'projectsRoute'} path={'/projects'}
+            <Route key={'projectsRoute'} path={'/'}
               element={
                 <m.div key={'projects'}
                   initial={{ y: 30, opacity: 0 }}

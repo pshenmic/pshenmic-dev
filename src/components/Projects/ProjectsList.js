@@ -12,7 +12,7 @@ import './ProjectsList.scss'
 
 const Project = dynamic(() => import('./Project').then(mod => mod.default), { ssr: false });
 
-const MOCK_PROJECTS = [
+const documents = [
   {
     id: 'platform-explorer',
     name: 'Platform Explorer',
@@ -43,8 +43,8 @@ export default function ProjectsList() {
   // const [uniqueIds, setUniqueIds] = useState(new Set());
   // const [lastDocument, setLastDocument] = useState(null);
   const { admin, setOpenEditingWindow, setProjectDataEditing } = useGlobalStore();
-  const [documents, setDocuments] = useState(MOCK_PROJECTS);
-  const hasMore = false;
+  // const [documents, setDocuments] = useState(MOCK_PROJECTS);
+  // const hasMore = false;
 
   // const { ref, inView } = useInView({
   //   threshold: 0,
