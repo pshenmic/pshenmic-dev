@@ -21,6 +21,8 @@ function ProjectListItem({ project, openHandler, id, openEditor }) {
       className={'ProjectListItem'}
       onClick={openHandler}
       whileHover={{
+        x: -5,
+        y: -5,
         transition: { duration: 0.5 }
       }}
       transition={{ duration: 0.5, delay: id / 10 }}

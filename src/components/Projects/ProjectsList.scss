@@ -25,9 +25,10 @@
 
     > ul {
         width: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
+        // overflow-y: auto;
+        // overflow-x: visible;
         height: 100%;
+        padding-bottom: 20px;
     }
 
     @media screen and (min-width: 500px) and (max-width: 680px) {
