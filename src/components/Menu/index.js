@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation'
 import './Menu.scss'
 
 const menuItems = [
-  {
-    href: '/',
-    title: 'Updates',
-    id: 'updates'
-  },
+  // {
+  //   href: '/',
+  //   title: 'Updates',
+  //   id: 'updates'
+  // },
   {
     href: '/services',
     title: 'Services',

@@ -40,24 +40,14 @@ const data = [
     discord: 'https://discordapp.com/users/489364520251162627'
   },
   {
-    name: 'Black Mirror Designer',
-    username: 'blackmirrordesigner',
-    role: 'UX designer',
-    gpg: null,
-    photoSrc: '/assets/designer-avatar.png',
-    github: 'https://github.com/blackmirrordesigner',
-    twitter: '',
-    discord: 'https://discordapp.com/users/593372910794571776'
-  },
-  {
-    name: 'Den Kravchu',
-    username: 'denkravchu',
+    name: 't1mee',
+    username: 't1mee',
     role: 'Frontend dev',
     gpg: null,
-    photoSrc: 'https://avatars.githubusercontent.com/u/58281610?v=4',
-    github: 'https://github.com/denkravchu',
+    photoSrc: 'https://avatars.githubusercontent.com/u/21291546?v=4',
+    github: 'https://github.com/t1mee',
     twitter: '',
-    discord: 'https://discordapp.com/users/926201806487437352'
+    discord: 'https://discordapp.com/users/262229997324992512'
   },
   {
     name: 'Alexey Yakushin',
