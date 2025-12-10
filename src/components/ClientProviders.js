@@ -1,7 +1,11 @@
 'use client'
 
-import { DashProvider } from '@/hooks/useDashClient'
 import dynamic from "next/dynamic"
+
+const DashProvider = dynamic(() =>
+  import('@/hooks/useDashClient').then((mod) => mod.DashProvider),
+  { ssr: false }
+)
 
 const ToastContainer = dynamic(() =>
   import('react-toastify').then((mod) => mod.ToastContainer),
