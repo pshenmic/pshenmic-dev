@@ -16,7 +16,7 @@ const menuItems = [
     id: 'services'
   },
   {
-    href: '/projects',
+    href: '/',
     title: 'Projects',
     id: 'projects'
   },
