@@ -2,9 +2,7 @@ import dynamic from 'next/dynamic'
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 
-const ClientProviders = dynamic(() => import('@/components/ClientProviders'), {
-  ssr: false
-})
+const ClientProviders = dynamic(() => import('@/components/ClientProviders'))
 
 export const metadata = {
   title: 'pshenmic.Dev',

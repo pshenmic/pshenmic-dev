@@ -26,6 +26,8 @@ const nextConfig = {
       const targetDirs = [
         path.join(process.cwd(), '.next', 'server', 'protos'),
         path.join(process.cwd(), '.next', 'server', 'app', 'protos'),
+        path.join(process.cwd(), '.next', 'dev', 'server', 'protos'),
+        path.join(process.cwd(), '.next', 'dev', 'server', 'app', 'protos'),
       ]
 
       const expectedFiles = [
