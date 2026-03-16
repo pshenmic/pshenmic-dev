@@ -1,21 +1,22 @@
 'use client'
 
-import Image from 'next/image'
-import Grade from '../UI/Grade/Grade'
-import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
+// import Image from 'next/image'
+// import Grade from '../UI/Grade/Grade'
+// import RegistrationButton from '../UI/Button/RegistrationButton/RegistrationButton'
 import Task from './Task'
 import { isValidImageUrl } from '@/lib/isValidImageUrl'
 import { motion as m } from 'framer-motion'
-import { useState } from 'react'
+// import { useState } from 'react'
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown'
 import './Project.scss'
-import EditButton from '../UI/Button/EditButton/EditButton'
-import useGlobalStore from '@/store/store'
+import Link from "next/link";
+// import EditButton from '../UI/Button/EditButton/EditButton'
+// import useGlobalStore from '@/store/store'
 
 function Project({ project, closeHandler, openEditor }) {
-  const [activeTab, setActiveTab] = useState('ALL')
-  const admin = useGlobalStore(state => state.admin)
+  // const [activeTab, setActiveTab] = useState('ALL')
+  // const admin = useGlobalStore(state => state.admin)
 
   const TabContent = ({ tab }) => {
     switch (tab) {
@@ -53,14 +54,14 @@ function Project({ project, closeHandler, openEditor }) {
             <span>{'<'}</span>
           </button>
           <p className={'Project__Header__Name'}>{project.name}</p>
-          <RegistrationButton text={'2 PENDING CLAIM'} disabled={true} className={'Project__Header__Button'} />
+          {/*<RegistrationButton text={'2 PENDING CLAIM'} disabled={true} className={'Project__Header__Button'} />*/}
         </div>
-        {admin
-          ? <div className={'Project__Header__ButtonWrapper'}>
-            <RegistrationButton text={'ADD TASK'} disabled={true} />
-            <RegistrationButton text={'EDIT'} handleClick={() => openEditor(project)}/>
-          </div>
-          : null}
+        {/*{admin*/}
+        {/*  ? <div className={'Project__Header__ButtonWrapper'}>*/}
+        {/*    <RegistrationButton text={'ADD TASK'} disabled={true} />*/}
+        {/*    <RegistrationButton text={'EDIT'} handleClick={() => openEditor(project)}/>*/}
+        {/*  </div>*/}
+        {/*  : null}*/}
       </div>
 
       <div className={'Project__ContentContainer'}>
@@ -71,7 +72,7 @@ function Project({ project, closeHandler, openEditor }) {
                 width={220} height={220} />
             </div>
           )}
-          <Grade />
+          {/*<Grade />*/}
         </div>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
@@ -80,6 +81,16 @@ function Project({ project, closeHandler, openEditor }) {
           {`${project.description}`}
         </ReactMarkdown>
       </div>
+
+      {(project.url &&
+        <Link
+          className={'Service__Link'}
+          href={project.url}
+          target={'_blank'}
+        >
+          <span>Go to</span>
+        </Link>
+      )}
 
       {/* <div className={'Project__Navigation'}>
         {['ALL', 'IN PROGRESS', 'COMPLETED', 'ABANDONED', 'PAID'].map(tab => (

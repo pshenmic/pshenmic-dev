@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react'
 
 const GetZeroClient = dynamic(() => import('@/components/GetZeroClient/GetZeroClient'), { ssr: false });
 
-const defaultContent = 'updates'
+const defaultContent = 'projects'
 
 export default function App() {
   const [content, setContent] = useState(defaultContent)
