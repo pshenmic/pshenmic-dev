@@ -1,6 +1,7 @@
 import { motion as m } from 'framer-motion'
 import { useCallback } from 'react'
 import Teammate from './Teammate'
+import TeamInfo from './TeamInfo'
 import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
 import useGlobalStore from '@/store/store'
 import './Team.scss'
@@ -101,6 +102,8 @@ function Team () {
 
   return (
     <m.div className={'Team'}>
+      <TeamInfo />
+
       <div className={'Team__TeammateList'}>
         {data.map((_, idx) => (
           <Teammate
