@@ -26,7 +26,7 @@ const documents = [
     description: 'A browser extension wallet for interacting with Dash Platform blockchain\n' +
       'The Dash Platform Extension is a powerful Web3 wallet specifically designed for the Dash Platform ecosystem. Whether you\'re a crypto enthusiast managing digital assets or a developer building the next generation of decentralized applications, this extension provides all the tools you need in one secure, user-friendly package.',
     url: 'https://chromewebstore.google.com/detail/dash-platform-extension/odmphbcnlldggfhcpdjgnlhbehoicdnf',
-    image: '/assets/img/dash-300x300.jpg'
+    image: '/assets/img/dash-platform-extension-300x300.jpg'
   },
   {
     id: 'dash-platform-sdk',
@@ -34,6 +34,41 @@ const documents = [
     description: 'A lightweight Javascript Dash Platform SDK',
     url: 'https://github.com/pshenmic/dash-platform-sdk',
     image: '/assets/img/dash-300x300.jpg'
+  },
+  {
+    id: 'dash-website',
+    name: 'Dash Website',
+    description: 'Dash.org website',
+    url: 'https://github.com/pshenmic/dash-website',
+    image: '/assets/img/dash-website-300x300.jpg'
+  },
+  {
+    id: 'dashscan',
+    name: 'Dash Scan',
+    description: 'Dash Blockchain explorer',
+    url: 'https://github.com/pshenmic/dashscan',
+    image: '/assets/img/dashscan-300x300.jpg'
+  },
+  {
+    id: 'dash-torrent-tracker',
+    name: 'Dash Torrent Tracker',
+    description: 'Decentralized Dash Torrent Tracker that stores magnet links on a Dash Platform blockchain',
+    url: 'https://github.com/pshenmic/dash-torrent-tracker',
+    image: '/assets/img/dash-torrent-tracker-300x300.jpg'
+  },
+  {
+    id: 'dash-platform-wallet-desktop',
+    name: 'Dash Platform Wallet Desktop',
+    description: 'Desktop wallet application for Dash Platform',
+    url: 'https://github.com/pshenmic/dash-platform-wallet-desktop',
+    image: '/assets/img/dash-platform-wallet-desctop-300x300.jpg'
+  },
+  {
+    id: 'dash-platform-wallet-mobile',
+    name: 'Dash Platform Wallet Mobile',
+    description: 'Mobile wallet application for Dash Platform',
+    url: 'https://github.com/pshenmic/dash-platform-wallet-mobile',
+    image: '/assets/img/dash-platform-wallet-mobile-300x300.jpg'
   }
 ];
 
