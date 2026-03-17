@@ -50,16 +50,6 @@ const data = [
     discord: 'https://discordapp.com/users/397767531462393857'
   },
   {
-    name: 't1mee',
-    username: 't1mee',
-    role: 'Frontend dev',
-    gpg: null,
-    photoSrc: 'https://avatars.githubusercontent.com/u/21291546?v=4',
-    github: 'https://github.com/t1mee',
-    twitter: '',
-    discord: 'https://discordapp.com/users/262229997324992512'
-  },
-  {
     name: 'Alexey Yakushin',
     username: 'LexxXell',
     role: 'Fullstack developer',
@@ -78,6 +68,26 @@ const data = [
     github: 'https://github.com/denkravchu',
     twitter: '',
     discord: 'https://discordapp.com/users/926201806487437352'
+  },
+  {
+    name: 'Litvinov Y.',
+    username: 'litury',
+    role: 'Frontend dev',
+    gpg: null,
+    photoSrc: 'https://avatars.githubusercontent.com/u/60976781?v=4',
+    github: 'https://github.com/litury',
+    twitter: 'https://x.com/divatoz',
+    discord: 'https://discordapp.com/users/709134781895540826'
+  },
+  {
+    name: 'Roman',
+    username: 'r0man1337',
+    role: 'Frontend dev',
+    gpg: null,
+    photoSrc: 'https://avatars.githubusercontent.com/u/4090500?v=4',
+    github: 'https://github.com/r0man1337',
+    twitter: '',
+    discord: 'https://discordapp.com/users/234166134536929281'
   }
 ]
 
