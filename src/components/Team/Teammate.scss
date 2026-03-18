@@ -159,6 +159,10 @@
             width: 100%;
             height: auto;
         }
+
+        &__ContentContainer {
+            padding: 0;
+        }
     }
 
     @media screen and ( min-width: 940px ) and ( max-width: 1200px ) {

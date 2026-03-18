@@ -7,6 +7,8 @@
     align-items: center;
 
     &__TeammateList {
+        width: 100%;
+
         @mixin columnsView {
             display: flex;
             flex-wrap: wrap;

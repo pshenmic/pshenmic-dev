@@ -30,7 +30,7 @@ function ContentBlock () {
                 </m.div>
               }
             />
-            <Route key={'projectsRoute'} path={'/'}
+            <Route key={'projectsRoute'} path={'/projects'}
               element={
                 <m.div key={'projects'}
                   initial={{ y: 30, opacity: 0 }}
@@ -41,7 +41,7 @@ function ContentBlock () {
                 </m.div>
               }
             />
-            <Route key={'teamRoute'} path={'/team'}
+            <Route key={'teamRoute'} path={'/'}
               element={
                 <m.div key={'team'}>
                   <Team/>
