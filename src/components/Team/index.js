@@ -51,16 +51,6 @@ const data = [
     discord: 'https://discordapp.com/users/612308392307851280'
   },
   {
-    name: 'Den Kravchu',
-    username: 'denkravchu',
-    role: 'Frontend',
-    gpg: null,
-    photoSrc: 'https://avatars.githubusercontent.com/u/58281610?v=4',
-    github: 'https://github.com/denkravchu',
-    twitter: '',
-    discord: 'https://discordapp.com/users/926201806487437352'
-  },
-  {
     name: 'Litvinov Y.',
     username: 'litury',
     role: 'Frontend dev',
@@ -71,7 +61,7 @@ const data = [
     discord: 'https://discordapp.com/users/709134781895540826'
   },
   {
-    name: 'Roman',
+    name: 'Roman 1337',
     username: 'r0man1337',
     role: 'Frontend dev',
     gpg: null,
