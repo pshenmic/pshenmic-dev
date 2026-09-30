@@ -11,19 +11,19 @@ const menuItems = [
   //   id: 'updates'
   // },
   {
+    href: '/',
+    title: 'Team',
+    id: 'team'
+  },
+  {
     href: '/services',
     title: 'Services',
     id: 'services'
   },
   {
-    href: '/',
+    href: '/projects',
     title: 'Projects',
     id: 'projects'
-  },
-  {
-    href: '/team',
-    title: 'Team',
-    id: 'team'
   }
 ]
 
