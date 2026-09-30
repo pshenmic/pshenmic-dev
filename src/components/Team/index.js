@@ -1,6 +1,7 @@
 import { motion as m } from 'framer-motion'
 import { useCallback } from 'react'
 import Teammate from './Teammate'
+import TeamInfo from './TeamInfo'
 import ActionButtons from '../UI/Button/ActionButtons/ActionButtons'
 import useGlobalStore from '@/store/store'
 import './Team.scss'
@@ -40,26 +41,6 @@ const data = [
     discord: 'https://discordapp.com/users/489364520251162627'
   },
   {
-    name: 'Ermakow',
-    username: 'Ermakow',
-    role: 'Design',
-    gpg: null,
-    photoSrc: 'https://avatars.githubusercontent.com/u/96378356?v=4',
-    github: 'https://github.com/JAYSEECODES',
-    twitter: '',
-    discord: 'https://discordapp.com/users/397767531462393857'
-  },
-  {
-    name: 't1mee',
-    username: 't1mee',
-    role: 'Frontend dev',
-    gpg: null,
-    photoSrc: 'https://avatars.githubusercontent.com/u/21291546?v=4',
-    github: 'https://github.com/t1mee',
-    twitter: '',
-    discord: 'https://discordapp.com/users/262229997324992512'
-  },
-  {
     name: 'Alexey Yakushin',
     username: 'LexxXell',
     role: 'Fullstack developer',
@@ -70,14 +51,24 @@ const data = [
     discord: 'https://discordapp.com/users/612308392307851280'
   },
   {
-    name: 'Den Kravchu',
-    username: 'denkravchu',
-    role: 'Frontend',
+    name: 'Litvinov Y.',
+    username: 'litury',
+    role: 'Frontend dev',
     gpg: null,
-    photoSrc: 'https://avatars.githubusercontent.com/u/58281610?v=4',
-    github: 'https://github.com/denkravchu',
+    photoSrc: 'https://avatars.githubusercontent.com/u/60976781?v=4',
+    github: 'https://github.com/litury',
+    twitter: 'https://x.com/divatoz',
+    discord: 'https://discordapp.com/users/709134781895540826'
+  },
+  {
+    name: 'Roman 1337',
+    username: 'r0man1337',
+    role: 'Frontend dev',
+    gpg: null,
+    photoSrc: 'https://avatars.githubusercontent.com/u/4090500?v=4',
+    github: 'https://github.com/r0man1337',
     twitter: '',
-    discord: 'https://discordapp.com/users/926201806487437352'
+    discord: 'https://discordapp.com/users/234166134536929281'
   }
 ]
 
@@ -91,6 +82,8 @@ function Team () {
 
   return (
     <m.div className={'Team'}>
+      <TeamInfo />
+
       <div className={'Team__TeammateList'}>
         {data.map((_, idx) => (
           <Teammate
@@ -99,7 +92,7 @@ function Team () {
             name={_.name}
             username={_.username}
             role={_.role}
-            gpg={_.pg}
+            gpg={_.gpg}
             photoSrc={_.photoSrc}
             github={_.github}
             discord={_.discord}

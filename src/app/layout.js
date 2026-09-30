@@ -1,8 +1,8 @@
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 
-const ClientProviders = dynamic(() => import('@/components/ClientProviders'))
+// const ClientProviders = dynamic(() => import('@/components/ClientProviders'))
 
 export const metadata = {
   title: 'pshenmic.Dev',
@@ -13,9 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang={'en'}>
       <body>
-        <ClientProviders>
+        {/*<ClientProviders>*/}
           {children}
-        </ClientProviders>
+        {/*</ClientProviders>*/}
       </body>
     </html>
   )

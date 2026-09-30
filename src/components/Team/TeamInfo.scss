@@ -1,0 +1,32 @@
+@import '../../assets/styles/mixins.scss';
+
+.TeamInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 20px;
+    background: #1a212a;
+
+    &__Title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #fff;
+        margin: 0;
+    }
+
+    &__Description {
+        font-size: 14px;
+        color: #A7A7A7;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    @media screen and (max-width: 580px) {
+        padding: 16px;
+
+        &__Title {
+            font-size: 18px;
+        }
+    }
+}
