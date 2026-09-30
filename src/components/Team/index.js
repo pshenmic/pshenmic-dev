@@ -41,16 +41,6 @@ const data = [
     discord: 'https://discordapp.com/users/489364520251162627'
   },
   {
-    name: 'Ermakow',
-    username: 'Ermakow',
-    role: 'Design',
-    gpg: null,
-    photoSrc: 'https://avatars.githubusercontent.com/u/96378356?v=4',
-    github: 'https://github.com/JAYSEECODES',
-    twitter: '',
-    discord: 'https://discordapp.com/users/397767531462393857'
-  },
-  {
     name: 'Alexey Yakushin',
     username: 'LexxXell',
     role: 'Fullstack developer',
@@ -112,7 +102,7 @@ function Team () {
             name={_.name}
             username={_.username}
             role={_.role}
-            gpg={_.pg}
+            gpg={_.gpg}
             photoSrc={_.photoSrc}
             github={_.github}
             discord={_.discord}
